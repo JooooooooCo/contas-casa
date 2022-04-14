@@ -1,7 +1,10 @@
 <?php
 require_once '../../../vendor/autoload.php';
-// use app\classes\fin_movimento\ComponentesSql;
+use app\classes\fin_movimento\ComponentesSql;
+use app\models\nucleo\Sessao;
 
-$ComponentesSql = new \app\classes\fin_movimento\ComponentesSql();
+Sessao::validarUsuarioLogado();
+
+$ComponentesSql = new ComponentesSql();
 $ComponentesSql->readTipoSituacaoPgto();
 ?>

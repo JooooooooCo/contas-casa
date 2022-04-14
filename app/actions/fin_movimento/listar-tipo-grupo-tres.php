@@ -2,6 +2,9 @@
 require_once '../../../vendor/autoload.php';
 use app\models\fin_movimento\Componentes;
 use app\classes\fin_movimento\ComponentesSql;
+use app\models\nucleo\Sessao;
+
+Sessao::validarUsuarioLogado();
 
 $componentes = new Componentes();
 // $_GET = json_decode(file_get_contents("php://input"),true);

@@ -10,7 +10,6 @@ class CentroCustoSql
     private $ExecutaSql;
 
     public function __construct() {
-        session_start();
         $this->cd_usuario = $_SESSION['cd_usuario'];
         $this->ExecutaSql = new ExecutaSql();
     }

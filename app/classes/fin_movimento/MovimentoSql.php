@@ -11,7 +11,6 @@ class MovimentoSql
     private $ExecutaSql;
 
     public function __construct() {
-        session_start();
         $this->cd_centro_custo = $_SESSION['cd_centro_custo'];
         $this->ExecutaSql = new ExecutaSql();
     }
