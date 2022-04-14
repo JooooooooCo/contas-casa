@@ -1,0 +1,47 @@
+body {
+    background-color: #222628;
+}
+
+input, select, textarea, span{
+    color: #FFFFFF;
+}
+
+.mar-bottom-50 {
+    margin-bottom: 50px !important;
+}
+
+.mar-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.mar-bottom-5 {
+    margin-bottom: 5px !important;
+}
+
+.mar-top-20 {
+    margin-top: 20px !important;
+}
+
+.mar-top-10 {
+    margin-top: 10px !important;
+}
+
+.mar-right-5 {
+    margin-right: 5px !important;
+}
+
+.title-itens-radio-button {
+    color: #9e9e9e !important;
+    font-size: 1rem;
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+}
+
+.fixed-action-btn {
+    position: fixed;
+    right: 23px;
+    bottom: -20px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997
+}

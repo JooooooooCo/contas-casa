@@ -1,3 +1,2 @@
 # contas-casa
-ContasCasa com wamp, mysql e php
-commit teste
+Projeto para controle básico das despesas da casa.
