@@ -172,13 +172,12 @@ Vue.component('tela-incluir-alterar',{
                     this.sn_carregando = false;
 
                     alert('Sucesso');
+                    this.voltarTelaListagem();
                     console.log(response);
                 })
                 .catch(function (error) {
                     console.error(error);
                 });
-
-            this.voltarTelaListagem();
         },
 
         async popularDadosAlterar() {
