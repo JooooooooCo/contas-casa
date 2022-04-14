@@ -80,27 +80,28 @@ Vue.component('tela-incluir-alterar',{
             this.arrTipoGrupoIII = [];
             if (!this.objDados.cd_tipo_movimento) return;
 
-            await axios.get(
-                ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-dois.php',
-                {
-                    params: {
-                        cd_tipo_movimento: this.objDados.cd_tipo_movimento
+            await axios
+                .get(
+                    ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-dois.php',
+                    {
+                        params: {
+                            cd_tipo_movimento: this.objDados.cd_tipo_movimento
+                        }
                     }
-                }
-            )
-            .then(response => {
-                if (!response.data.sucesso) {
-                    alert(response.data.retorno);
-                    return;
-                }
+                )
+                .then(response => {
+                    if (!response.data.sucesso) {
+                        alert(response.data.retorno);
+                        return;
+                    }
 
-                this.arrTipoGrupoII = response.data.retorno;
+                    this.arrTipoGrupoII = response.data.retorno;
 
-                this.sn_carregando = false;
-            })
-            .catch(error => {
-                console.error(error);;
-            });
+                    this.sn_carregando = false;
+                })
+                .catch(error => {
+                    console.error(error);;
+                });
         },
 
         async carregarOpcoesGrupoIII() {
