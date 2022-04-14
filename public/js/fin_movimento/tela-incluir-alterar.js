@@ -270,11 +270,11 @@ Vue.component('tela-incluir-alterar',{
             this.popularDadosAlterar();
         }
 
-        window.addEventListener("resize", this.checkIsMobile);
+        window.addEventListener("resize", this.mixinCheckIsMobile);
 
-        this.checkIsMobile();
+        this.mixinCheckIsMobile();
 
-        this.atualizarMaterialize();
+        this.mixinAtualizarMaterialize();
     },
 
     watch: {

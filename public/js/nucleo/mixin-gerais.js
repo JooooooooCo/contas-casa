@@ -1,21 +1,21 @@
 var mixin = {
     methods: {
-        monetarioFormatado(params) {
+        mixinMonetarioFormatado(params) {
             if (params.value == null) return;
             let str = params.value.toString();
             return str.replace('.', ',');
         },
 
-        getLarguraPercJanela(nr_percentual) {
+        mixinGetLarguraPercJanela(nr_percentual) {
             return (($(window).width()*0.98) * (nr_percentual / 100));
         },
 
-        linhaSelecionada() {
+        mixinLinhaSelecionada() {
             this.sn_uma_linha_selecionada = this.gridOptions.api.getSelectedNodes().length == 1;
             this.sn_linhas_selecinadas = this.gridOptions.api.getSelectedNodes().length >= 1;
         },
 
-        atualizarMaterialize() {
+        mixinAtualizarMaterialize() {
             //Inicializa tooltip
             $(document).ready(function(){
                 $('.tooltipped').tooltip();
@@ -30,17 +30,17 @@ var mixin = {
             });
         },
 
-        showDatePicker(nm_campo) {
+        mixinShowDatePicker(nm_campo) {
             this.objDatePickerExibir[nm_campo] = true;
-            this.atualizarMaterialize();
+            this.mixinAtualizarMaterialize();
         },
 
-        hideDatePicker(nm_campo) {
+        mixinHideDatePicker(nm_campo) {
             this.objDatePickerExibir[nm_campo] = false;
-            this.atualizarMaterialize();
+            this.mixinAtualizarMaterialize();
         },
 
-        checkIsMobile() {
+        mixinCheckIsMobile() {
             if( window.innerWidth <= 760 ) {
                 this.isMobile = true;
                 return;

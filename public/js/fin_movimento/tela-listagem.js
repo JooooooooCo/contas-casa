@@ -132,23 +132,23 @@ new Vue({
                     field: "cd_movimento",
                     headerCheckboxSelection: true,
                     checkboxSelection: true,
-                    width: this.getLarguraPercJanela(9.10),
+                    width: this.mixinGetLarguraPercJanela(9.10),
                     filter: 'agNumberColumnFilter'
                 },
-                { headerName: "Tipo", field: "ds_tipo_movimento", width: this.getLarguraPercJanela(7.8) },
-                { headerName: "Modo Pgto", field: "ds_tipo_pgto", width: this.getLarguraPercJanela(7.8) },
-                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: this.getLarguraPercJanela(7.8) },
+                { headerName: "Tipo", field: "ds_tipo_movimento", width: this.mixinGetLarguraPercJanela(7.8) },
+                { headerName: "Modo Pgto", field: "ds_tipo_pgto", width: this.mixinGetLarguraPercJanela(7.8) },
+                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: this.mixinGetLarguraPercJanela(7.8) },
                 {
                     headerName: "Dt Compra",
                     field: "dt_compra",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams
                 },
                 {
                     headerName: "Dt Vcto",
                     field: "dt_vcto",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams,
                     cellStyle: {'font-weight': 'bold', 'background-color': '#006156'}
@@ -156,44 +156,44 @@ new Vue({
                 {
                     headerName: "Dt Pgto",
                     field: "dt_pgto",
-                    width: this.getLarguraPercJanela(7.8) ,
+                    width: this.mixinGetLarguraPercJanela(7.8) ,
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams
                 },
                 {
                     headerName: "Vl Original",
                     field: "vl_original",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.monetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatado
                 },
                 {
                     headerName: "Vl Pago",
                     field: "vl_pago",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.monetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatado
                 },
                 {
                     headerName: "Dif Pgto",
                     field: "vl_dif_pgto",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.monetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatado
                 },
-                { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.getLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
-                { headerName: "Qtd Parcelas", field: "nr_qtd_parcelas", width: this.getLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
-                { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: this.getLarguraPercJanela(12.4) },
-                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: this.getLarguraPercJanela(12.4) },
-                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: this.getLarguraPercJanela(12.4) },
-                { headerName: "Descrição Pessoal", field: "ds_movimento", width: this.getLarguraPercJanela(20) },
-                { headerName: "Obs 1", field: "ds_obs_i", width: this.getLarguraPercJanela(26) },
-                { headerName: "Obs 2", field: "ds_obs_ii", width: this.getLarguraPercJanela(26) },
-                { headerName: "Media Gastos", field: "ds_media_gastos", width: this.getLarguraPercJanela(12.4) },
+                { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
+                { headerName: "Qtd Parcelas", field: "nr_qtd_parcelas", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
+                { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: this.mixinGetLarguraPercJanela(12.4) },
+                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: this.mixinGetLarguraPercJanela(12.4) },
+                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: this.mixinGetLarguraPercJanela(12.4) },
+                { headerName: "Descrição Pessoal", field: "ds_movimento", width: this.mixinGetLarguraPercJanela(20) },
+                { headerName: "Obs 1", field: "ds_obs_i", width: this.mixinGetLarguraPercJanela(26) },
+                { headerName: "Obs 2", field: "ds_obs_ii", width: this.mixinGetLarguraPercJanela(26) },
+                { headerName: "Media Gastos", field: "ds_media_gastos", width: this.mixinGetLarguraPercJanela(12.4) },
                 {
                     headerName: "Real ou Adm",
                     field: "sn_real",
-                    width: this.getLarguraPercJanela(7.8),
+                    width: this.mixinGetLarguraPercJanela(7.8),
                     valueFormatter: (params) => {
                         return params.value == 1 ? 'REAL' : 'ADMINISTRATIVO';
                     }
@@ -234,7 +234,7 @@ new Vue({
             this.exibicaoColunasGrid();
 
             // Vincula um evento ao selecionar uma linha da grid
-            this.gridOptions.api.addEventListener("rowSelected", this.linhaSelecionada);
+            this.gridOptions.api.addEventListener("rowSelected", this.mixinLinhaSelecionada);
         },
 
         incluirMovimento() {
@@ -325,7 +325,7 @@ new Vue({
 
         await this.filtrarGrid();
 
-        this.atualizarMaterialize();
+        this.mixinAtualizarMaterialize();
     }
 })
 

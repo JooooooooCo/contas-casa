@@ -52,8 +52,8 @@
                                 id="dt_compra"
                                 v-model="objDados.dt_compra"
                                 v-mask="'##/##/####'"
-                                @click="showDatePicker('dt_compra')"
-                                @keyup="hideDatePicker('dt_compra')"
+                                @click="mixinShowDatePicker('dt_compra')"
+                                @keyup="mixinHideDatePicker('dt_compra')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_compra">Data Compra</label>
@@ -64,7 +64,7 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="hideDatePicker('dt_compra')"
+                                @input="mixinHideDatePicker('dt_compra')"
                             ></v-date-picker>
                         </div>
 
@@ -76,8 +76,8 @@
                                 id="dt_vcto"
                                 v-model="objDados.dt_vcto"
                                 v-mask="'##/##/####'"
-                                @click="showDatePicker('dt_vcto')"
-                                @keyup="hideDatePicker('dt_vcto')"
+                                @click="mixinShowDatePicker('dt_vcto')"
+                                @keyup="mixinHideDatePicker('dt_vcto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_vcto">Data Vencimento</label>
@@ -88,7 +88,7 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="hideDatePicker('dt_vcto')"
+                                @input="mixinHideDatePicker('dt_vcto')"
                             ></v-date-picker>
                         </div>
 
@@ -100,8 +100,8 @@
                                 id="dt_pgto"
                                 v-model="objDados.dt_pgto"
                                 v-mask="'##/##/####'"
-                                @click="showDatePicker('dt_pgto')"
-                                @keyup="hideDatePicker('dt_pgto')"
+                                @click="mixinShowDatePicker('dt_pgto')"
+                                @keyup="mixinHideDatePicker('dt_pgto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_pgto">Data Pagamento</label>
@@ -112,7 +112,7 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="hideDatePicker('dt_pgto')"
+                                @input="mixinHideDatePicker('dt_pgto')"
                             ></v-date-picker>
                         </div>
                     </div>
