@@ -1,5 +1,6 @@
 <?php
 namespace app\models\nucleo;
+require_once('../../../config.php');
 use PDO;
 
 class Conexao
@@ -10,9 +11,9 @@ class Conexao
     {
         try {
             $cfg = array (
-                'DB' => 'mysql:host=localhost;port=3308;dbname=contas_casa',
-                'DB_USER' => 'root',
-                'DB_PASS' => ''
+                'DB' => BANCO,
+                'DB_USER' => BANCO_USUARIO,
+                'DB_PASS' => BANCO_SENHA
             );
 
             if(!isset(self::$instance)) {
