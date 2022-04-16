@@ -216,7 +216,7 @@ Vue.component('tela-incluir-alterar',{
         },
 
         formataMonetario(ds_campo) {
-            let ds_valor = this.objDados[ds_campo];
+            let ds_valor = this.objDados[ds_campo] ?? '0';
             ds_valor = ds_valor.replace(/\D/g,''); // remove todos os caracteres não númericos
             let nr_caracteres = ds_valor.length;
 
