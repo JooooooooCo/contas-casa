@@ -126,7 +126,7 @@
                             <label for="vl_pago">Valor Pago</label>
                         </div>
                         <div class="input-field col s12 m4">
-                            <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" v-model="objDados.vl_dif_pgto" class="disabled">
+                            <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" :value="getVlDifPgto" disabled>
                             <label for="vl_dif_pgto">Dif. Pagamento</label>
                         </div>
                     </div>

@@ -72,6 +72,37 @@ Vue.component('tela-incluir-alterar',{
                 sn_real: '1'
             }
         },
+
+        getVlDifPgto() {
+            let vl_original = this.objDados.vl_original ?? '0';
+            vl_original = vl_original.replace(/\D/g,''); // remove todos os caracteres não númericos
+            vl_original = parseFloat(vl_original);
+
+            let vl_pago = this.objDados.vl_pago ?? '0';
+            vl_pago = vl_pago.replace(/\D/g,''); // remove todos os caracteres não númericos
+            vl_pago = parseFloat(vl_pago);
+
+            let vl_dif_pgto = vl_original - vl_pago;
+            let ds_valor_dif_pgto = vl_dif_pgto.toString();
+            let nr_caracteres = ds_valor_dif_pgto.length;
+
+            if (nr_caracteres > 2) {
+                let ds_valor_dif_pgto_inteiro = parseInt(ds_valor_dif_pgto.substr(0, nr_caracteres - 2), 10);
+                let ds_valor_dif_pgto_decimal = ds_valor_dif_pgto.substr(nr_caracteres - 2, 2);
+
+                return ds_valor_dif_pgto_inteiro + ',' + ds_valor_dif_pgto_decimal;
+            }
+
+            if (nr_caracteres == 2) {
+                return '0,' + ds_valor_dif_pgto;
+            }
+
+            if (nr_caracteres == 1) {
+                return '0,0' + ds_valor_dif_pgto;
+            }
+
+            return '0,00';
+        }
     },
     methods:{
         async carregarOpcoesGrupoII() {
@@ -134,6 +165,7 @@ Vue.component('tela-incluir-alterar',{
         },
 
         prepararDadosPost() {
+            this.objDados.vl_dif_pgto = this.getVlDifPgto;
             this.objDados.cd_tipo_grupo_i = this.objDados.objTipoGrupoI?.cd_opcao;
             this.objDados.cd_tipo_grupo_ii = this.objDados.objTipoGrupoII?.cd_opcao;
             this.objDados.cd_tipo_grupo_iii = this.objDados.objTipoGrupoIII?.cd_opcao;
@@ -163,7 +195,7 @@ Vue.component('tela-incluir-alterar',{
                     ROTA_SITE_ACTIONS + 'fin_movimento/adicionar.php', // alterar falta criar rota
                     objDadosPost
                 )
-                .then(function (response) {
+                .then(response => {
                     if (!response.data.sucesso) {
                         alert(response.data.retorno);
                         return;
@@ -173,9 +205,8 @@ Vue.component('tela-incluir-alterar',{
 
                     alert('Sucesso');
                     this.voltarTelaListagem();
-                    console.log(response);
                 })
-                .catch(function (error) {
+                .catch(error => {
                     console.error(error);
                 });
         },
