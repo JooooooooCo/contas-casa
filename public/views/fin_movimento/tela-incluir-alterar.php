@@ -222,8 +222,6 @@
                             <a class="btn darken-1 white-text teal darken-2" @click="salvarMovimento()">Salvar</a>
                         </div>
                     </div>
-
-                    <p class="white-text">objDados {{objDados}}</p>
                 </form>
             </div>
         </div>
