@@ -8,6 +8,9 @@ class ExecutaSql
 {
     private $pdo;
     private $ds_sql;
+    private $arrDados;
+    private $ds_condicao;
+    private $ds_tabela;
 
     public function __construct() {
         $this->pdo = Conexao::getConn();
@@ -40,6 +43,11 @@ class ExecutaSql
         return $this;
     }
 
+    public function setDsCondicao($ds_condicao) {
+        $this->ds_condicao = $ds_condicao;
+        return $this;
+    }
+
     public function create() {
         $nr_qtd_campos = count($this->arrDados);
         $ds_campos = implode(",", array_keys($this->arrDados));
@@ -69,6 +77,19 @@ class ExecutaSql
         return [
             'sucesso' => true,
             'retorno' => $arrDados
+        ];
+    }
+
+    public function delete() {
+        $sql = "DELETE FROM $this->ds_tabela WHERE $this->ds_condicao";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $sn_sucesso = $stmt->execute();
+
+        return [
+            'sucesso' => $sn_sucesso,
+            'retorno' => ''
         ];
     }
 }

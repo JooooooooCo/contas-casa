@@ -103,7 +103,27 @@ class MovimentoSql
 
     }
 
-    public function delete($id) {
+    public function delete(Movimento $m) {
+        $this->ExecutaSql->openTransaction();
 
+        try {
+            $ds_condicao = 'cd_movimento = ' . $m->getCdMovimento();
+
+            $arrRetorno = $this->ExecutaSql
+                ->setDsCondicao($ds_condicao)
+                ->setDsTabela('fin_movimento')
+                ->delete();
+
+            $this->ExecutaSql->closeTransaction();
+        } catch(\Exception $e) {
+            $this->ExecutaSql->abortTransaction();
+
+            $arrRetorno = [
+                'sucesso' => false,
+                'retorno' => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($arrRetorno);
     }
 }

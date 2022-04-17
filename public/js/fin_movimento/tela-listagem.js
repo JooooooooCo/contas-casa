@@ -256,8 +256,7 @@ new Vue({
             this.sn_tela_listagem = false;
         },
 
-        removerMovimento() {
-
+        async removerMovimento() {
             this.objMovimentoSelecionado = this.gridOptions.api.getSelectedNodes()[0].data;
 
             if (!this.objMovimentoSelecionado) {
@@ -267,20 +266,36 @@ new Vue({
 
             let sn_excluir = confirm(
                 'Deseja relamente excluir o movimento abaixo?\n'
-                + '\n Tipo: ' + this.objMovimentoSelecionado.tipo_movimento
+                + '\n Tipo: ' + this.objMovimentoSelecionado.ds_tipo_movimento
                 + '\n Vcto: ' + this.objMovimentoSelecionado.dt_vcto
                 + '\n Valor: ' + this.objMovimentoSelecionado.vl_original
-                + '\n Grupo: '+ this.objMovimentoSelecionado.grupo_um
-                + ' - '+ this.objMovimentoSelecionado.grupo_dois
-                + ' - '+ this.objMovimentoSelecionado.grupo_tres
-                + '\n Descrição: ' + this.objMovimentoSelecionado.descricao_pessoal
+                + '\n Grupo: '+ this.objMovimentoSelecionado.ds_tipo_grupo_i
+                + ' - '+ this.objMovimentoSelecionado.ds_tipo_grupo_ii
+                + ' - '+ this.objMovimentoSelecionado.ds_tipo_grupo_iii
+                + '\n Descrição: ' + this.objMovimentoSelecionado.ds_movimento
             );
 
-            if (!sn_excluir) {
-                return;
-            }
+            if (!sn_excluir) return;
 
-            // chamar api exclusão
+            await axios
+                .delete(ROTA_SITE_ACTIONS + 'fin_movimento/remover.php', {
+                    params: {
+                        cd_movimento: this.objMovimentoSelecionado.cd_movimento
+                    }
+                })
+                .then(response => {
+                    debugger;
+                    if (!response.data.sucesso) {
+                        alert(response.data.retorno);
+                        return;
+                    }
+
+                    alert('Sucesso');
+                    this.filtrarGrid();
+                })
+                .catch(error => {
+                  console.error(error);;
+                });
         },
 
         alteraExibicaoColunasGrid() {

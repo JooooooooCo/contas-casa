@@ -58,7 +58,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         href="#"
                         name="btn-remover"
                         class="btn waves-effect waves-light red darken-3 botao-icone"
-                        :disabled="!sn_linhas_selecinadas"
+                        :disabled="!sn_uma_linha_selecionada"
                         @click="removerMovimento()"
                     >
                         <i class="material-icons">delete</i>
