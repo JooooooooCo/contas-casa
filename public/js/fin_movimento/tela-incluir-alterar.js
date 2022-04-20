@@ -182,6 +182,12 @@ Vue.component('tela-incluir-alterar',{
         },
 
         async salvarMovimento() {
+            let sn_prosseguir = confirm(
+                'Deseja realmente prosseguir?'
+            );
+
+            if (!sn_prosseguir) return;
+
             this.sn_carregando = true;
             this.prepararDadosPost();
 
@@ -189,10 +195,33 @@ Vue.component('tela-incluir-alterar',{
                 'objDados': this.objDados
             }
 
+            if (this.snAlterar) {
+                await axios
+                    .put(
+                        ROTA_SITE_ACTIONS + 'fin_movimento/alterar.php?cd_movimento=' + this.objDados.cd_movimento,
+                        objDadosPost
+                    )
+                    .then(response => {
+                        if (!response.data.sucesso) {
+                            alert(response.data.retorno);
+                            return;
+                        }
+
+                        this.sn_carregando = false;
+
+                        alert('Sucesso');
+                        this.voltarTelaListagem();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+                return;
+            }
+
             await axios
                 .post(
-                    // ROTA_SITE_ACTIONS + this.snAlterar ? 'fin_movimento/alterar.php' : 'fin_movimento/adicionar.php', // alterar falta criar rota
-                    ROTA_SITE_ACTIONS + 'fin_movimento/adicionar.php', // alterar falta criar rota
+                    ROTA_SITE_ACTIONS + 'fin_movimento/adicionar.php',
                     objDadosPost
                 )
                 .then(response => {

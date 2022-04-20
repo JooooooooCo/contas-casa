@@ -130,8 +130,6 @@ new Vue({
                 {
                     headerName: "Cód.",
                     field: "cd_movimento",
-                    headerCheckboxSelection: true,
-                    checkboxSelection: true,
                     width: this.mixinGetLarguraPercJanela(9.10),
                     filter: 'agNumberColumnFilter'
                 },
@@ -213,7 +211,7 @@ new Vue({
                     filter: true,
                     resizable: true,
                 },
-                rowSelection: 'multiple',
+                rowSelection: 'single',
                 suppressRowDeselection: true,
                 suppressRowClickSelection: false,
                 rowMultiSelectWithClick: true,
@@ -265,7 +263,7 @@ new Vue({
             }
 
             let sn_excluir = confirm(
-                'Deseja relamente excluir o movimento abaixo?\n'
+                'Deseja realmente excluir o movimento abaixo?\n'
                 + '\n Tipo: ' + this.objMovimentoSelecionado.ds_tipo_movimento
                 + '\n Vcto: ' + this.objMovimentoSelecionado.dt_vcto
                 + '\n Valor: ' + this.objMovimentoSelecionado.vl_original
@@ -284,7 +282,6 @@ new Vue({
                     }
                 })
                 .then(response => {
-                    debugger;
                     if (!response.data.sucesso) {
                         alert(response.data.retorno);
                         return;

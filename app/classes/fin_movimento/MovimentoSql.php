@@ -19,16 +19,7 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $arrDados = $m->getArrDados();
-            $arrDados['cd_centro_custo'] = $this->cd_centro_custo;
-            unset($arrDados['cd_movimento']);
-
-            $arrDados['dt_compra'] = date('Y-m-d', strtotime($arrDados['dt_compra']));
-            $arrDados['dt_vcto'] = date('Y-m-d', strtotime($arrDados['dt_vcto']));
-            $arrDados['dt_pgto'] = date('Y-m-d', strtotime($arrDados['dt_pgto']));
-            $arrDados['vl_original'] = str_replace(",", ".", $arrDados['vl_original']);
-            $arrDados['vl_pago'] = str_replace(",", ".", $arrDados['vl_pago']);
-            $arrDados['vl_dif_pgto'] = str_replace(",", ".", $arrDados['vl_dif_pgto']);
+            $arrDados = $this->preparaDados($m->getArrDados());
 
             $arrRetorno = $this->ExecutaSql
                 ->setArrDados($arrDados)
@@ -100,7 +91,39 @@ class MovimentoSql
     }
 
     public function update(Movimento $m) {
+        $this->ExecutaSql->openTransaction();
 
+        try {
+            $arrDadosAntigos = $this->retornarDadosMovimento($m->getCdMovimento());
+            $arrDados = $this->preparaDados($m->getArrDados());
+
+            $arrDadosAlterados = $this->retornarDadosAlterados($arrDadosAntigos, $arrDados);
+
+            if (count($arrDadosAlterados) <= 0) {
+                throw new \Exception(
+                    $this->translate('Não foi identificada nenhuma alteração')
+                );
+            }
+
+            $ds_condicao = 'cd_movimento = ' . $m->getCdMovimento();
+
+            $arrRetorno = $this->ExecutaSql
+                ->setArrDados($arrDadosAlterados)
+                ->setDsCondicao($ds_condicao)
+                ->setDsTabela('fin_movimento')
+                ->update();
+
+            $this->ExecutaSql->closeTransaction();
+        } catch(\Exception $e) {
+            $this->ExecutaSql->abortTransaction();
+
+            $arrRetorno = [
+                'sucesso' => false,
+                'retorno' => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($arrRetorno);
     }
 
     public function delete(Movimento $m) {
@@ -125,5 +148,70 @@ class MovimentoSql
         }
 
         echo json_encode($arrRetorno);
+    }
+
+    private function preparaDados($arrDados) {
+        $arrDados['cd_centro_custo'] = $this->cd_centro_custo;
+        unset($arrDados['cd_movimento']);
+
+        $arrDados['dt_compra'] = date('Y-m-d', strtotime($arrDados['dt_compra']));
+        $arrDados['dt_vcto'] = date('Y-m-d', strtotime($arrDados['dt_vcto']));
+        $arrDados['dt_pgto'] = date('Y-m-d', strtotime($arrDados['dt_pgto']));
+        $arrDados['vl_original'] = str_replace(",", ".", $arrDados['vl_original']);
+        $arrDados['vl_pago'] = str_replace(",", ".", $arrDados['vl_pago']);
+        $arrDados['vl_dif_pgto'] = str_replace(",", ".", $arrDados['vl_dif_pgto']);
+
+        return $arrDados;
+    }
+
+    private function retornarDadosMovimento($cd_movimento) {
+        try {
+            $arrRetorno = $this->ExecutaSql->setDsSql("
+                SELECT
+                    *
+                FROM
+                    fin_movimento
+                WHERE
+                    cd_movimento = $cd_movimento
+            ")->read();
+        } catch(\Exception $e) {
+            $arrRetorno = [
+                'sucesso' => false,
+                'retorno' => $e->getMessage()
+            ];
+
+            echo json_encode($arrRetorno);
+            die;
+        }
+
+        $arrRetorno = $arrRetorno['retorno'][0];
+        unset($arrRetorno['cd_movimento']);
+        unset($arrRetorno['dt_inclusao']);
+        unset($arrRetorno['dt_alteracao']);
+
+        return $arrRetorno;
+    }
+
+    private function retornarDadosAlterados(
+        $arrDadosAntigos,
+        $arrDadosNovos
+    ) {
+        $retorno = [];
+
+        if ($arrDadosNovos == null || $arrDadosAntigos == null) {
+        return $retorno ;
+        }
+
+        foreach ($arrDadosNovos as $key => $value) {
+        if ($arrDadosNovos[$key] == $arrDadosAntigos[$key]) {
+            unset($arrDadosNovos[$key]);
+        }
+        }
+
+        if (count($arrDadosNovos) > 0) {
+        $retorno = $arrDadosNovos;
+        }
+
+        return $retorno;
     }
 }

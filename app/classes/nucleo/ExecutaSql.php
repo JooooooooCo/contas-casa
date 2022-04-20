@@ -80,6 +80,29 @@ class ExecutaSql
         ];
     }
 
+    public function update() {
+        $ds_campos_place_holders = '';
+        $arrChaves = array_keys($this->arrDados);
+
+        foreach ($arrChaves as $key => $ds_chave) {
+            $arrChaves[$key] = "$ds_chave=?";
+        }
+
+        $ds_campos_place_holders = implode(",", $arrChaves);
+        $arrValores = array_values($this->arrDados);
+
+        $sql = "UPDATE $this->ds_tabela SET $ds_campos_place_holders WHERE $this->ds_condicao";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $sn_sucesso = $stmt->execute($arrValores);
+
+        return [
+            'sucesso' => $sn_sucesso,
+            'retorno' => ''
+        ];
+    }
+
     public function delete() {
         $sql = "DELETE FROM $this->ds_tabela WHERE $this->ds_condicao";
 
