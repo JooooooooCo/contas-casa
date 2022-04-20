@@ -246,6 +246,10 @@ Vue.component('tela-incluir-alterar',{
 
             this.objDados = {... this.objMovimentoSelecionado};
 
+            this.objDados.vl_original = this.mixinMonetarioFormatado(this.objDados.vl_original);
+            this.objDados.vl_pago = this.mixinMonetarioFormatado(this.objDados.vl_pago);
+            this.objDados.vl_dif_pgto = this.mixinMonetarioFormatado(this.objDados.vl_dif_pgto);
+
             this.arrTipoGrupoI.forEach(objOpcao => {
                 if (objOpcao.cd_opcao == this.objDados.cd_tipo_grupo_i){
                     this.objDados.objTipoGrupoI = objOpcao;
