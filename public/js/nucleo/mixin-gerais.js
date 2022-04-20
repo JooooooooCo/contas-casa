@@ -1,8 +1,13 @@
 var mixin = {
     methods: {
-        mixinMonetarioFormatado(params) {
-            if (params.value == null) return;
-            let str = params.value.toString();
+        mixinMonetarioFormatadoAgGrid(params) {
+            return this.mixinMonetarioFormatado(params.value);
+        },
+
+        mixinMonetarioFormatado(valor) {
+            if (valor == null) return;
+
+            let str = valor.toString();
             return str.replace('.', ',');
         },
 

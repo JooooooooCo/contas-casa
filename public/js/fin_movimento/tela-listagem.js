@@ -163,21 +163,21 @@ new Vue({
                     field: "vl_original",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
                 },
                 {
                     headerName: "Vl Pago",
                     field: "vl_pago",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
                 },
                 {
                     headerName: "Dif Pgto",
                     field: "vl_dif_pgto",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatado
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
                 },
                 { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
                 { headerName: "Qtd Parcelas", field: "nr_qtd_parcelas", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
