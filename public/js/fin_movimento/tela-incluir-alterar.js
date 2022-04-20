@@ -31,6 +31,7 @@ Vue.component('tela-incluir-alterar',{
     },
     data:()=>({
         sn_carregando: false,
+        sn_preenchendo_dados_alterar: false,
         objDados: null,
         arrTipoGrupoII: [],
         arrTipoGrupoIII: [],
@@ -241,6 +242,8 @@ Vue.component('tela-incluir-alterar',{
         },
 
         async popularDadosAlterar() {
+            this.sn_preenchendo_dados_alterar = true;
+
             this.objDados = {... this.objMovimentoSelecionado};
 
             this.arrTipoGrupoI.forEach(objOpcao => {
@@ -268,6 +271,8 @@ Vue.component('tela-incluir-alterar',{
             delete this.objDados.cd_tipo_grupo_i;
             delete this.objDados.cd_tipo_grupo_ii;
             delete this.objDados.cd_tipo_grupo_iii;
+
+            this.sn_preenchendo_dados_alterar = false;
         },
 
         voltarTelaListagem() {

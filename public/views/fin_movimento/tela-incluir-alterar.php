@@ -18,31 +18,44 @@
             <div class ="col s12 m10 push-m1">
                 <form>
                     <div class="row">
-                        <div class="col s12">
-                            <v-radio-button
-                                v-model="objDados.cd_tipo_movimento"
-                                :arr-obj-opcoes="arrTipoMovimento"
-                                label="Tipo de movimento"
-                                @change="carregarOpcoesGrupoII()"
-                            ></v-radio-button>
+                        <div class="col s12 m6">
+                            <div class="col s12">
+                                <v-radio-button
+                                    v-model="objDados.cd_tipo_movimento"
+                                    :arr-obj-opcoes="arrTipoMovimento"
+                                    label="Tipo de movimento"
+                                    @change="!sn_preenchendo_dados_alterar ? carregarOpcoesGrupoII() : null"
+                                ></v-radio-button>
+                            </div>
+
+                            <div class="col s12">
+                                <v-radio-button
+                                    v-model="objDados.cd_tipo_pgto"
+                                    :arr-obj-opcoes="arrTipoPgto"
+                                    label="Modo pagamento"
+                                ></v-radio-button>
+                            </div>
                         </div>
 
                         <div class="col s12 m6">
-                            <v-radio-button
-                                v-model="objDados.cd_tipo_pgto"
-                                :arr-obj-opcoes="arrTipoPgto"
-                                label="Modo pagamento"
-                            ></v-radio-button>
-                        </div>
+                            <div class="col s12">
+                                <v-radio-button
+                                    v-model="objDados.cd_tipo_situacao_pgto"
+                                    :arr-obj-opcoes="arrTipoSituacaoPgto"
+                                    label="Situação"
+                                ></v-radio-button>
+                            </div>
 
-                        <div class="col s12 m6">
-                            <v-radio-button
-                                v-model="objDados.cd_tipo_situacao_pgto"
-                                :arr-obj-opcoes="arrTipoSituacaoPgto"
-                                label="Situação"
-                            ></v-radio-button>
+                            <div class="col s12">
+                                <v-radio-button
+                                    v-model="objDados.sn_real"
+                                    :arr-obj-opcoes="arrOpcoesSnReal"
+                                    label="Movimento"
+                                ></v-radio-button>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
                             <input
@@ -116,6 +129,7 @@
                             ></v-date-picker>
                         </div>
                     </div>
+
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
                             <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
@@ -130,6 +144,7 @@
                             <label for="vl_dif_pgto">Dif. Pagamento</label>
                         </div>
                     </div>
+
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m6">
                             <input type="number" name="nr_parcela_atual" id="nr_parcela_atual" v-model="objDados.nr_parcela_atual">
@@ -140,6 +155,7 @@
                             <label for="nr_qtd_parcelas">Qtd Parcelas</label>
                         </div>
                     </div>
+
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
                             <v-select
@@ -158,7 +174,7 @@
                                 :options="arrTipoGrupoII"
                                 v-model="objDados.objTipoGrupoII"
                                 label="ds_opcao"
-                                @input="carregarOpcoesGrupoIII()"
+                                @input="!sn_preenchendo_dados_alterar ? carregarOpcoesGrupoIII() : null"
                                 :reset-on-options-change="true"
                             ></v-select>
                             <label class="active">Grupo 2</label>
@@ -175,13 +191,15 @@
                             <label class="active">Grupo 3</label>
                         </div>
                     </div>
+
                     <div class="row mar-top-10">
                         <div class="input-field col s12">
                             <input type="text" name="ds_movimento" id="ds_movimento" v-model="objDados.ds_movimento">
                             <label for="ds_movimento">Descricao pessoal</label>
                         </div>
                     </div>
-                    <div class="row mar-top-10">
+
+                    <div :class="isMobile ? 'row mar-top-10 mar-bottom-50' : 'row mar-top-10'">
                         <div class="input-field col s12 m4">
                             <input type="text" name="ds_obs_i" id="ds_obs_i" v-model="objDados.ds_obs_i">
                             <label for="ds_obs_i">Obs um</label>
@@ -193,15 +211,6 @@
                         <div class="input-field col s12 m4">
                             <input type="text" name="ds_media_gastos" id="ds_media_gastos" v-model="objDados.ds_media_gastos">
                             <label for="ds_media_gastos">Media gastos</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div :class="isMobile ? 'col s12 mar-bottom-50' : 'col s12'">
-                            <v-radio-button
-                                v-model="objDados.sn_real"
-                                :arr-obj-opcoes="arrOpcoesSnReal"
-                                label="Movimento"
-                            ></v-radio-button>
                         </div>
                     </div>
 
