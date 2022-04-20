@@ -154,9 +154,15 @@ class MovimentoSql
         $arrDados['cd_centro_custo'] = $this->cd_centro_custo;
         unset($arrDados['cd_movimento']);
 
-        $arrDados['dt_compra'] = date('Y-m-d', strtotime($arrDados['dt_compra']));
-        $arrDados['dt_vcto'] = date('Y-m-d', strtotime($arrDados['dt_vcto']));
-        $arrDados['dt_pgto'] = date('Y-m-d', strtotime($arrDados['dt_pgto']));
+        $dt_compra = \DateTime::createFromFormat('d/m/Y H:i:s', $arrDados['dt_compra'] . ' 00:00:00');
+        $arrDados['dt_compra'] = $dt_compra ? $dt_compra->format('Y-m-d H:i:s') : null;
+
+        $dt_vcto = \DateTime::createFromFormat('d/m/Y H:i:s', $arrDados['dt_vcto'] . ' 00:00:00');
+        $arrDados['dt_vcto'] = $dt_vcto ? $dt_vcto->format('Y-m-d H:i:s') : null;
+
+        $dt_pgto = \DateTime::createFromFormat('d/m/Y H:i:s', $arrDados['dt_pgto'] . ' 00:00:00');
+        $arrDados['dt_pgto'] = $dt_pgto ? $dt_pgto->format('Y-m-d H:i:s') : null;
+
         $arrDados['vl_original'] = str_replace(",", ".", $arrDados['vl_original']);
         $arrDados['vl_pago'] = str_replace(",", ".", $arrDados['vl_pago']);
         $arrDados['vl_dif_pgto'] = str_replace(",", ".", $arrDados['vl_dif_pgto']);
