@@ -17,7 +17,7 @@ class Log
         $this->Email->enviarEmailLog($conteudo);
     }
 
-    public function geraLogCamposInclusao($novos) {
+    public function geraLogCamposInclusaoExclusao($novos) {
         $log = '';
 
         foreach ($novos as $key => $value) {
