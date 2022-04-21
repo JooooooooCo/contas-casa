@@ -3,16 +3,19 @@ namespace app\classes\fin_movimento;
 require_once '../../../vendor/autoload.php';
 use app\models\fin_movimento\Movimento;
 use app\classes\nucleo\ExecutaSql;
+use app\models\nucleo\Log;
 use PDO;
 
 class MovimentoSql
 {
     private $cd_centro_custo;
     private $ExecutaSql;
+    private $Log;
 
     public function __construct() {
         $this->cd_centro_custo = $_SESSION['cd_centro_custo'];
         $this->ExecutaSql = new ExecutaSql();
+        $this->Log = new Log();
     }
 
     public function create(Movimento $m) {
@@ -25,6 +28,13 @@ class MovimentoSql
                 ->setArrDados($arrDados)
                 ->setDsTabela('fin_movimento')
                 ->create();
+
+            $cd_movimento = $arrRetorno['retorno'];
+
+            // Gera log da operação
+            $ds_log = "Inserido cd_movimento: $cd_movimento. Campos: ";
+            $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDados);
+            $this->Log->gravarLog($ds_log);
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
@@ -94,7 +104,8 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $arrDadosAntigos = $this->retornarDadosMovimento($m->getCdMovimento());
+            $cd_movimento = $m->getCdMovimento();
+            $arrDadosAntigos = $this->retornarDadosMovimento($cd_movimento);
             $arrDados = $this->preparaDados($m->getArrDados());
 
             $arrDadosAlterados = $this->retornarDadosAlterados($arrDadosAntigos, $arrDados);
@@ -105,13 +116,18 @@ class MovimentoSql
                 );
             }
 
-            $ds_condicao = 'cd_movimento = ' . $m->getCdMovimento();
+            $ds_condicao = "cd_movimento = $cd_movimento";
 
             $arrRetorno = $this->ExecutaSql
                 ->setArrDados($arrDadosAlterados)
                 ->setDsCondicao($ds_condicao)
                 ->setDsTabela('fin_movimento')
                 ->update();
+
+            // Gera log da operação
+            $ds_log = "Alterado cd_movimento: $cd_movimento. Campos: ";
+            $ds_log .= $this->Log->geraLogCamposAlteracao($arrDadosAntigos, $arrDados);
+            $this->Log->gravarLog($ds_log);
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
@@ -130,12 +146,19 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $ds_condicao = 'cd_movimento = ' . $m->getCdMovimento();
+            $cd_movimento = $m->getCdMovimento();
+            $arrDadosMovimento = $this->retornarDadosMovimento($cd_movimento);
+            $ds_condicao = "cd_movimento = $cd_movimento";
 
             $arrRetorno = $this->ExecutaSql
                 ->setDsCondicao($ds_condicao)
                 ->setDsTabela('fin_movimento')
                 ->delete();
+
+            // Gera log da operação
+            $ds_log = "Removido cd_movimento: $cd_movimento. Campos: ";
+            $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
+            $this->Log->gravarLog($ds_log);
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
