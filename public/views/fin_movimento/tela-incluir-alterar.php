@@ -159,7 +159,6 @@
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
                             <v-select
-                                :select-on-tab="true"
                                 input-id="objTipoGrupoI"
                                 :options="arrTipoGrupoI"
                                 v-model="objDados.objTipoGrupoI"
@@ -169,7 +168,6 @@
                         </div>
                         <div class="input-field col s12 m4">
                             <v-select
-                                :select-on-tab="true"
                                 input-id="objTipoGrupoII"
                                 :options="arrTipoGrupoII"
                                 v-model="objDados.objTipoGrupoII"
@@ -181,7 +179,6 @@
                         </div>
                         <div class="input-field col s12 m4">
                             <v-select
-                                :select-on-tab="true"
                                 input-id="TipoGrupoIII"
                                 :options="arrTipoGrupoIII"
                                 v-model="objDados.objTipoGrupoIII"
