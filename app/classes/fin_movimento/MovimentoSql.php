@@ -22,7 +22,9 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $arrDados = $this->preparaDados($m->getArrDados());
+            $arrDados = $m->getArrDados();
+            $this->validarCamposObrigatorios($arrDados);
+            $arrDados = $this->preparaDados($arrDados);
 
             $arrRetorno = $this->ExecutaSql
                 ->setArrDados($arrDados)
@@ -104,16 +106,17 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
+            $arrDados = $m->getArrDados();
+            $this->validarCamposObrigatorios($arrDados);
+            $arrDados = $this->preparaDados($arrDados);
+
             $cd_movimento = $m->getCdMovimento();
             $arrDadosAntigos = $this->retornarDadosMovimento($cd_movimento);
-            $arrDados = $this->preparaDados($m->getArrDados());
 
             $arrDadosAlterados = $this->retornarDadosAlterados($arrDadosAntigos, $arrDados);
 
             if (count($arrDadosAlterados) <= 0) {
-                throw new \Exception(
-                    $this->translate('Não foi identificada nenhuma alteração')
-                );
+                throw new \Exception('Não foi identificada nenhuma alteração');
             }
 
             $ds_condicao = "cd_movimento = $cd_movimento";
@@ -197,7 +200,29 @@ class MovimentoSql
         try {
             $arrRetorno = $this->ExecutaSql->setDsSql("
                 SELECT
-                    *
+                    cd_movimento,
+                    cd_tipo_movimento,
+                    cd_tipo_pgto,
+                    cd_tipo_situacao_pgto,
+                    DATE_FORMAT(dt_compra, '%Y-%m-%d %H:%i:%s') as dt_compra,
+                    DATE_FORMAT(dt_vcto, '%Y-%m-%d %H:%i:%s') as dt_vcto,
+                    DATE_FORMAT(dt_pgto, '%Y-%m-%d %H:%i:%s') as dt_pgto,
+                    vl_original,
+                    vl_pago,
+                    vl_dif_pgto,
+                    nr_parcela_atual,
+                    nr_qtd_parcelas,
+                    cd_tipo_grupo_i,
+                    cd_tipo_grupo_ii,
+                    cd_tipo_grupo_iii,
+                    ds_movimento,
+                    ds_obs_i,
+                    ds_obs_ii,
+                    ds_media_gastos,
+                    sn_real,
+                    dt_inclusao,
+                    dt_alteracao,
+                    cd_centro_custo
                 FROM
                     fin_movimento
                 WHERE
@@ -242,5 +267,42 @@ class MovimentoSql
         }
 
         return $retorno;
+    }
+
+    private function validarCamposObrigatorios($arrDados)
+    {
+        if (count($arrDados) <= 0) {
+            throw new \Exception('Dados não informados.');
+        }
+
+        $arrCamposInvalidos = [];
+        $arrCamposObrigatorios = [
+            'cd_tipo_movimento' => 'Tipo de movimento',
+            'cd_tipo_pgto' => 'Modo de pagamento',
+            'cd_tipo_situacao_pgto' => 'Situação',
+            'dt_compra' => 'Data compra',
+            'dt_vcto' => 'Data vencimento',
+            'vl_original' => 'Valor original',
+            'vl_dif_pgto' => 'Diferença pagamento',
+            'nr_parcela_atual' => 'Parcela atual',
+            'nr_qtd_parcelas' => 'Quantidade parcelas',
+            'cd_tipo_grupo_i' => 'Grupo 1',
+            'cd_tipo_grupo_ii' => 'Grupo 2',
+            'cd_tipo_grupo_iii' => 'Grupo 3',
+            'ds_movimento' => 'Descrição pessoal',
+            'sn_real' => 'Movimento'
+        ];
+
+        foreach ($arrCamposObrigatorios as $ds_campo_banco => $ds_campo_tela) {
+            if (!isset($arrDados[$ds_campo_banco]) || !$arrDados[$ds_campo_banco]) {
+                array_push($arrCamposInvalidos, $ds_campo_tela);
+            }
+        }
+
+        if (count($arrCamposInvalidos) > 0) {
+            $ds_campos_invalidos = implode(", ", $arrCamposInvalidos);
+
+            throw new \Exception("Favor informar os campos: $ds_campos_invalidos.");
+        }
     }
 }
