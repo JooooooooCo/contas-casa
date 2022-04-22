@@ -2,14 +2,31 @@
     <div>
         <div class="row">
             <div class ="col s12 m10 push-m1 valign-wrapper">
-                <div class ="col s12 m6 l6">
+                <div class ="col s12">
                     <h5 class="light white-text" v-show="!snAlterar">Incluir movimento</h5>
                     <h5 class="light white-text" v-show="snAlterar">Alterar movimento</h5>
                 </div>
-                <div class ="col s12 m6 l6 right-align valign">
-                    <a href="#" name="btn-voltar" class="btn waves-effect waves-light red darken-3 botao-icone" @click="voltarTelaListagem()">
-                        <i class="material-icons">arrow_back</i>
-                    </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class ="col s12 m10 push-m1 valign-wrapper">
+                <div class ="col s2 valign">
+                    <a  href="#"
+                        name="btn-voltar"
+                        class="btn waves-effect waves-light red darken-3 botao-icone"
+                        @click="voltarTelaListagem()"
+                    ><i class="material-icons">arrow_back</i></a>
+                </div>
+
+                <div class ="col s10 right-align valign">
+                    <a  href="#"
+                        name="btn-auto-preenchimento"
+                        :class="sn_auto_preenchimento ? 'btn darken-1 white-text botao-icone teal darken-2 tooltipped' : 'btn darken-1 white-text botao-icone orange darken-3 tooltipped'"
+                        :data-tooltip="sn_auto_preenchimento ? 'Desativar autopreenchimento' : 'Ativar autopreenchimento'"
+                        data-position="bottom"
+                        @click="sn_auto_preenchimento = !sn_auto_preenchimento"
+                    ><i class="material-icons">{{ sn_auto_preenchimento ? 'pause' : 'play_arrow' }}</i></a>
                 </div>
             </div>
         </div>

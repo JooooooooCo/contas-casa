@@ -31,6 +31,7 @@ Vue.component('tela-incluir-alterar',{
     },
     data:()=>({
         sn_carregando: false,
+        sn_auto_preenchimento: false,
         sn_preenchendo_dados_alterar: false,
         objDados: null,
         arrTipoGrupoII: [],
@@ -364,6 +365,8 @@ Vue.component('tela-incluir-alterar',{
         this.mixinCheckIsMobile();
 
         this.mixinAtualizarMaterialize();
+
+        this.sn_auto_preenchimento = !this.snAlterar;
     },
 
     watch: {
