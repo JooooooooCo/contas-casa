@@ -165,21 +165,24 @@ Vue.component('tela-incluir-alterar',{
                 });
         },
 
-        prepararDadosPost() {
-            this.objDados.vl_dif_pgto = this.getVlDifPgto;
-            this.objDados.cd_tipo_grupo_i = this.objDados.objTipoGrupoI?.cd_opcao;
-            this.objDados.cd_tipo_grupo_ii = this.objDados.objTipoGrupoII?.cd_opcao;
-            this.objDados.cd_tipo_grupo_iii = this.objDados.objTipoGrupoIII?.cd_opcao;
+        getDadosPostPreparados() {
+            let objDados = {...this.objDados};
+            objDados.vl_dif_pgto = this.getVlDifPgto;
+            objDados.cd_tipo_grupo_i = objDados.objTipoGrupoI?.cd_opcao;
+            objDados.cd_tipo_grupo_ii = objDados.objTipoGrupoII?.cd_opcao;
+            objDados.cd_tipo_grupo_iii = objDados.objTipoGrupoIII?.cd_opcao;
 
-            delete this.objDados.objTipoGrupoI;
-            delete this.objDados.objTipoGrupoII;
-            delete this.objDados.objTipoGrupoIII;
-            delete this.objDados.ds_tipo_movimento;
-            delete this.objDados.ds_tipo_pgto;
-            delete this.objDados.ds_tipo_situacao_pgto;
-            delete this.objDados.ds_tipo_grupo_i;
-            delete this.objDados.ds_tipo_grupo_ii;
-            delete this.objDados.ds_tipo_grupo_iii;
+            delete objDados.objTipoGrupoI;
+            delete objDados.objTipoGrupoII;
+            delete objDados.objTipoGrupoIII;
+            delete objDados.ds_tipo_movimento;
+            delete objDados.ds_tipo_pgto;
+            delete objDados.ds_tipo_situacao_pgto;
+            delete objDados.ds_tipo_grupo_i;
+            delete objDados.ds_tipo_grupo_ii;
+            delete objDados.ds_tipo_grupo_iii;
+
+            return objDados;
         },
 
         async salvarMovimento() {
@@ -190,10 +193,10 @@ Vue.component('tela-incluir-alterar',{
             if (!sn_prosseguir) return;
 
             this.sn_carregando = true;
-            this.prepararDadosPost();
+            let objDados = this.getDadosPostPreparados();
 
             let objDadosPost = {
-                'objDados': this.objDados
+                'objDados': objDados
             }
 
             if (this.snAlterar) {
