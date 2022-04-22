@@ -17,8 +17,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
         <div class="row">
             <div class ="col s12 m10 push-m1 valign-wrapper">
                 <div class ="col s2 valign">
-                    <a
-                        href="#"
+                    <a  href="#"
                         name="btn-grid-completa"
                         class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
                         data-position="bottom"
@@ -26,8 +25,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         @click="alteraExibicaoColunasGrid()"
                         v-show="!sn_grid_completa"
                     ><i class="material-icons">tab</i></a>
-                    <a
-                        href="#"
+                    <a  href="#"
                         name="btn-grid-reduzida"
                         class="btn darken-1 white-text botao-icone orange darken-3 tooltipped"
                         data-position="bottom"
@@ -37,32 +35,23 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     ><i class="material-icons">tab_unselected</i></a>
                 </div>
                 <div class ="col s10 right-align valign">
-                    <a
-                        href="#"
+                    <a  href="#"
                         name="btn-incluir"
                         class="btn darken-1 white-text botao-icone teal darken-2"
                         @click="incluirMovimento()"
-                    >
-                        <i class="material-icons">add</i>
-                    </a>
-                    <a
-                        href="#"
+                    ><i class="material-icons">add</i></a>
+                    <a  href="#"
                         name="btn-editar"
                         class="btn darken-1 white-text botao-icone teal darken-2"
                         :disabled="!sn_uma_linha_selecionada"
                         @click="editarMovimento()"
-                    >
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a
-                        href="#"
+                    ><i class="material-icons">edit</i></a>
+                    <a  href="#"
                         name="btn-remover"
                         class="btn waves-effect waves-light red darken-3 botao-icone"
                         :disabled="!sn_uma_linha_selecionada"
                         @click="removerMovimento()"
-                    >
-                        <i class="material-icons">delete</i>
-                    </a>
+                    ><i class="material-icons">delete</i></a>
                 </div>
             </div>
         </div>
