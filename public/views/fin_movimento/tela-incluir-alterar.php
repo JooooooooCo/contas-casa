@@ -32,7 +32,7 @@
                                 <v-radio-button
                                     v-model="objDados.cd_tipo_pgto"
                                     :arr-obj-opcoes="arrTipoPgto"
-                                    label="Modo pagamento"
+                                    label="Modo de pagamento"
                                 ></v-radio-button>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 @keyup="mixinHideDatePicker('dt_compra')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
-                            <label for="dt_compra">Data Compra</label>
+                            <label for="dt_compra">Data compra</label>
                             <v-date-picker
                                 class="inline-block h-full"
                                 v-model="objDados.dt_compra"
@@ -93,7 +93,7 @@
                                 @keyup="mixinHideDatePicker('dt_vcto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
-                            <label for="dt_vcto">Data Vencimento</label>
+                            <label for="dt_vcto">Data vencimento</label>
                             <v-date-picker
                                 class="inline-block h-full"
                                 v-model="objDados.dt_vcto"
@@ -117,7 +117,7 @@
                                 @keyup="mixinHideDatePicker('dt_pgto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
-                            <label for="dt_pgto">Data Pagamento</label>
+                            <label for="dt_pgto">Data pagamento</label>
                             <v-date-picker
                                 class="inline-block h-full"
                                 v-model="objDados.dt_pgto"
@@ -133,15 +133,15 @@
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
                             <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
-                            <label for="vl_original">Valor Original</label>
+                            <label for="vl_original">Valor original</label>
                         </div>
                         <div class="input-field col s12 m4">
                             <input type="text" name="vl_pago" id="vl_pago" v-model="objDados.vl_pago" @keyup="formataMonetario('vl_pago')">
-                            <label for="vl_pago">Valor Pago</label>
+                            <label for="vl_pago">Valor pago</label>
                         </div>
                         <div class="input-field col s12 m4">
                             <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" :value="getVlDifPgto" disabled>
-                            <label for="vl_dif_pgto">Dif. Pagamento</label>
+                            <label for="vl_dif_pgto">Diferença pagamento</label>
                         </div>
                     </div>
 
@@ -152,7 +152,7 @@
                         </div>
                         <div class="input-field col s12 m6">
                             <input type="number" name="nr_qtd_parcelas" id="nr_qtd_parcelas" v-model="objDados.nr_qtd_parcelas">
-                            <label for="nr_qtd_parcelas">Qtd Parcelas</label>
+                            <label for="nr_qtd_parcelas">Quantidade parcelas</label>
                         </div>
                     </div>
 
@@ -195,7 +195,7 @@
                     <div class="row mar-top-10">
                         <div class="input-field col s12">
                             <input type="text" name="ds_movimento" id="ds_movimento" v-model="objDados.ds_movimento">
-                            <label for="ds_movimento">Descricao pessoal</label>
+                            <label for="ds_movimento">Descrição pessoal</label>
                         </div>
                     </div>
 
@@ -210,7 +210,7 @@
                         </div>
                         <div class="input-field col s12 m4">
                             <input type="text" name="ds_media_gastos" id="ds_media_gastos" v-model="objDados.ds_media_gastos">
-                            <label for="ds_media_gastos">Media gastos</label>
+                            <label for="ds_media_gastos">Média gastos</label>
                         </div>
                     </div>
 
