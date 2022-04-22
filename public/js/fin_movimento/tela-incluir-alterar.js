@@ -185,7 +185,7 @@ Vue.component('tela-incluir-alterar',{
             return objDados;
         },
 
-        async salvarMovimento() {
+        async salvarMovimento(sn_adicionar_outro = false) {
             let sn_prosseguir = confirm(
                 'Deseja realmente prosseguir?'
             );
@@ -214,6 +214,12 @@ Vue.component('tela-incluir-alterar',{
                         this.sn_carregando = false;
 
                         alert('Sucesso');
+
+                        if (sn_adicionar_outro) {
+                            this.recarregarTelaIncluirAlterar();
+                            return;
+                        }
+
                         this.voltarTelaListagem();
                     })
                     .catch(error => {
@@ -237,6 +243,12 @@ Vue.component('tela-incluir-alterar',{
                     this.sn_carregando = false;
 
                     alert('Sucesso');
+
+                    if (sn_adicionar_outro) {
+                        this.recarregarTelaIncluirAlterar();
+                        return;
+                    }
+
                     this.voltarTelaListagem();
                 })
                 .catch(error => {
@@ -287,6 +299,11 @@ Vue.component('tela-incluir-alterar',{
             this.$emit('voltar');
         },
 
+        recarregarTelaIncluirAlterar() {
+            this.resetarObjDados();
+            document.documentElement.scrollTop = 0
+        },
+
         formataMonetario(ds_campo) {
             let ds_valor = this.objDados[ds_campo] ?? '0';
             ds_valor = ds_valor.replace(/\D/g,''); // remove todos os caracteres não númericos
@@ -314,7 +331,7 @@ Vue.component('tela-incluir-alterar',{
         },
 
         resetarObjDados() {
-            this.objDados = this.getObjDadosPadrao;
+            this.objDados = {...this.getObjDadosPadrao};
         },
 
         carregarOpcoesRadio() {

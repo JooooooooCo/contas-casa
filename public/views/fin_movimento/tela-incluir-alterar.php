@@ -220,7 +220,8 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <a class="btn-floating btn-large waves-effect waves-light red darken-3 mar-right-5" @click="voltarTelaListagem()"><i class="material-icons">close</i></a>
-                                <a class="btn-floating btn-large waves-effect waves-light teal darken-2" @click="salvarMovimento()"><i class="material-icons">check</i></a>
+                                <a class="btn-floating btn-large waves-effect waves-light teal darken-2 mar-right-5" @click="salvarMovimento()"><i class="material-icons">check</i></a>
+                                <a class="btn-floating btn-large waves-effect waves-light teal darken-2 mar-right-5" @click="salvarMovimento(true)"><i class="material-icons">exposure_plus_1</i></a>
                             </div>
                         </div>
                     </div>
@@ -228,7 +229,8 @@
                     <div class="row" v-if="!isMobile">
                         <div class="input-field col s12">
                             <a class="btn waves-effect waves-light red darken-3 mar-right-5" @click="voltarTelaListagem()">Cancelar</a>
-                            <a class="btn darken-1 white-text teal darken-2" @click="salvarMovimento()">Salvar</a>
+                            <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="salvarMovimento()">Salvar</a>
+                            <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="salvarMovimento(true)" v-if="!snAlterar">Salvar e adicionar outro</a>
                         </div>
                     </div>
                 </form>
