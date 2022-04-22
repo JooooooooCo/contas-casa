@@ -12,7 +12,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                 left: 50%;
                 transform: translate(-50%, -50%);
             ">
-            <div class="z-depth-1 row">
+            <div class="z-depth-1 row card-padrao">
                 <form class="col s12" method="POST" action="<?php echo ROTA_SITE_ACTIONS; ?>login/login.php">
                     <div class='row mar-top-20 center-align'>
                         <i class="material-icons white-text large">fingerprint</i>

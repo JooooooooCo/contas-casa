@@ -13,7 +13,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     left: 50%;
                     transform: translate(-50%, -50%);
                 ">
-                <div class="z-depth-1 row">
+                <div class="z-depth-1 row card-padrao">
                     <form id="form-selecao-centro-custo" class="col s12" method="POST" action="<?php echo ROTA_SITE_VIEWS; ?>fin_movimento/tela-listagem.php">
                         <div class='row mar-top-20 center-align'>
                             <i class="material-icons white-text large">account_balance_wallet</i>
