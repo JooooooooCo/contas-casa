@@ -22,21 +22,24 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $arrDados = $m->getArrDados();
-            $this->validarCamposObrigatorios($arrDados);
-            $arrDados = $this->preparaDados($arrDados);
+            $arrParcelas = $m->getArrDados();
 
-            $arrRetorno = $this->ExecutaSql
-                ->setArrDados($arrDados)
-                ->setDsTabela('fin_movimento')
-                ->create();
+            foreach ($arrParcelas as $arrDados) {
+                $this->validarCamposObrigatorios($arrDados);
+                $arrDados = $this->preparaDados($arrDados);
 
-            $cd_movimento = $arrRetorno['retorno'];
+                $arrRetorno = $this->ExecutaSql
+                    ->setArrDados($arrDados)
+                    ->setDsTabela('fin_movimento')
+                    ->create();
 
-            // Gera log da operação
-            $ds_log = "Inserido cd_movimento: $cd_movimento. Campos: ";
-            $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDados);
-            $this->Log->gravarLog($ds_log);
+                $cd_movimento = $arrRetorno['retorno'];
+
+                // Gera log da operação
+                $ds_log = "Inserido cd_movimento: $cd_movimento. Campos: ";
+                $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDados);
+                $this->Log->gravarLog($ds_log);
+            }
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {

@@ -186,48 +186,79 @@ Vue.component('tela-incluir-alterar',{
             return objDados;
         },
 
-        async salvarMovimento(sn_adicionar_outro = false) {
-            let sn_prosseguir = confirm(
-                'Deseja realmente prosseguir?'
-            );
+        getValorParcela(vl_total, nr_qtd_parcelas) {
+            let vl_parcela, vl_ultima_parcela;
+            vl_total = vl_total.replace(',', '.');
+            vl_total = parseFloat(vl_total);
+            vl_parcela = vl_total / nr_qtd_parcelas;
+            vl_parcela = vl_parcela.toFixed(2);
+            vl_ultima_parcela = vl_total - (vl_parcela * (nr_qtd_parcelas - 1));
+            vl_ultima_parcela = vl_ultima_parcela.toFixed(2);
 
-            if (!sn_prosseguir) return;
+            return [vl_parcela, vl_ultima_parcela];
+        },
+
+        gerarParcelasPost(objDados) {
+            let arrParcelas = [];
+            let arrValor = [];
+
+            arrValor = this.getValorParcela(objDados.vl_original, objDados.nr_qtd_parcelas);
+            let vl_original_parcela = arrValor[0], vl_original_ultima_parcela = arrValor[1];
+
+            arrValor = this.getValorParcela(objDados.vl_pago, objDados.nr_qtd_parcelas);
+            let vl_pago_parcela = arrValor[0], vl_pago_ultima_parcela = arrValor[1];
+
+            arrValor = this.getValorParcela(objDados.vl_dif_pgto, objDados.nr_qtd_parcelas);
+            let vl_dif_pgto_parcela = arrValor[0], vl_dif_pgto_ultima_parcela = arrValor[1];
+
+            for (let nr_parcela = 1; nr_parcela <= objDados.nr_qtd_parcelas; nr_parcela++) {
+                let objTemp = {...objDados};
+
+                objTemp.nr_parcela_atual = nr_parcela;
+                objTemp.vl_original = nr_parcela < objDados.nr_qtd_parcelas ? vl_original_parcela : vl_original_ultima_parcela;
+                objTemp.vl_pago = nr_parcela < objDados.nr_qtd_parcelas ? vl_pago_parcela : vl_pago_ultima_parcela;
+                objTemp.vl_dif_pgto = nr_parcela < objDados.nr_qtd_parcelas ? vl_dif_pgto_parcela : vl_dif_pgto_ultima_parcela;
+
+                arrParcelas.push(objTemp);
+            }
+
+            return arrParcelas;
+        },
+
+        async salvarMovimento(sn_adicionar_outro = false) {
+            if (!confirm("Deseja realmente prosseguir?")) return;
+
+            if (this.snAlterar) {
+                this.alterarMovimento();
+                return;
+            }
+
+            this.incluirMovimento(sn_adicionar_outro);
+        },
+
+        async incluirMovimento(sn_adicionar_outro = false) {
+            let sn_gerar_parcelas = false;
+
+            if (this.objDados.nr_qtd_parcelas > 1) {
+                let vl_original = this.objDados.vl_original.replace(',', '.');
+                vl_original = parseFloat(vl_original);
+                let vl_parcela = vl_original / this.objDados.nr_qtd_parcelas;
+                vl_parcela = vl_parcela.toFixed(2);
+                vl_parcela = vl_parcela.toString().replace('.', ',');
+
+                let ds_msg = 'Deseja gerar parcelas?'
+                    + '\n\n OK, para gerar ' + this.objDados.nr_qtd_parcelas + ' parcelas, com valor original de R$ ' + vl_parcela + ' cada.'
+                    + '\n CANCELAR, para gerar somente 1 parcela, com valor original de R$ ' + this.objDados.vl_original;
+
+                sn_gerar_parcelas = confirm(ds_msg);
+            }
 
             this.sn_carregando = true;
             let objDados = this.getDadosPostPreparados();
+            let arrParcelas = sn_gerar_parcelas ? this.gerarParcelasPost(objDados) : [objDados];
 
             let objDadosPost = {
-                'objDados': objDados
-            }
-
-            if (this.snAlterar) {
-                await axios
-                    .put(
-                        ROTA_SITE_ACTIONS + 'fin_movimento/alterar.php?cd_movimento=' + this.objDados.cd_movimento,
-                        objDadosPost
-                    )
-                    .then(response => {
-                        if (!response.data.sucesso) {
-                            alert(response.data.retorno);
-                            return;
-                        }
-
-                        this.sn_carregando = false;
-
-                        alert('Sucesso');
-
-                        if (sn_adicionar_outro) {
-                            this.recarregarTelaIncluirAlterar();
-                            return;
-                        }
-
-                        this.voltarTelaListagem();
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-
-                return;
+                'objDados': arrParcelas
             }
 
             await axios
@@ -250,6 +281,35 @@ Vue.component('tela-incluir-alterar',{
                         return;
                     }
 
+                    this.voltarTelaListagem();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+
+        async alterarMovimento() {
+            this.sn_carregando = true;
+            let objDados = this.getDadosPostPreparados();
+
+            let objDadosPost = {
+                'objDados': objDados
+            }
+
+            await axios
+                .put(
+                    ROTA_SITE_ACTIONS + 'fin_movimento/alterar.php?cd_movimento=' + this.objDados.cd_movimento,
+                    objDadosPost
+                )
+                .then(response => {
+                    if (!response.data.sucesso) {
+                        alert(response.data.retorno);
+                        return;
+                    }
+
+                    this.sn_carregando = false;
+
+                    alert('Sucesso');
                     this.voltarTelaListagem();
                 })
                 .catch(error => {
