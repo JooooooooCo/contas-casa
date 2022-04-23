@@ -23,7 +23,7 @@
                     <a  href="#"
                         name="btn-auto-preenchimento"
                         :class="sn_auto_preenchimento ? 'btn darken-1 white-text botao-icone teal darken-2 tooltipped' : 'btn darken-1 white-text botao-icone orange darken-3 tooltipped'"
-                        :data-tooltip="sn_auto_preenchimento ? 'Desativar autopreenchimento' : 'Ativar autopreenchimento'"
+                        :data-tooltip="sn_auto_preenchimento ? 'Desativar auto-preenchimento' : 'Ativar auto-preenchimento'"
                         data-position="bottom"
                         @click="sn_auto_preenchimento = !sn_auto_preenchimento"
                     ><i class="material-icons">{{ sn_auto_preenchimento ? 'pause' : 'play_arrow' }}</i></a>
@@ -50,6 +50,7 @@
                                     v-model="objDados.cd_tipo_pgto"
                                     :arr-obj-opcoes="arrTipoPgto"
                                     label="Modo de pagamento"
+                                    @input="autoPreenchimento('cd_tipo_pgto')"
                                 ></v-radio-button>
                             </div>
                         </div>
@@ -84,6 +85,7 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_compra')"
                                 @keyup="mixinHideDatePicker('dt_compra')"
+                                @input="autoPreenchimento('dt_compra')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_compra">Data compra</label>
@@ -94,7 +96,7 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="mixinHideDatePicker('dt_compra')"
+                                @input="mixinHideDatePicker('dt_compra');autoPreenchimento('dt_compra');"
                             ></v-date-picker>
                         </div>
 
@@ -149,7 +151,7 @@
 
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
-                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
+                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')" @input="autoPreenchimento('vl_original')">
                             <label for="vl_original">Valor original</label>
                         </div>
                         <div class="input-field col s12 m4">
