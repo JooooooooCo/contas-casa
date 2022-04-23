@@ -33,6 +33,23 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         @click="alteraExibicaoColunasGrid()"
                         v-show="sn_grid_completa"
                     ><i class="material-icons">tab_unselected</i></a>
+
+                    <a  href="#"
+                        name="btn-grid-selecionar-tudo"
+                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
+                        data-position="bottom"
+                        data-tooltip="Selecionar tudo"
+                        @click="selecionarTudo()"
+                        :disabled="!snPodeSelecionarTudo"
+                    ><i class="material-icons">check</i></a>
+                    <a  href="#"
+                        name="btn-grid-limpar-selecao"
+                        class="btn darken-1 white-text botao-icone orange darken-3 tooltipped"
+                        data-position="bottom"
+                        data-tooltip="Limpar seleção"
+                        @click="limparSelecao()"
+                        :disabled="!snPodeLimparSelecao"
+                    ><i class="material-icons">clear</i></a>
                 </div>
                 <div class ="col s10 right-align valign">
                     <a  href="#"
@@ -43,13 +60,13 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <a  href="#"
                         name="btn-editar"
                         class="btn darken-1 white-text botao-icone teal darken-2"
-                        :disabled="!sn_uma_linha_selecionada"
+                        :disabled="!snUmaLinhaSelecionada"
                         @click="editarMovimento()"
                     ><i class="material-icons">edit</i></a>
                     <a  href="#"
                         name="btn-remover"
                         class="btn waves-effect waves-light red darken-3 botao-icone"
-                        :disabled="!sn_uma_linha_selecionada"
+                        :disabled="!snUmaLinhaSelecionada"
                         @click="removerMovimento()"
                     ><i class="material-icons">delete</i></a>
                 </div>

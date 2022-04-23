@@ -15,11 +15,6 @@ var mixin = {
             return (($(window).width()*0.98) * (nr_percentual / 100));
         },
 
-        mixinLinhaSelecionada() {
-            this.sn_uma_linha_selecionada = this.gridOptions.api.getSelectedNodes().length == 1;
-            this.sn_linhas_selecinadas = this.gridOptions.api.getSelectedNodes().length >= 1;
-        },
-
         mixinAtualizarMaterialize() {
             //Inicializa tooltip
             $(document).ready(function(){

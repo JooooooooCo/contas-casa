@@ -10,11 +10,28 @@ new Vue({
         arrMovimentos: null,
         sn_tela_listagem: true,
         sn_alterar: false,
-        sn_uma_linha_selecionada: false,
-        sn_linhas_selecinadas: false,
+        nr_linhas_selecionadas: 0,
         sn_grid_completa: false,
         gridOptions: null,
         objMovimentoSelecionado: null
+    },
+
+    computed: {
+        snPodeSelecionarTudo() {
+            if (!this.gridOptions) return false;
+
+            let nr_linhas = this.gridOptions.api.getDisplayedRowCount();
+            return nr_linhas != this.nr_linhas_selecionadas;
+        },
+        snPodeLimparSelecao() {
+            return this.snLinhasSelecionadas;
+        },
+        snUmaLinhaSelecionada() {
+            return this.nr_linhas_selecionadas == 1;
+        },
+        snLinhasSelecionadas() {
+            return this.nr_linhas_selecionadas >= 1;
+        }
     },
     methods: {
         async carregarOpcoesSelects() {
@@ -211,7 +228,7 @@ new Vue({
                     filter: true,
                     resizable: true,
                 },
-                rowSelection: 'single',
+                rowSelection: 'multiple',
                 suppressRowDeselection: true,
                 suppressRowClickSelection: false,
                 rowMultiSelectWithClick: true,
@@ -232,7 +249,11 @@ new Vue({
             this.exibicaoColunasGrid();
 
             // Vincula um evento ao selecionar uma linha da grid
-            this.gridOptions.api.addEventListener("rowSelected", this.mixinLinhaSelecionada);
+            this.gridOptions.api.addEventListener("rowSelected", this.linhaSelecionada);
+        },
+
+        linhaSelecionada() {
+            this.nr_linhas_selecionadas = this.gridOptions.api.getSelectedNodes().length;
         },
 
         incluirMovimento() {
@@ -299,6 +320,14 @@ new Vue({
             this.sn_grid_completa = !this.sn_grid_completa;
 
             this.exibicaoColunasGrid();
+        },
+
+        selecionarTudo() {
+            this.gridOptions.api.forEachNode(node => node.setSelected(true));
+        },
+
+        limparSelecao() {
+            this.gridOptions.api.forEachNode(node => node.setSelected(false));
         },
 
         exibicaoColunasGrid() {
