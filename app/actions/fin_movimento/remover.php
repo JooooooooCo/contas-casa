@@ -7,7 +7,7 @@ use app\models\nucleo\Sessao;
 Sessao::validarUsuarioLogado();
 
 $movimento = new Movimento();
-$movimento->setCdMovimento($_GET['cd_movimento']);
+$movimento->setArrCdMovimento($_GET['arrCdMovimento']);
 
 $movimentoSql = new MovimentoSql();
 $movimentoSql->delete($movimento);

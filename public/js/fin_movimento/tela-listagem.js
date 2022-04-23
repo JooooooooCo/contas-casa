@@ -276,30 +276,38 @@ new Vue({
         },
 
         async removerMovimento() {
-            this.objMovimentoSelecionado = this.gridOptions.api.getSelectedNodes()[0].data;
+            this.arrMovimentosSelecionados = this.gridOptions.api.getSelectedNodes();
 
-            if (!this.objMovimentoSelecionado) {
+            if (!this.arrMovimentosSelecionados) {
                 alert('Erro na seleção da linha para exclusão!');
                 return;
             }
 
-            let sn_excluir = confirm(
-                'Deseja realmente excluir o movimento abaixo?\n'
-                + '\n Tipo: ' + this.objMovimentoSelecionado.ds_tipo_movimento
-                + '\n Vcto: ' + this.objMovimentoSelecionado.dt_vcto
-                + '\n Valor: ' + this.objMovimentoSelecionado.vl_original
-                + '\n Grupo: '+ this.objMovimentoSelecionado.ds_tipo_grupo_i
-                + ' - '+ this.objMovimentoSelecionado.ds_tipo_grupo_ii
-                + ' - '+ this.objMovimentoSelecionado.ds_tipo_grupo_iii
-                + '\n Descrição: ' + this.objMovimentoSelecionado.ds_movimento
-            );
+            let ds_msg = 'Deseja realmente excluir os movimentos abaixo?';
+            let arrCdMovimento = []
 
-            if (!sn_excluir) return;
+            this.arrMovimentosSelecionados.forEach(objMovimentoSelecionado => {
+                objMovimentoSelecionado = objMovimentoSelecionado.data;
+
+                ds_msg = ds_msg
+                    + '\n\n Código: ' + objMovimentoSelecionado.cd_movimento
+                    + '\n Tipo: ' + objMovimentoSelecionado.ds_tipo_movimento
+                    + '\n Vcto: ' + objMovimentoSelecionado.dt_vcto
+                    + '\n Valor: ' + objMovimentoSelecionado.vl_original
+                    + '\n Grupo: '+ objMovimentoSelecionado.ds_tipo_grupo_i
+                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_ii
+                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_iii
+                    + '\n Descrição: ' + objMovimentoSelecionado.ds_movimento;
+
+                arrCdMovimento.push(objMovimentoSelecionado.cd_movimento);
+            });
+
+            if (!confirm(ds_msg)) return;
 
             await axios
                 .delete(ROTA_SITE_ACTIONS + 'fin_movimento/remover.php', {
                     params: {
-                        cd_movimento: this.objMovimentoSelecionado.cd_movimento
+                        arrCdMovimento: arrCdMovimento
                     }
                 })
                 .then(response => {

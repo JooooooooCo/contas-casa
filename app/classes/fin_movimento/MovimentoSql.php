@@ -152,19 +152,22 @@ class MovimentoSql
         $this->ExecutaSql->openTransaction();
 
         try {
-            $cd_movimento = $m->getCdMovimento();
-            $arrDadosMovimento = $this->retornarDadosMovimento($cd_movimento);
-            $ds_condicao = "cd_movimento = $cd_movimento";
+            $arrCdMovimento = $m->getArrCdMovimento();
 
-            $arrRetorno = $this->ExecutaSql
-                ->setDsCondicao($ds_condicao)
-                ->setDsTabela('fin_movimento')
-                ->delete();
+            foreach ($arrCdMovimento as $cd_movimento) {
+                $arrDadosMovimento = $this->retornarDadosMovimento($cd_movimento);
+                $ds_condicao = "cd_movimento = $cd_movimento";
 
-            // Gera log da operação
-            $ds_log = "Removido cd_movimento: $cd_movimento. Campos: ";
-            $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
-            $this->Log->gravarLog($ds_log);
+                $arrRetorno = $this->ExecutaSql
+                    ->setDsCondicao($ds_condicao)
+                    ->setDsTabela('fin_movimento')
+                    ->delete();
+
+                // Gera log da operação
+                $ds_log = "Removido cd_movimento: $cd_movimento. Campos: ";
+                $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
+                $this->Log->gravarLog($ds_log);
+            }
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
