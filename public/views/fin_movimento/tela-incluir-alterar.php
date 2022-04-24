@@ -86,6 +86,7 @@
                                 @click="mixinShowDatePicker('dt_compra')"
                                 @keyup="mixinHideDatePicker('dt_compra')"
                                 @input="autoPreenchimento('dt_compra')"
+                                @blur="mixinHideDatePicker('dt_compra')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_compra">Data compra</label>
@@ -110,6 +111,7 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_vcto')"
                                 @keyup="mixinHideDatePicker('dt_vcto')"
+                                @blur="mixinHideDatePicker('dt_vcto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_vcto">Data vencimento</label>
@@ -134,6 +136,7 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_pgto')"
                                 @keyup="mixinHideDatePicker('dt_pgto')"
+                                @blur="mixinHideDatePicker('dt_pgto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_pgto">Data pagamento</label>
