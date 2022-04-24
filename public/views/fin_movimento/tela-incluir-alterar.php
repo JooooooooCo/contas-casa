@@ -50,7 +50,7 @@
                                     v-model="objDados.cd_tipo_pgto"
                                     :arr-obj-opcoes="arrTipoPgto"
                                     label="Modo de pagamento"
-                                    @input="autoPreenchimento('cd_tipo_pgto')"
+                                    @input="autoPreenchimento()"
                                 ></v-radio-button>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="row mar-top-10">
-                        <div class="input-field col s12 m4">
+                        <div class="input-field col s12 m4" @mouseleave="mixinHideDatePicker('dt_compra')">
                             <input
                                 type="text"
                                 autocomplete="off"
@@ -85,8 +85,7 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_compra')"
                                 @keyup="mixinHideDatePicker('dt_compra')"
-                                @input="autoPreenchimento('dt_compra')"
-                                @blur="mixinHideDatePicker('dt_compra')"
+                                @input="autoPreenchimento()"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_compra">Data compra</label>
@@ -97,11 +96,11 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="mixinHideDatePicker('dt_compra');autoPreenchimento('dt_compra');"
+                                @input="mixinHideDatePicker('dt_compra');autoPreenchimento();"
                             ></v-date-picker>
                         </div>
 
-                        <div class="input-field col s12 m4">
+                        <div class="input-field col s12 m4" @mouseleave="mixinHideDatePicker('dt_vcto')">
                             <input
                                 type="text"
                                 autocomplete="off"
@@ -111,7 +110,6 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_vcto')"
                                 @keyup="mixinHideDatePicker('dt_vcto')"
-                                @blur="mixinHideDatePicker('dt_vcto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_vcto">Data vencimento</label>
@@ -126,7 +124,7 @@
                             ></v-date-picker>
                         </div>
 
-                        <div class="input-field col s12 m4">
+                        <div class="input-field col s12 m4" @mouseleave="mixinHideDatePicker('dt_pgto')">
                             <input
                                 type="text"
                                 autocomplete="off"
@@ -136,7 +134,6 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_pgto')"
                                 @keyup="mixinHideDatePicker('dt_pgto')"
-                                @blur="mixinHideDatePicker('dt_pgto')"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_pgto">Data pagamento</label>
@@ -154,7 +151,7 @@
 
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
-                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')" @input="autoPreenchimento('vl_original')">
+                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')" @input="autoPreenchimento()">
                             <label for="vl_original">Valor original</label>
                         </div>
                         <div class="input-field col s12 m4">

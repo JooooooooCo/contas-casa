@@ -417,68 +417,53 @@ Vue.component('tela-incluir-alterar',{
             ];
         },
 
-        autoPreenchimento(nm_campo) {
+        autoPreenchimento() {
             if (!this.sn_auto_preenchimento) return;
 
             switch(this.objDados.cd_tipo_pgto) {
                 case '1':
                     // Caso de pagamento com dinheiro
-                    switch(nm_campo) {
-                        case 'cd_tipo_pgto':
-                            this.objDados.cd_tipo_situacao_pgto = 1; // Pago
-                            break;
-                        case 'dt_compra':
-                            this.objDados.dt_vcto = this.objDados.dt_compra;
-                            this.objDados.dt_pgto = this.objDados.dt_compra;
-                            break;
-                        case 'vl_original':
-                            this.objDados.vl_pago = this.objDados.vl_original;
-                            break;
-                    }
+                    this.objDados.cd_tipo_situacao_pgto = 1; // Pago
+                    this.objDados.dt_vcto = this.objDados.dt_compra;
+                    this.objDados.dt_pgto = this.objDados.dt_compra;
+                    this.objDados.vl_pago = this.objDados.vl_original;
                     break;
                 case '2':
                     // Caso de pagamento com cartão de crédito
-                    switch(nm_campo) {
-                        case 'cd_tipo_pgto':
-                            this.objDados.cd_tipo_situacao_pgto = 2; // Pendente
-                            break;
-                        case 'dt_compra':
-                            this.objDados.dt_pgto = null;
+                    this.objDados.cd_tipo_situacao_pgto = 2; // Pendente
+                    this.objDados.dt_pgto = null;
+                    if (this.objDados.dt_compra) {
+                        let arrDateParts = this.objDados.dt_compra.split('/');
+                        let dt_vcto = new Date(
+                            Number(arrDateParts[2]),
+                            Number(arrDateParts[1]) - 1,
+                            Number(arrDateParts[0])
+                        );
 
-                            let arrDateParts = this.objDados.dt_compra.split('/');
-                            let dt_vcto = new Date(
-                                Number(arrDateParts[2]),
-                                Number(arrDateParts[1]) - 1,
-                                Number(arrDateParts[0])
-                            );
+                        let nr_dia_compra = dt_vcto.getDate();
 
-                            let nr_dia_compra = dt_vcto.getDate();
+                        if (nr_dia_compra >= 1 && nr_dia_compra <= 7) {
+                            dt_vcto.setDate(15);
+                        }
 
-                            if (nr_dia_compra >= 1 && nr_dia_compra <= 7) {
-                                dt_vcto.setDate(15);
-                            }
+                        if (nr_dia_compra >= 8 && nr_dia_compra <= 10) {
+                            this.objDados.dt_vcto = null;
+                            return;
+                        }
 
-                            if (nr_dia_compra >= 8 && nr_dia_compra <= 10) {
-                                this.objDados.dt_vcto = null;
-                                return;
-                            }
+                        if (nr_dia_compra >= 11) {
+                            dt_vcto.setDate(dt_vcto.getDate() + 30);
+                            dt_vcto.setDate(15);
+                        }
 
-                            if (nr_dia_compra >= 11) {
-                                dt_vcto.setDate(dt_vcto.getDate() + 30);
-                                dt_vcto.setDate(15);
-                            }
+                        let dia_vcto = dt_vcto.getDate();
+                        let mes_vcto = dt_vcto.getMonth() + 1;
+                        mes_vcto = mes_vcto.toString().length == 1 ? '0' + mes_vcto : mes_vcto;
+                        let ano_vcto = dt_vcto.getFullYear();
 
-                            let dia_vcto = dt_vcto.getDate();
-                            let mes_vcto = dt_vcto.getMonth() + 1;
-                            mes_vcto = mes_vcto.toString().length == 1 ? '0' + mes_vcto : mes_vcto;
-                            let ano_vcto = dt_vcto.getFullYear();
-
-                            this.objDados.dt_vcto = dia_vcto + '/' + mes_vcto + '/' + ano_vcto;
-                            break;
-                        case 'vl_original':
-                            this.objDados.vl_pago = null;
-                            break;
+                        this.objDados.dt_vcto = dia_vcto + '/' + mes_vcto + '/' + ano_vcto;
                     }
+                    this.objDados.vl_pago = '0,00';
                     break;
             }
 
