@@ -50,13 +50,22 @@ Vue.component('tela-incluir-alterar',{
     }),
 
     computed: {
+        getDataAtualFormatada() {
+            let dt_atual = new Date();
+            let dia = dt_atual.getDate();
+            let mes = dt_atual.getMonth() + 1;
+            mes = mes.toString().length == 1 ? '0' + mes : mes;
+            let ano = dt_atual.getFullYear();
+
+            return dia + '/' + mes + '/' + ano;
+        },
         getObjDadosPadrao() {
             return {
                 cd_movimento: null,
                 cd_tipo_movimento: '1',
                 cd_tipo_pgto: null,
                 cd_tipo_situacao_pgto: null,
-                dt_compra: null,
+                dt_compra: this.getDataAtualFormatada,
                 dt_vcto: null,
                 dt_pgto: null,
                 vl_original: '0,00',
