@@ -16,7 +16,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
         <div class="row">
             <div class ="col s12 m10 push-m1 valign-wrapper">
-                <div class ="col s2 valign">
+                <div class ="col s6 valign">
                     <a  href="#"
                         name="btn-grid-completa"
                         class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
@@ -51,7 +51,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         :disabled="!snPodeLimparSelecao"
                     ><i class="material-icons">clear</i></a>
                 </div>
-                <div class ="col s10 right-align valign">
+                <div class ="col s6 right-align valign">
                     <a  href="#"
                         name="btn-incluir"
                         class="btn darken-1 white-text botao-icone teal darken-2"
@@ -78,18 +78,23 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                 <div
                     id="myGrid"
                     class="ag-theme-alpine-dark"
-                    style="height: 70vh; width:100%;"
+                    style="height: 79vh; width:100%;"
                     v-if="!sn_carregando"
                 ></div>
             </div>
         </div>
 
-        <div class='row'>
-            <div class="col s12 right-align">
-                <a href="<?php echo ROTA_SITE_VIEWS; ?>home/tela-selecao-centro-custo.php">Trocar o centro de custo</a>
-            </div>
-            <div class="col s12 right-align">
-                <a href="<?php echo ROTA_SITE_ROOT; ?>index.php">Sair</a>
+        <div style="position: absolute;top: 5px;right: 5px;width: 100%" @mouseleave="sn_exibir_logout = false">
+            <div class='row'>
+                <div class="col s12 right-align">
+                    <i class="material-icons white-text" @mouseover="sn_exibir_logout = true">menu</i>
+
+                    <div v-show="sn_exibir_logout" style="background-color: #2c3032; position: absolute; width: fit-content; right: 5px; padding: 10px; border-radius: 3px; z-index: 999;">
+                        <a href="<?php echo ROTA_SITE_VIEWS; ?>home/tela-selecao-centro-custo.php">Trocar o centro de custo</a>
+                        </br>
+                        <a href="<?php echo ROTA_SITE_ROOT; ?>index.php">Sair</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

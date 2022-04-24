@@ -3,6 +3,7 @@ new Vue({
     el: '#tela-listagem',
     data: {
         sn_carregando: false,
+        sn_exibir_logout: false,
         arrTipoMovimento: [],
         arrTipoPgto: [],
         arrTipoSituacaoPgto: [],
