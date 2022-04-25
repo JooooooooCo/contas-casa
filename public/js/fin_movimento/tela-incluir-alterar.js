@@ -499,6 +499,12 @@ Vue.component('tela-incluir-alterar',{
     },
 
     watch: {
+        objDados: {
+          deep: true,
+          handler: function handler() {
+            this.autoPreenchimento();
+          }
+        }
     },
 
     template:"#tela-incluir-alterar",

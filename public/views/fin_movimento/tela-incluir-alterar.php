@@ -50,7 +50,6 @@
                                     v-model="objDados.cd_tipo_pgto"
                                     :arr-obj-opcoes="arrTipoPgto"
                                     label="Modo de pagamento"
-                                    @input="autoPreenchimento()"
                                 ></v-radio-button>
                             </div>
                         </div>
@@ -85,7 +84,6 @@
                                 v-mask="'##/##/####'"
                                 @click="mixinShowDatePicker('dt_compra')"
                                 @keyup="mixinHideDatePicker('dt_compra')"
-                                @input="autoPreenchimento()"
                                 class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
                             />
                             <label for="dt_compra">Data compra</label>
@@ -96,7 +94,7 @@
                                 :model-config="modelConfigDatePicker"
                                 color="teal"
                                 is-dark
-                                @input="mixinHideDatePicker('dt_compra');autoPreenchimento();"
+                                @input="mixinHideDatePicker('dt_compra');"
                             ></v-date-picker>
                         </div>
 
@@ -151,7 +149,7 @@
 
                     <div class="row mar-top-10">
                         <div class="input-field col s12 m4">
-                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')" @input="autoPreenchimento()">
+                            <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
                             <label for="vl_original">Valor original</label>
                         </div>
                         <div class="input-field col s12 m4">
