@@ -18,22 +18,17 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             <div class ="col s12 m10 push-m1 valign-wrapper">
                 <div class ="col s6 valign">
                     <a  href="#"
-                        name="btn-grid-completa"
-                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
+                        name="btn-grid-completa-reduzida"
+                        :class="sn_grid_completa ?
+                            'btn darken-1 white-text botao-icone tooltipped orange darken-3' :
+                            'btn darken-1 white-text botao-icone tooltipped teal darken-2'"
                         data-position="bottom"
-                        data-tooltip="Exibir tabela completa"
+                        :data-tooltip="sn_grid_completa ? 'Exibir tabela reduzida' : 'Exibir tabela completa'"
                         @click="alteraExibicaoColunasGrid()"
-                        v-show="!sn_grid_completa"
-                    ><i class="material-icons">tab</i></a>
-                    <a  href="#"
-                        name="btn-grid-reduzida"
-                        class="btn darken-1 white-text botao-icone orange darken-3 tooltipped"
-                        data-position="bottom"
-                        data-tooltip="Exibir tabela reduzida"
-                        @click="alteraExibicaoColunasGrid()"
-                        v-show="sn_grid_completa"
-                    ><i class="material-icons">tab_unselected</i></a>
-
+                    >
+                        <i class="material-icons" v-show="sn_grid_completa">tab_unselected</i>
+                        <i class="material-icons" v-show="!sn_grid_completa">tab</i>
+                    </a>
                     <a  href="#"
                         name="btn-grid-selecionar-tudo"
                         class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
