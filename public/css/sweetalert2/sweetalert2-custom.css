@@ -1,0 +1,39 @@
+.swal2-title {
+    color: #FFFFFF;
+}
+
+.swal2-html-container {
+    color: #FFFFFF;
+}
+
+.swal2-styled.swal2-confirm {
+    color: #FFFFFF;
+    background: #136c62;
+    border-radius: 2px;
+}
+
+.swal2-styled.swal2-deny {
+    color: #FFFFFF;
+    background: #932d2d;
+    border-radius: 2px;
+}
+
+.swal2-styled.swal2-cancel{
+    color: #FFFFFF;
+    background: #222628;
+    border-radius: 2px;
+}
+
+.swal2-image {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.swal2-popup {
+    background: #2c3032;
+    min-height: 40vh;
+}
+
+.swal2-popup .swal2-styled:focus {
+    box-shadow: none !important;
+}
