@@ -1,7 +1,7 @@
 Vue.component('v-select', VueSelect.VueSelect)
 
 Vue.component('tela-incluir-alterar',{
-    mixins: [mixin],
+    mixins: [mixinGerais],
     name:"TelaIncluirAlterar",
     props:{
         snAlterar:{

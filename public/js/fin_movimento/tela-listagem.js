@@ -1,5 +1,5 @@
 new Vue({
-    mixins: [mixin],
+    mixins: [mixinGerais],
     el: '#tela-listagem',
     data: {
         sn_carregando: false,

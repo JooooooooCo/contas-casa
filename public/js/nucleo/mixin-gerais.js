@@ -1,4 +1,4 @@
-var mixin = {
+var mixinGerais = {
     methods: {
         mixinMonetarioFormatadoAgGrid(params) {
             return this.mixinMonetarioFormatado(params.value);
