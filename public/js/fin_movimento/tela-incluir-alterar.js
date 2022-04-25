@@ -1,7 +1,7 @@
 Vue.component('v-select', VueSelect.VueSelect)
 
 Vue.component('tela-incluir-alterar',{
-    mixins: [mixinGerais],
+    mixins: [mixinGerais, mixinAlert],
     name:"TelaIncluirAlterar",
     props:{
         snAlterar:{
@@ -30,7 +30,6 @@ Vue.component('tela-incluir-alterar',{
         }
     },
     data:()=>({
-        sn_carregando: false,
         sn_auto_preenchimento: false,
         sn_preenchendo_dados_alterar: false,
         objDados: null,
@@ -117,10 +116,11 @@ Vue.component('tela-incluir-alterar',{
     },
     methods:{
         async carregarOpcoesGrupoII() {
-            this.sn_carregando = true;
             this.arrTipoGrupoII = [];
             this.arrTipoGrupoIII = [];
             if (!this.objDados.cd_tipo_movimento) return;
+
+            this.mixinAlertCarregando(true);
 
             await axios
                 .get(
@@ -131,15 +131,15 @@ Vue.component('tela-incluir-alterar',{
                         }
                     }
                 )
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
                     this.arrTipoGrupoII = response.data.retorno;
 
-                    this.sn_carregando = false;
+                    this.mixinAlertCarregando(false);
                 })
                 .catch(error => {
                     console.error(error);;
@@ -147,9 +147,10 @@ Vue.component('tela-incluir-alterar',{
         },
 
         async carregarOpcoesGrupoIII() {
-            this.sn_carregando = true;
             this.arrTipoGrupoIII = [];
             if (!this.objDados.objTipoGrupoII?.cd_opcao) return;
+
+            this.mixinAlertCarregando(true);
 
             await axios
                 .get(
@@ -160,15 +161,15 @@ Vue.component('tela-incluir-alterar',{
                         }
                     }
                 )
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
                     this.arrTipoGrupoIII = response.data.retorno;
 
-                    this.sn_carregando = false;
+                    this.mixinAlertCarregando(false);
                 })
                 .catch(error => {
                 console.error(error);;
@@ -235,7 +236,8 @@ Vue.component('tela-incluir-alterar',{
         },
 
         async salvarMovimento(sn_adicionar_outro = false) {
-            if (!confirm("Deseja realmente prosseguir?")) return;
+            let sn_prosseguir = await this.mixinAlertProsseguir();
+            if (!sn_prosseguir) return;
 
             if (this.snAlterar) {
                 this.alterarMovimento();
@@ -255,14 +257,23 @@ Vue.component('tela-incluir-alterar',{
                 vl_parcela = vl_parcela.toFixed(2);
                 vl_parcela = vl_parcela.toString().replace('.', ',');
 
-                let ds_msg = 'Deseja gerar parcelas?'
-                    + '\n\n OK, para gerar ' + this.objDados.nr_qtd_parcelas + ' parcelas, com valor original de R$ ' + vl_parcela + ' cada.'
-                    + '\n CANCELAR, para gerar somente 1 parcela, com valor original de R$ ' + this.objDados.vl_original;
+                let ds_msg = 'Deseja gerar ' + this.objDados.nr_qtd_parcelas + ' parcelas, com valor original de R$ ' + vl_parcela + ' cada'
+                    + '</br> OU, gerar somente 1 parcela, com valor original de R$ ' + this.objDados.vl_original;
 
-                sn_gerar_parcelas = confirm(ds_msg);
+                let ds_botao_1 = 'Gerar ' + this.objDados.nr_qtd_parcelas + ' parcelas';
+                let ds_botao_2 = 'Gerar somente 1 parcela';
+
+                sn_gerar_parcelas = await this.mixinAlertProsseguir(
+                    ds_msg,
+                    true,
+                    ds_botao_2,
+                    true,
+                    ds_botao_1,
+                    false
+                );
             }
 
-            this.sn_carregando = true;
+            this.mixinAlertCarregando(true);
             let objDados = this.getDadosPostPreparados();
             let arrParcelas = sn_gerar_parcelas ? this.gerarParcelasPost(objDados) : [objDados];
 
@@ -275,15 +286,13 @@ Vue.component('tela-incluir-alterar',{
                     ROTA_SITE_ACTIONS + 'fin_movimento/adicionar.php',
                     objDadosPost
                 )
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
-                    this.sn_carregando = false;
-
-                    alert('Sucesso');
+                    await this.mixinAlertSucesso();
 
                     if (sn_adicionar_outro) {
                         this.recarregarTelaIncluirAlterar();
@@ -298,7 +307,7 @@ Vue.component('tela-incluir-alterar',{
         },
 
         async alterarMovimento() {
-            this.sn_carregando = true;
+            this.mixinAlertCarregando(true);
             let objDados = this.getDadosPostPreparados();
 
             let objDadosPost = {
@@ -310,15 +319,13 @@ Vue.component('tela-incluir-alterar',{
                     ROTA_SITE_ACTIONS + 'fin_movimento/alterar.php?cd_movimento=' + this.objDados.cd_movimento,
                     objDadosPost
                 )
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
-                    this.sn_carregando = false;
-
-                    alert('Sucesso');
+                    await this.mixinAlertSucesso();
                     this.voltarTelaListagem();
                 })
                 .catch(error => {

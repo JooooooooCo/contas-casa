@@ -79,7 +79,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     id="myGrid"
                     class="ag-theme-alpine-dark"
                     style="height: 79vh; width:100%;"
-                    v-if="!sn_carregando"
+                    v-if="!mixinSnAlertCarregando"
                 ></div>
             </div>
         </div>

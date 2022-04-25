@@ -1,8 +1,7 @@
 new Vue({
-    mixins: [mixinGerais],
+    mixins: [mixinGerais, mixinAlert],
     el: '#tela-listagem',
     data: {
-        sn_carregando: false,
         sn_exibir_logout: false,
         arrTipoMovimento: [],
         arrTipoPgto: [],
@@ -38,9 +37,9 @@ new Vue({
         async carregarOpcoesSelects() {
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-movimento.php')
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
@@ -52,9 +51,9 @@ new Vue({
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-pgto.php')
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
@@ -66,9 +65,9 @@ new Vue({
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-situacao-pgto.php')
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
@@ -80,9 +79,9 @@ new Vue({
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-um.php')
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
@@ -94,7 +93,7 @@ new Vue({
         },
 
         async listarMovimento() {
-            this.sn_carregando = true;
+            this.mixinAlertCarregando(true);
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar.php', {
@@ -102,18 +101,18 @@ new Vue({
                     //     ID: 12345
                     // }
                 })
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
                     this.arrMovimentos = response.data.retorno;
 
-                    this.sn_carregando = false;
+                    this.mixinAlertCarregando(false);
                 })
                 .catch(error => {
-                  console.error(error);;
+                    console.error(error);;
                 });
         },
 
@@ -263,13 +262,13 @@ new Vue({
             this.sn_tela_listagem = false;
         },
 
-        editarMovimento() {
+        async editarMovimento() {
             this.sn_alterar=true;
 
             this.objMovimentoSelecionado = this.gridOptions.api.getSelectedNodes()[0].data;
 
             if (!this.objMovimentoSelecionado) {
-                alert('Erro na seleção da linha para edição!');
+                await this.mixinAlertErro('Erro na seleção da linha para edição!');
                 return;
             }
 
@@ -280,7 +279,7 @@ new Vue({
             this.arrMovimentosSelecionados = this.gridOptions.api.getSelectedNodes();
 
             if (!this.arrMovimentosSelecionados) {
-                alert('Erro na seleção da linha para exclusão!');
+                await this.mixinAlertErro('Erro na seleção da linha para exclusão!');
                 return;
             }
 
@@ -291,19 +290,22 @@ new Vue({
                 objMovimentoSelecionado = objMovimentoSelecionado.data;
 
                 ds_msg = ds_msg
-                    + '\n\n Código: ' + objMovimentoSelecionado.cd_movimento
-                    + '\n Tipo: ' + objMovimentoSelecionado.ds_tipo_movimento
-                    + '\n Vcto: ' + objMovimentoSelecionado.dt_vcto
-                    + '\n Valor: ' + objMovimentoSelecionado.vl_original
-                    + '\n Grupo: '+ objMovimentoSelecionado.ds_tipo_grupo_i
+                    + '</br></br><b> Código: ' + objMovimentoSelecionado.cd_movimento + '</b>'
+                    + '</br> Tipo: ' + objMovimentoSelecionado.ds_tipo_movimento
+                    + '</br> Vcto: ' + objMovimentoSelecionado.dt_vcto
+                    + '</br> Valor: ' + objMovimentoSelecionado.vl_original
+                    + '</br> Grupo: '+ objMovimentoSelecionado.ds_tipo_grupo_i
                     + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_ii
                     + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_iii
-                    + '\n Descrição: ' + objMovimentoSelecionado.ds_movimento;
+                    + '</br> Descrição: ' + objMovimentoSelecionado.ds_movimento;
 
                 arrCdMovimento.push(objMovimentoSelecionado.cd_movimento);
             });
 
-            if (!confirm(ds_msg)) return;
+            let sn_prosseguir = await this.mixinAlertProsseguir(ds_msg);
+            if (!sn_prosseguir) return;
+
+            this.mixinAlertCarregando(true);
 
             await axios
                 .delete(ROTA_SITE_ACTIONS + 'fin_movimento/remover.php', {
@@ -311,13 +313,13 @@ new Vue({
                         arrCdMovimento: arrCdMovimento
                     }
                 })
-                .then(response => {
+                .then(async (response) => {
                     if (!response.data.sucesso) {
-                        alert(response.data.retorno);
+                        await this.mixinAlertErro(response.data.retorno);
                         return;
                     }
 
-                    alert('Sucesso');
+                    await this.mixinAlertSucesso();
                     this.filtrarGrid();
                 })
                 .catch(error => {

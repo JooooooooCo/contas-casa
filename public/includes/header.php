@@ -55,6 +55,11 @@ if (!$sn_tela_login) {
         <!-- Axios -->
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/axios/axios.min.js"></script>
 
+        <!-- SweetAlert2 -->
+        <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/sweetalert2/material-ui.css">
+        <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/sweetalert2/sweetalert2-custom.css">
+
         <!-- ag-grid -->
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/ag-grid/ag-grid-community.min.noStyle.js"></script>
         <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/ag-grid/ag-grid.css">
@@ -66,11 +71,13 @@ if (!$sn_tela_login) {
         <!-- Passando dados do PHP, utilizados nos arquivos js -->
         <script>
           // Rotas do site (caminho projeto)
-          const ROTA_SITE_ACTIONS = '<?php echo ROTA_SITE_ACTIONS; ?>';
           const ROTA_SITE_ROOT = '<?php echo ROTA_SITE_ROOT; ?>';
+          const ROTA_SITE_ACTIONS = '<?php echo ROTA_SITE_ACTIONS; ?>';
+          const ROTA_SITE_PUBLIC = '<?php echo ROTA_SITE_PUBLIC; ?>';
         </script>
 
         <!-- Componentes personalizados -->
+        <script src="<?php echo ROTA_SITE_PUBLIC; ?>js/nucleo/mixin-alert.js"></script>
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>js/nucleo/mixin-gerais.js"></script>
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>js/nucleo/v-radio-button.js"></script>
     </head>
