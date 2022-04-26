@@ -4,6 +4,7 @@ body {
 
 .card-padrao {
     background-color: #2c3032;
+    border-radius: 5px;
 }
 
 input, select, textarea, span{
