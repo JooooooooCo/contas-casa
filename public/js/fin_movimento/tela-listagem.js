@@ -344,7 +344,20 @@ new Vue({
             this.sn_collapses_abertas = !this.sn_collapses_abertas;
         },
 
-        clicouCollapse() {
+        clicouCollapse(cd_movimento) {
+            this.gridOptions.api.forEachNode(node => {
+                if (node.data.cd_movimento == cd_movimento) {
+                    if ($('#checkbox-cd-movimento-' + node.data.cd_movimento)[0].innerHTML == "check_box") {
+                        node.setSelected(false);
+                        $('#checkbox-cd-movimento-' + node.data.cd_movimento)[0].innerHTML="check_box_outline_blank";
+                        return;
+                    }
+
+                    node.setSelected(true);
+                    $('#checkbox-cd-movimento-' + node.data.cd_movimento)[0].innerHTML="check_box";
+                }
+            });
+
             this.sn_collapses_abertas = !$('.collapsible > li.active').length > 0;
         },
 
@@ -355,11 +368,17 @@ new Vue({
         },
 
         selecionarTudo() {
-            this.gridOptions.api.forEachNode(node => node.setSelected(true));
+            this.gridOptions.api.forEachNode(node => {
+                node.setSelected(true);
+                $('#checkbox-cd-movimento-' + node.data.cd_movimento)[0].innerHTML="check_box";
+            });
         },
 
         limparSelecao() {
-            this.gridOptions.api.forEachNode(node => node.setSelected(false));
+            this.gridOptions.api.forEachNode(node => {
+                node.setSelected(false);
+                $('#checkbox-cd-movimento-' + node.data.cd_movimento)[0].innerHTML="check_box_outline_blank";
+            });
         },
 
         exibicaoColunasGrid() {

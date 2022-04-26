@@ -103,9 +103,10 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
         <div class="row" v-show="!sn_exibicao_grid">
             <div class ="col s12 m10 push-m1 valign-wrapper">
                 <ul class="collapsible col s12">
-                    <li class="active" v-for="objMovimento in arrMovimentos" :key="objMovimento.cd_movimento">
-                        <div class="collapsible-header" @click="clicouCollapse()">
-                            <i class="material-icons">attach_money</i>
+                    <li v-for="objMovimento in arrMovimentos" :key="objMovimento.cd_movimento">
+                        <div class="collapsible-header" @click="clicouCollapse(objMovimento.cd_movimento)">
+                            <i class="material-icons" :id="'checkbox-cd-movimento-' + objMovimento.cd_movimento">check_box_outline_blank</i>
+
                             <span class="texto-uppercase">
                                 {{objMovimento.dt_vcto}} - R$ {{objMovimento.vl_original}}
                                  - {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
