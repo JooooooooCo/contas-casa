@@ -18,45 +18,60 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             <div class ="col s12 m10 push-m1 valign-wrapper">
                 <div class ="col s6 valign">
                     <a  href="#"
+                        name="btn-grid-selecionar-tudo"
+                        class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
+                        data-position="bottom"
+                        :data-tooltip="snPodeSelecionarTudo ? 'Selecionar tudo' : 'Limpar seleção'"
+                        @click="snPodeSelecionarTudo ? selecionarTudo() : limparSelecao()"
+                    >
+                        <i class="material-icons" v-show="snPodeSelecionarTudo && !snPodeLimparSelecao">check_box_outline_blank</i>
+                        <i class="material-icons" v-show="snPodeSelecionarTudo && snPodeLimparSelecao">indeterminate_check_box</i>
+                        <i class="material-icons" v-show="!snPodeSelecionarTudo && snPodeLimparSelecao">check_box</i>
+                    </a>
+                    <a  href="#"
+                        name="btn-collapses-abertas"
+                        class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
+                        data-position="bottom"
+                        :data-tooltip="sn_collapses_abertas ? 'Abrir linhas' : 'Recolher linhas'"
+                        @click="expandirRecolherCollapses()"
+                        v-show="!sn_exibicao_grid"
+                    >
+                        <i class="material-icons" v-show="sn_collapses_abertas">layers_clear</i>
+                        <i class="material-icons" v-show="!sn_collapses_abertas">layers</i>
+                    </a>
+                    <a  href="#"
                         name="btn-grid-completa-reduzida"
-                        :class="sn_grid_completa ?
-                            'btn darken-1 white-text botao-icone tooltipped orange darken-3' :
-                            'btn darken-1 white-text botao-icone tooltipped teal darken-2'"
+                        class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
                         data-position="bottom"
                         :data-tooltip="sn_grid_completa ? 'Exibir tabela reduzida' : 'Exibir tabela completa'"
                         @click="alteraExibicaoColunasGrid()"
+                        v-show="sn_exibicao_grid"
                     >
                         <i class="material-icons" v-show="sn_grid_completa">tab_unselected</i>
                         <i class="material-icons" v-show="!sn_grid_completa">tab</i>
                     </a>
                     <a  href="#"
-                        name="btn-grid-selecionar-tudo"
-                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
+                        name="btn-grid-card"
+                        class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
                         data-position="bottom"
-                        data-tooltip="Selecionar tudo"
-                        @click="selecionarTudo()"
-                        :disabled="!snPodeSelecionarTudo"
-                    ><i class="material-icons">check</i></a>
-                    <a  href="#"
-                        name="btn-grid-limpar-selecao"
-                        class="btn darken-1 white-text botao-icone orange darken-3 tooltipped"
-                        data-position="bottom"
-                        data-tooltip="Limpar seleção"
-                        @click="limparSelecao()"
-                        :disabled="!snPodeLimparSelecao"
-                    ><i class="material-icons">clear</i></a>
+                        :data-tooltip="sn_exibicao_grid ? 'Lista' : 'Planilha'"
+                        @click="alteraExibicaoGridCard()"
+                    >
+                        <i class="material-icons" v-show="sn_exibicao_grid">view_list</i>
+                        <i class="material-icons" v-show="!sn_exibicao_grid">view_module</i>
+                    </a>
                 </div>
                 <div class ="col s6 right-align valign">
                     <a  href="#"
                         name="btn-incluir"
-                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
+                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped mar-top-5"
                         data-position="bottom"
                         data-tooltip="Incluir"
                         @click="incluirMovimento()"
                     ><i class="material-icons">add</i></a>
                     <a  href="#"
                         name="btn-editar"
-                        class="btn darken-1 white-text botao-icone teal darken-2 tooltipped"
+                        class="btn darken-1 white-text botao-icone orange darken-3 tooltipped mar-top-5"
                         data-position="bottom"
                         data-tooltip="Editar"
                         :disabled="!snUmaLinhaSelecionada"
@@ -64,7 +79,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     ><i class="material-icons">edit</i></a>
                     <a  href="#"
                         name="btn-remover"
-                        class="btn waves-effect waves-light red darken-3 botao-icone tooltipped"
+                        class="btn waves-effect waves-light red darken-3 botao-icone tooltipped mar-top-5"
                         data-position="bottom"
                         data-tooltip="Remover"
                         :disabled="!snLinhasSelecionadas"
@@ -74,12 +89,12 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-show="sn_exibicao_grid">
             <div class ="col s12">
                 <div
                     id="myGrid"
                     class="ag-theme-alpine-dark"
-                    style="height: 79vh; width:100%;"
+                    style="height: 78vh; width:100%;"
                     v-if="!mixinSnAlertCarregando"
                 ></div>
             </div>

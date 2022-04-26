@@ -14,7 +14,9 @@
                 <div class ="col s2 valign">
                     <a  href="#"
                         name="btn-voltar"
-                        class="btn waves-effect waves-light red darken-3 botao-icone"
+                        class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
+                        data-tooltip="Voltar"
+                        data-position="bottom"
                         @click="voltarTelaListagem()"
                     ><i class="material-icons">arrow_back</i></a>
                 </div>
@@ -22,7 +24,7 @@
                 <div class ="col s10 right-align valign">
                     <a  href="#"
                         name="btn-auto-preenchimento"
-                        :class="sn_auto_preenchimento ? 'btn darken-1 white-text botao-icone teal darken-2 tooltipped' : 'btn darken-1 white-text botao-icone orange darken-3 tooltipped'"
+                        :class="sn_auto_preenchimento ? 'btn darken-1 white-text botao-icone orange darken-3 tooltipped' : 'btn darken-1 white-text botao-icone teal darken-2 tooltipped'"
                         :data-tooltip="sn_auto_preenchimento ? 'Desativar auto-preenchimento' : 'Ativar auto-preenchimento'"
                         data-position="bottom"
                         @click="sn_auto_preenchimento = !sn_auto_preenchimento"

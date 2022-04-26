@@ -11,6 +11,8 @@ new Vue({
         sn_tela_listagem: true,
         sn_alterar: false,
         nr_linhas_selecionadas: 0,
+        sn_exibicao_grid: true,
+        sn_collapses_abertas: true,
         sn_grid_completa: false,
         gridOptions: null,
         objMovimentoSelecionado: null
@@ -325,6 +327,14 @@ new Vue({
                 .catch(error => {
                   console.error(error);;
                 });
+        },
+
+        alteraExibicaoGridCard() {
+            this.sn_exibicao_grid = !this.sn_exibicao_grid;
+        },
+
+        expandirRecolherCollapses() {
+            this.sn_collapses_abertas = !this.sn_collapses_abertas;
         },
 
         alteraExibicaoColunasGrid() {
