@@ -100,6 +100,108 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             </div>
         </div>
 
+        <div class="row" v-show="!sn_exibicao_grid">
+            <div class ="col s12 m10 push-m1 valign-wrapper">
+                <ul class="collapsible col s12">
+                    <li class="active" v-for="objMovimento in arrMovimentos" :key="objMovimento.cd_movimento">
+                        <div class="collapsible-header" @click="clicouCollapse()">
+                            <i class="material-icons">attach_money</i>
+                            <span class="texto-uppercase">
+                                {{objMovimento.dt_vcto}} - R$ {{objMovimento.vl_original}}
+                                 - {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                 - {{objMovimento.ds_movimento}} (Cód {{objMovimento.cd_movimento}})
+                            </span>
+                        </div>
+                        <div class="collapsible-body">
+                            <div class='row'>
+                                <div class="col s4">
+                                    <b>Código:</b> {{objMovimento.cd_movimento}}
+                                </div>
+                                <div class="col s4">
+                                    <b>Descrição:</b> {{objMovimento.ds_movimento}}
+                                </div>
+                                <div class="col s4">
+                                    &nbsp
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Tipo:</b> {{objMovimento.ds_tipo_movimento}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Modo Pgto:</b> {{objMovimento.ds_tipo_pgto}}
+                                </div>
+                                <div class="col s4">
+                                        &nbsp
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Situação:</b> {{objMovimento.ds_tipo_situacao_pgto}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Real / Adm:</b> {{objMovimento.sn_real ? 'Real' : 'Administrativo'}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Parcela:</b> {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Dt Vcto:</b> {{objMovimento.dt_vcto}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Dt Compra:</b> {{objMovimento.dt_compra}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Dt Pgto:</b> {{objMovimento.dt_pgto}}
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Vl Original:</b> {{objMovimento.vl_original}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Vl Pago:</b> {{objMovimento.vl_pago}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Dif Pgto:</b> {{objMovimento.vl_dif_pgto}}
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Grupo 1:</b> {{objMovimento.ds_tipo_grupo_i}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Grupo 2:</b> {{objMovimento.ds_tipo_grupo_ii}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Grupo 3:</b> {{objMovimento.ds_tipo_grupo_iii}}
+                                </div>
+                            </div>
+
+                            <div class='row'>
+                                <div class="col s4">
+                                        <b>Obs 1:</b> {{objMovimento.ds_obs_i}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Obs 2:</b> {{objMovimento.ds_obs_ii}}
+                                </div>
+                                <div class="col s4">
+                                        <b>Média Gastos:</b> {{objMovimento.ds_media_gastos}}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div style="position: absolute;top: 5px;right: 5px;width: 100%" @mouseleave="sn_exibir_logout = false">
             <div class='row'>
                 <div class="col s12 right-align">

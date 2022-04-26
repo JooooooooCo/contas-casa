@@ -16,7 +16,6 @@ var mixinGerais = {
         },
 
         mixinAtualizarMaterialize() {
-            //Inicializa tooltip
             $(document).ready(function(){
                 $('.tooltipped').tooltip();
             });
@@ -24,7 +23,7 @@ var mixinGerais = {
             Vue.nextTick(() => {
                 $('.tooltipped').tooltip();
                 // $(`.dropdown-button-${this.id_tela}`).dropdown();
-                // $('.collapsible').collapsible();
+                $('.collapsible').collapsible();
                 $('input').characterCounter();
                 M.updateTextFields();
             });

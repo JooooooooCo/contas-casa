@@ -12,7 +12,7 @@ new Vue({
         sn_alterar: false,
         nr_linhas_selecionadas: 0,
         sn_exibicao_grid: true,
-        sn_collapses_abertas: true,
+        sn_collapses_abertas: false,
         sn_grid_completa: false,
         gridOptions: null,
         objMovimentoSelecionado: null
@@ -334,7 +334,18 @@ new Vue({
         },
 
         expandirRecolherCollapses() {
+            var instance = M.Collapsible.getInstance($('.collapsible'));
+
+            instance.open()
+            if (this.sn_collapses_abertas) {
+                instance.close();
+            }
+
             this.sn_collapses_abertas = !this.sn_collapses_abertas;
+        },
+
+        clicouCollapse() {
+            this.sn_collapses_abertas = !$('.collapsible > li.active').length > 0;
         },
 
         alteraExibicaoColunasGrid() {
@@ -388,6 +399,14 @@ new Vue({
         await this.filtrarGrid();
 
         this.mixinAtualizarMaterialize();
+
+        window.addEventListener("resize", this.mixinCheckIsMobile);
+
+        this.mixinCheckIsMobile();
+
+        if (this.isMobile) {
+            this.sn_exibicao_grid = false;
+        }
     }
 })
 
