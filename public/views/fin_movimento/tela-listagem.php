@@ -23,7 +23,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         data-position="bottom"
                         :data-tooltip="snPodeSelecionarTudo ? 'Selecionar tudo' : 'Limpar seleção'"
                         @click="snPodeSelecionarTudo ? selecionarTudo() : limparSelecao()"
-                        :disabled="!snPodeSelecionarTudo && !snPodeLimparSelecao"
+                        :disabled="(!snPodeSelecionarTudo && !snPodeLimparSelecao) || !snPossuiRegistros"
                     >
                         <i class="material-icons" v-show="snPodeSelecionarTudo && !snPodeLimparSelecao">check_box_outline_blank</i>
                         <i class="material-icons" v-show="snPodeSelecionarTudo && snPodeLimparSelecao">indeterminate_check_box</i>
@@ -37,6 +37,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         :data-tooltip="sn_collapses_abertas ? 'Abrir linhas' : 'Recolher linhas'"
                         @click="expandirRecolherCollapses()"
                         v-show="!sn_exibicao_grid"
+                        :disabled="!snPossuiRegistros"
                     >
                         <i class="material-icons" v-show="sn_collapses_abertas">layers_clear</i>
                         <i class="material-icons" v-show="!sn_collapses_abertas">layers</i>
@@ -48,6 +49,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         :data-tooltip="sn_grid_completa ? 'Exibir tabela reduzida' : 'Exibir tabela completa'"
                         @click="alteraExibicaoColunasGrid()"
                         v-show="sn_exibicao_grid"
+                        :disabled="!snPossuiRegistros"
                     >
                         <i class="material-icons" v-show="sn_grid_completa">tab_unselected</i>
                         <i class="material-icons" v-show="!sn_grid_completa">tab</i>
@@ -58,6 +60,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         data-position="bottom"
                         :data-tooltip="sn_exibicao_grid ? 'Lista' : 'Planilha'"
                         @click="alteraExibicaoGridCard()"
+                        :disabled="!snPossuiRegistros"
                     >
                         <i class="material-icons" v-show="sn_exibicao_grid">view_list</i>
                         <i class="material-icons" v-show="!sn_exibicao_grid">view_module</i>
@@ -91,7 +94,16 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             </div>
         </div>
 
-        <div class="row" v-show="sn_exibicao_grid">
+        <div class="row" v-show="!snPossuiRegistros">
+            <div class ="col s12 white-text center">
+                <i class="material-icons large">error_outline</i>
+                <p>
+                    Nenhum resultado encontrado.
+                </p>
+            </div>
+        </div>
+
+        <div class="row" v-show="sn_exibicao_grid && snPossuiRegistros">
             <div class ="col s12">
                 <div
                     id="myGrid"
@@ -102,7 +114,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             </div>
         </div>
 
-        <div class="row" v-show="!sn_exibicao_grid">
+        <div class="row" v-show="!sn_exibicao_grid && snPossuiRegistros">
             <div class ="col s12 m10 push-m1 valign-wrapper">
                 <ul class="collapsible col s12">
                     <li v-for="objMovimento in arrMovimentos" :key="objMovimento.cd_movimento">

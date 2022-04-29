@@ -33,6 +33,9 @@ new Vue({
         },
         snLinhasSelecionadas() {
             return this.nr_linhas_selecionadas >= 1;
+        },
+        snPossuiRegistros() {
+            return this.arrMovimentos?.length > 0 ? true : false;
         }
     },
     methods: {
