@@ -96,7 +96,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
         <div class="row" v-show="!snPossuiRegistros">
             <div class ="col s12 white-text center">
-                <i class="material-icons large">error_outline</i>
+                <i class="material-icons large orange-text text-darken-3">error_outline</i>
                 <p>
                     Nenhum resultado encontrado.
                 </p>
