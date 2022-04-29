@@ -403,6 +403,8 @@ new Vue({
         async filtrarGrid() {
             await this.listarMovimento();
 
+            this.nr_linhas_selecionadas = 0;
+
             this.inicializarGrid();
         },
 

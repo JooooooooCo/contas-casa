@@ -23,10 +23,12 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         data-position="bottom"
                         :data-tooltip="snPodeSelecionarTudo ? 'Selecionar tudo' : 'Limpar seleção'"
                         @click="snPodeSelecionarTudo ? selecionarTudo() : limparSelecao()"
+                        :disabled="!snPodeSelecionarTudo && !snPodeLimparSelecao"
                     >
                         <i class="material-icons" v-show="snPodeSelecionarTudo && !snPodeLimparSelecao">check_box_outline_blank</i>
                         <i class="material-icons" v-show="snPodeSelecionarTudo && snPodeLimparSelecao">indeterminate_check_box</i>
                         <i class="material-icons" v-show="!snPodeSelecionarTudo && snPodeLimparSelecao">check_box</i>
+                        <i class="material-icons" v-show="!snPodeSelecionarTudo && !snPodeLimparSelecao">check_box_outline_blank</i>
                     </a>
                     <a  href="#"
                         name="btn-collapses-abertas"
