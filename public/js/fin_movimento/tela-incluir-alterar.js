@@ -88,8 +88,6 @@ Vue.component('tela-incluir-alterar',{
             this.arrTipoGrupoIII = [];
             if (!this.objDados.cd_tipo_movimento) return;
 
-            this.mixinAlertCarregando(true);
-
             await axios
                 .get(
                     ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-dois.php',
@@ -106,8 +104,6 @@ Vue.component('tela-incluir-alterar',{
                     }
 
                     this.arrTipoGrupoII = response.data.retorno;
-
-                    this.mixinAlertCarregando(false);
                 })
                 .catch(error => {
                     console.error(error);;
@@ -117,8 +113,6 @@ Vue.component('tela-incluir-alterar',{
         async carregarOpcoesGrupoIII() {
             this.arrTipoGrupoIII = [];
             if (!this.objDados.objTipoGrupoII?.cd_opcao) return;
-
-            this.mixinAlertCarregando(true);
 
             await axios
                 .get(
@@ -136,11 +130,9 @@ Vue.component('tela-incluir-alterar',{
                     }
 
                     this.arrTipoGrupoIII = response.data.retorno;
-
-                    this.mixinAlertCarregando(false);
                 })
                 .catch(error => {
-                console.error(error);;
+                    console.error(error);;
                 });
         },
 
