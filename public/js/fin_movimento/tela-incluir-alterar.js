@@ -69,7 +69,6 @@ Vue.component('tela-incluir-alterar',{
                 dt_pgto: null,
                 vl_original: '0,00',
                 vl_pago: '0,00',
-                vl_dif_pgto: '0,00',
                 nr_parcela_atual: '1',
                 nr_qtd_parcelas: '1',
                 objTipoGrupoI: null,
@@ -81,37 +80,6 @@ Vue.component('tela-incluir-alterar',{
                 ds_media_gastos: null,
                 sn_real: '1'
             }
-        },
-
-        getVlDifPgto() {
-            let vl_original = this.objDados.vl_original ?? '0';
-            vl_original = vl_original.replace(/\D/g,''); // remove todos os caracteres não númericos
-            vl_original = parseFloat(vl_original);
-
-            let vl_pago = this.objDados.vl_pago ?? '0';
-            vl_pago = vl_pago.replace(/\D/g,''); // remove todos os caracteres não númericos
-            vl_pago = parseFloat(vl_pago);
-
-            let vl_dif_pgto = vl_original - vl_pago;
-            let ds_valor_dif_pgto = vl_dif_pgto.toString();
-            let nr_caracteres = ds_valor_dif_pgto.length;
-
-            if (nr_caracteres > 2) {
-                let ds_valor_dif_pgto_inteiro = parseInt(ds_valor_dif_pgto.substr(0, nr_caracteres - 2), 10);
-                let ds_valor_dif_pgto_decimal = ds_valor_dif_pgto.substr(nr_caracteres - 2, 2);
-
-                return ds_valor_dif_pgto_inteiro + ',' + ds_valor_dif_pgto_decimal;
-            }
-
-            if (nr_caracteres == 2) {
-                return '0,' + ds_valor_dif_pgto;
-            }
-
-            if (nr_caracteres == 1) {
-                return '0,0' + ds_valor_dif_pgto;
-            }
-
-            return '0,00';
         }
     },
     methods:{
@@ -178,7 +146,6 @@ Vue.component('tela-incluir-alterar',{
 
         getDadosPostPreparados() {
             let objDados = {...this.objDados};
-            objDados.vl_dif_pgto = this.getVlDifPgto;
             objDados.cd_tipo_grupo_i = objDados.objTipoGrupoI?.cd_opcao;
             objDados.cd_tipo_grupo_ii = objDados.objTipoGrupoII?.cd_opcao;
             objDados.cd_tipo_grupo_iii = objDados.objTipoGrupoIII?.cd_opcao;
@@ -218,16 +185,12 @@ Vue.component('tela-incluir-alterar',{
             arrValor = this.getValorParcela(objDados.vl_pago, objDados.nr_qtd_parcelas);
             let vl_pago_parcela = arrValor[0], vl_pago_ultima_parcela = arrValor[1];
 
-            arrValor = this.getValorParcela(objDados.vl_dif_pgto, objDados.nr_qtd_parcelas);
-            let vl_dif_pgto_parcela = arrValor[0], vl_dif_pgto_ultima_parcela = arrValor[1];
-
             for (let nr_parcela = 1; nr_parcela <= objDados.nr_qtd_parcelas; nr_parcela++) {
                 let objTemp = {...objDados};
 
                 objTemp.nr_parcela_atual = nr_parcela;
                 objTemp.vl_original = nr_parcela < objDados.nr_qtd_parcelas ? vl_original_parcela : vl_original_ultima_parcela;
                 objTemp.vl_pago = nr_parcela < objDados.nr_qtd_parcelas ? vl_pago_parcela : vl_pago_ultima_parcela;
-                objTemp.vl_dif_pgto = nr_parcela < objDados.nr_qtd_parcelas ? vl_dif_pgto_parcela : vl_dif_pgto_ultima_parcela;
 
                 arrParcelas.push(objTemp);
             }
@@ -340,7 +303,6 @@ Vue.component('tela-incluir-alterar',{
 
             this.objDados.vl_original = this.mixinMonetarioFormatado(this.objDados.vl_original);
             this.objDados.vl_pago = this.mixinMonetarioFormatado(this.objDados.vl_pago);
-            this.objDados.vl_dif_pgto = this.mixinMonetarioFormatado(this.objDados.vl_dif_pgto);
 
             this.arrTipoGrupoI.forEach(objOpcao => {
                 if (objOpcao.cd_opcao == this.objDados.cd_tipo_grupo_i){

@@ -159,7 +159,7 @@
                             <label for="vl_pago">Valor pago</label>
                         </div>
                         <div class="input-field col s12 m4">
-                            <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" :value="getVlDifPgto" disabled>
+                            <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" :value="mixinGetVlDifPgto(objDados.vl_original, objDados.vl_pago)" disabled>
                             <label for="vl_dif_pgto">Diferença pagamento</label>
                         </div>
                     </div>

@@ -70,7 +70,7 @@ class MovimentoSql
                     DATE_FORMAT(fm.dt_pgto,'%d/%m/%Y') AS dt_pgto,
                     fm.vl_original,
                     fm.vl_pago,
-                    fm.vl_dif_pgto,
+                    COALESCE(fm.vl_original, 0) - COALESCE(fm.vl_pago, 0) AS vl_dif_pgto,
                     fm.nr_parcela_atual,
                     fm.nr_qtd_parcelas,
                     tg1.cd_tipo_grupo_i,
@@ -197,7 +197,6 @@ class MovimentoSql
 
         $arrDados['vl_original'] = str_replace(",", ".", $arrDados['vl_original']);
         $arrDados['vl_pago'] = str_replace(",", ".", $arrDados['vl_pago']);
-        $arrDados['vl_dif_pgto'] = str_replace(",", ".", $arrDados['vl_dif_pgto']);
 
         return $arrDados;
     }
@@ -215,7 +214,6 @@ class MovimentoSql
                     DATE_FORMAT(dt_pgto, '%Y-%m-%d %H:%i:%s') as dt_pgto,
                     vl_original,
                     vl_pago,
-                    vl_dif_pgto,
                     nr_parcela_atual,
                     nr_qtd_parcelas,
                     cd_tipo_grupo_i,
@@ -289,7 +287,6 @@ class MovimentoSql
             'dt_compra' => 'Data compra',
             'dt_vcto' => 'Data vencimento',
             'vl_original' => 'Valor original',
-            'vl_dif_pgto' => 'Diferença pagamento',
             'nr_parcela_atual' => 'Parcela atual',
             'nr_qtd_parcelas' => 'Quantidade parcelas',
             'cd_tipo_grupo_i' => 'Grupo 1',
