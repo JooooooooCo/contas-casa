@@ -2,7 +2,7 @@
 // Definir as configurações do sistema e renomear este arquivo para "config.php"
 
 // Define as configurações de conexão com o banco
-define("BANCO", 'mysql:host=XXXXXX;port=XXXXXX;dbname=XXXXXX');
+define("BANCO", 'mysql:host=XXXXXX;port=XXXXXX;dbname=XXXXXX;charset=utf8');
 define("BANCO_USUARIO", 'XXXXXX');
 define("BANCO_SENHA", 'XXXXXX');
 
