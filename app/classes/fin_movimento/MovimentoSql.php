@@ -133,6 +133,10 @@ class MovimentoSql
                     tp.ds_tipo_pgto ASC,
                     fm.dt_compra ASC
             ")->read();
+
+            if (count($arrRetorno['retorno']) > 1000) {
+                throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 1.000 registros.');
+            }
         } catch(\Exception $e) {
             $arrRetorno = [
                 'sucesso' => false,
