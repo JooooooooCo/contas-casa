@@ -54,8 +54,41 @@ class MovimentoSql
         echo json_encode($arrRetorno);
     }
 
-    public function read() {
+    public function read(Movimento $m) {
         try {
+            $arrFiltros = $m->getArrFiltros();
+
+            $ds_condicoes = "fm.cd_centro_custo = $this->cd_centro_custo";
+
+            if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
+                $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'];
+            }
+
+            $ano = date('Y');
+            $mes = date('m');
+            switch ($arrFiltros['cd_tipo_data']) {
+                case 1:
+                    if ($mes == '01') {
+                        $mes = '12';
+                        $ano = $ano - 1;
+                    } else {
+                        $mes = $mes - 1;
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if ($mes == '12') {
+                        $mes = '01';
+                        $ano = $ano + 1;
+                    } else {
+                        $mes = $mes + 1;
+                    }
+                    break;
+            }
+
+            $ds_condicoes .= " AND fm.dt_vcto > '$ano-$mes-01' AND fm.dt_vcto < '$ano-$mes-31'";
+
             $arrRetorno = $this->ExecutaSql->setDsSql("
                 SELECT
                     fm.cd_movimento,
@@ -93,7 +126,7 @@ class MovimentoSql
                     LEFT JOIN tipo_grupo_ii tg2 ON (tg2.cd_tipo_grupo_ii = fm.cd_tipo_grupo_ii)
                     LEFT JOIN tipo_grupo_iii tg3 ON (tg3.cd_tipo_grupo_iii = fm.cd_tipo_grupo_iii)
                 WHERE
-                    fm.cd_centro_custo = $this->cd_centro_custo
+                    $ds_condicoes
             ")->read();
         } catch(\Exception $e) {
             $arrRetorno = [

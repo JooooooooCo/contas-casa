@@ -2,6 +2,7 @@ new Vue({
     mixins: [mixinGerais, mixinAlert],
     el: '#tela-listagem',
     data: {
+        sn_exibir_filtro: false,
         sn_exibir_logout: false,
         arrTipoMovimento: [],
         arrTipoPgto: [],
@@ -15,7 +16,8 @@ new Vue({
         sn_collapses_abertas: false,
         sn_grid_completa: false,
         gridOptions: null,
-        objMovimentoSelecionado: null
+        objMovimentoSelecionado: null,
+        objFiltros: null
     },
 
     computed: {
@@ -36,6 +38,36 @@ new Vue({
         },
         snPossuiRegistros() {
             return this.arrMovimentos?.length > 0 ? true : false;
+        },
+        getObjFiltrosPadrao() {
+            return {
+                cd_tipo_situacao_pgto: -1,
+                cd_tipo_data: 2
+            }
+        },
+        getOpcoesFiltroSituacao() {
+            let arrRetorno = this.arrTipoSituacaoPgto;
+            arrRetorno.push({
+                cd_opcao: -1,
+                ds_opcao: 'Todos'
+            });
+            return arrRetorno;
+        },
+        getOpcoesFiltroDatas() {
+            return [
+                {
+                    cd_opcao: 1,
+                    ds_opcao: 'MÊS ANTERIOR'
+                },
+                {
+                    cd_opcao: 2,
+                    ds_opcao: 'MÊS ATUAL'
+                },
+                {
+                    cd_opcao: 3,
+                    ds_opcao: 'MÊS SEGUINTE'
+                }
+            ];
         }
     },
     methods: {
@@ -102,9 +134,9 @@ new Vue({
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar.php', {
-                    // params: {
-                    //     ID: 12345
-                    // }
+                    params: {
+                        objFiltros: this.objFiltros
+                    }
                 })
                 .then(async (response) => {
                     if (!response.data.sucesso) {
@@ -406,6 +438,8 @@ new Vue({
         async filtrarGrid() {
             await this.listarMovimento();
 
+            this.sn_exibir_filtro = false;
+
             this.nr_linhas_selecionadas = 0;
 
             this.inicializarGrid();
@@ -416,7 +450,16 @@ new Vue({
 
             await this.filtrarGrid();
         },
+
+        resetarObjFiltros() {
+            this.objFiltros = {...this.getObjFiltrosPadrao};
+        },
     },
+
+    created() {
+        this.resetarObjFiltros();
+    },
+
     async mounted () {
         await this.carregarOpcoesSelects();
 

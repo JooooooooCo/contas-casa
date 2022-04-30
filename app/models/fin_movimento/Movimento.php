@@ -18,6 +18,10 @@ class Movimento {
         return $this->arrCdMovimento;
     }
 
+    public function getArrFiltros() {
+        return $this->arrFiltros;
+    }
+
     public function setArrDados($arrDados) {
         $this->arrDados = (array) $arrDados;
     }
@@ -28,5 +32,9 @@ class Movimento {
 
     public function setArrCdMovimento($arrCdMovimento) {
         $this->arrCdMovimento = $arrCdMovimento;
+    }
+
+    public function setArrFiltros($arrFiltros) {
+        $this->arrFiltros = $arrFiltros;
     }
 }

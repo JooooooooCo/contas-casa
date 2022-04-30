@@ -66,6 +66,15 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             <i class="material-icons" v-show="sn_exibicao_grid">view_list</i>
                             <i class="material-icons" v-show="!sn_exibicao_grid">view_module</i>
                         </a>
+                        <a  href="#"
+                            name="btn-filtro"
+                            class="btn white-text blue-grey darken-3 botao-icone tooltipped mar-top-5"
+                            data-position="bottom"
+                            data-tooltip="Filtros"
+                            @click="sn_exibir_filtro = !sn_exibir_filtro"
+                        >
+                            <i class="material-icons">filter_list</i>
+                        </a>
                     </div>
                     <div class ="col s6 right-align valign">
                         <a  href="#"
@@ -91,6 +100,40 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             :disabled="!snLinhasSelecionadas"
                             @click="removerMovimento()"
                         ><i class="material-icons">delete</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" v-show="sn_exibir_filtro">
+                <div class='col s12'>
+                    <div class="z-depth-1 card-padrao">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="col s12 white-text mar-top-10">
+                                    <b>FILTROS</b>
+                                </div>
+
+                                <div class="col s12">
+                                    <v-radio-button
+                                        v-model="objFiltros.cd_tipo_situacao_pgto"
+                                        :arr-obj-opcoes="getOpcoesFiltroSituacao"
+                                        label="Situação"
+                                    ></v-radio-button>
+                                </div>
+
+                                <div class="col s12 mar-bottom-10">
+                                    <v-radio-button
+                                        v-model="objFiltros.cd_tipo_data"
+                                        :arr-obj-opcoes="getOpcoesFiltroDatas"
+                                        label="Data (Vencimento)"
+                                    ></v-radio-button>
+                                </div>
+
+                                <div class="input-field col s12">
+                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="filtrarGrid()">Filtrar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
