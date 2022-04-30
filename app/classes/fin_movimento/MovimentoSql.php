@@ -127,6 +127,11 @@ class MovimentoSql
                     LEFT JOIN tipo_grupo_iii tg3 ON (tg3.cd_tipo_grupo_iii = fm.cd_tipo_grupo_iii)
                 WHERE
                     $ds_condicoes
+                ORDER BY
+                    fm.dt_vcto ASC,
+                    tm.ds_tipo_movimento DESC,
+                    tp.ds_tipo_pgto ASC,
+                    fm.dt_compra ASC
             ")->read();
         } catch(\Exception $e) {
             $arrRetorno = [
