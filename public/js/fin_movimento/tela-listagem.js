@@ -55,7 +55,8 @@ new Vue({
                 cd_tipo_situacao_pgto: -1,
                 dt_inicio: null,
                 dt_fim: null,
-                ds_movimento: null
+                ds_movimento: null,
+                sn_somente_adicionados_hoje: false
             }
         },
         getOpcoesFiltroTipoMovimento() {

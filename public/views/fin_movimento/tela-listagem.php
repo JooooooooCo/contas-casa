@@ -152,6 +152,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                             id="dt_inicio"
                                             v-model="objFiltros.dt_inicio"
                                             v-mask="'##/##/####'"
+                                            :disabled="objFiltros.sn_somente_adicionados_hoje"
                                             @click="mixinShowDatePicker('dt_inicio')"
                                             @keyup="mixinHideDatePicker('dt_inicio')"
                                             class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
@@ -176,6 +177,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                             id="dt_fim"
                                             v-model="objFiltros.dt_fim"
                                             v-mask="'##/##/####'"
+                                            :disabled="objFiltros.sn_somente_adicionados_hoje"
                                             @click="mixinShowDatePicker('dt_fim')"
                                             @keyup="mixinHideDatePicker('dt_fim')"
                                             class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
@@ -193,9 +195,18 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     </div>
 
                                     <div :class="isMobile ? 'col s12 m6' : 'col s12 m6 mar-top-30'">
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(1)">Mês Anterior</a>
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(2)">Mês Atual</a>
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(3)">Mês Seguinte</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5"
+                                            :disabled="objFiltros.sn_somente_adicionados_hoje"
+                                            @click="alterarFiltroData(1)"
+                                        >Mês Anterior</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5"
+                                            :disabled="objFiltros.sn_somente_adicionados_hoje"
+                                            @click="alterarFiltroData(2)"
+                                        >Mês Atual</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5"
+                                            :disabled="objFiltros.sn_somente_adicionados_hoje"
+                                            @click="alterarFiltroData(3)"
+                                        >Mês Seguinte</a>
                                     </div>
                                 </div>
 
@@ -203,6 +214,19 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     <div class="input-field col s12 l6">
                                         <input type="text" name="ds_movimento_filtro" id="ds_movimento_filtro" v-model="objFiltros.ds_movimento">
                                         <label for="ds_movimento_filtro">Descrição pessoal</label>
+                                    </div>
+
+                                    <div class="col s12 l6 mar-top-30">
+                                        <label>
+                                            <input
+                                                class="filled-in"
+                                                type="checkbox"
+                                                id="sn_somente_adicionados_hoje"
+                                                name="sn_somente_adicionados_hoje"
+                                                v-model="objFiltros.sn_somente_adicionados_hoje"
+                                            />
+                                            <span>Somente adicionados hoje</span>
+                                        </label>
                                     </div>
                                 </div>
 

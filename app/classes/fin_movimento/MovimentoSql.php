@@ -72,12 +72,16 @@ class MovimentoSql
                 $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
             }
 
-            if ($arrFiltros['dt_inicio']) {
-                $ds_condicoes .= " AND fm.dt_vcto >= '" . $arrFiltros['dt_inicio'] . "' ";
-            }
+            if ($arrFiltros['sn_somente_adicionados_hoje']) {
+                $ds_condicoes .= " AND fm.dt_inclusao >= NOW() ";
+            } else {
+                if ($arrFiltros['dt_inicio']) {
+                    $ds_condicoes .= " AND fm.dt_vcto >= '" . $arrFiltros['dt_inicio'] . "' ";
+                }
 
-            if ($arrFiltros['dt_fim']) {
-                $ds_condicoes .= " AND fm.dt_vcto <= '" . $arrFiltros['dt_fim'] . "' ";
+                if ($arrFiltros['dt_fim']) {
+                    $ds_condicoes .= " AND fm.dt_vcto <= '" . $arrFiltros['dt_fim'] . "' ";
+                }
             }
 
             if ($arrFiltros['ds_movimento']) {
