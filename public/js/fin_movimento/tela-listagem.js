@@ -13,7 +13,7 @@ new Vue({
         sn_tela_listagem: true,
         sn_alterar: false,
         nr_linhas_selecionadas: 0,
-        sn_exibicao_grid: true,
+        sn_exibicao_grid: false,
         sn_collapses_abertas: false,
         sn_grid_completa: false,
         gridOptions: null,
@@ -233,20 +233,20 @@ new Vue({
 
                         if (sn_par) {
                             if (params.data.cd_tipo_movimento == '1') {
-                                return {backgroundColor: 'rgb(183 28 28 / 50%)'};
+                                return {backgroundColor: 'rgb(183, 28, 28, 0.5)'};
                             }
 
                             if (params.data.cd_tipo_movimento == '2') {
-                                return {backgroundColor: 'rgb(15 82 70 / 50%)'};
+                                return {backgroundColor: 'rgb(15, 82, 70, 0.5)'};
                             }
                         }
 
                         if (params.data.cd_tipo_movimento == '1') {
-                            return {backgroundColor: 'rgb(190 51 51 / 50%)'};
+                            return {backgroundColor: 'rgb(190, 51, 51, 0.5)'};
                         }
 
                         if (params.data.cd_tipo_movimento == '2') {
-                            return {backgroundColor: 'rgb(40 85 77 / 50%)'};
+                            return {backgroundColor: 'rgb(40, 85, 77, 0.5)'};
                         }
 
                         return null;
@@ -563,6 +563,11 @@ new Vue({
             this.objFiltros.dt_fim = ultimo_dia + '/' + mes + '/' + ano;
             this.mixinAtualizarMaterialize();
         },
+
+        getCollapseHeaderStyle(index) {
+            let sn_par = !(index % 2);
+            return sn_par ? 'background-color: #242d33;' : 'background-color: #2a353c;';
+        }
     },
 
     created() {
@@ -581,10 +586,6 @@ new Vue({
         window.addEventListener("resize", this.mixinCheckIsMobile);
 
         this.mixinCheckIsMobile();
-
-        if (this.isMobile) {
-            this.sn_exibicao_grid = false;
-        }
     }
 })
 

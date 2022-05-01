@@ -241,26 +241,35 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             <div class="row" v-show="!sn_exibicao_grid && snPossuiRegistros">
                 <div class ="col s12 valign-wrapper">
                     <ul class="collapsible col s12">
-                        <li v-for="objMovimento in arrMovimentos" :key="objMovimento.cd_movimento">
-                            <div class="collapsible-header" @click="clicouCollapse(objMovimento.cd_movimento)">
-                                <i class="material-icons" :id="'checkbox-cd-movimento-' + objMovimento.cd_movimento">check_box_outline_blank</i>
+                        <li v-for="(objMovimento, index) in arrMovimentos" :key="objMovimento.cd_movimento">
+                            <div class="collapsible-header" :style="getCollapseHeaderStyle(index)" @click="clicouCollapse(objMovimento.cd_movimento)">
+                                <div class="col s10">
+                                    <i class="material-icons" :id="'checkbox-cd-movimento-' + objMovimento.cd_movimento">check_box_outline_blank</i>
 
-                                <span class="texto-uppercase">
-                                    {{objMovimento.dt_vcto}} - R$ {{objMovimento.vl_original}}
-                                    - {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
-                                    - {{objMovimento.ds_movimento}} (Cód {{objMovimento.cd_movimento}})
-                                </span>
+                                    <span class="texto-uppercase">
+                                        <b>{{objMovimento.dt_vcto}}</b> | R$ {{objMovimento.vl_original}}
+                                        | {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                        | {{objMovimento.ds_movimento.substring(1, 80)}} | Cód {{objMovimento.cd_movimento}}
+                                    </span>
+                                </div>
+
+                                <div class="col s2 right-align" v-show="objMovimento.cd_tipo_movimento == 1">
+                                    <i class="material-icons red-text" style="margin: 0px;">attach_money</i>
+                                    <i class="material-icons red-text" style="margin: 0px;">arrow_downward</i>
+                                </div>
+
+                                <div class="col s2 right-align" v-show="objMovimento.cd_tipo_movimento == 2">
+                                    <i class="material-icons green-text" style="margin: 0px;">attach_money</i>
+                                    <i class="material-icons green-text" style="margin: 0px;">arrow_upward</i>
+                                </div>
                             </div>
-                            <div class="collapsible-body">
+                            <div class="collapsible-body card-padrao">
                                 <div class='row'>
                                     <div class="col s4">
                                         <b>Código:</b> {{objMovimento.cd_movimento}}
                                     </div>
-                                    <div class="col s4">
+                                    <div class="col s8">
                                         <b>Descrição:</b> {{objMovimento.ds_movimento}}
-                                    </div>
-                                    <div class="col s4">
-                                        &nbsp
                                     </div>
                                 </div>
 
