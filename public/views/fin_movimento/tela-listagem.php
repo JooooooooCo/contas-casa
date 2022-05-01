@@ -109,28 +109,85 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <div class="z-depth-1 card-padrao">
                         <div class="row">
                             <div class="col s12">
-                                <div class="col s12 white-text mar-top-10">
-                                    <b>FILTROS</b>
+                                <div class="row mar-bottom-0">
+                                    <div class="col s12 white-text mar-top-10">
+                                        <b>FILTROS</b>
+                                    </div>
                                 </div>
 
-                                <div class="col s12">
-                                    <v-radio-button
-                                        v-model="objFiltros.cd_tipo_situacao_pgto"
-                                        :arr-obj-opcoes="getOpcoesFiltroSituacao"
-                                        label="Situação"
-                                    ></v-radio-button>
+                                <div class="row mar-bottom-0">
+                                    <div class="col s12">
+                                        <v-radio-button
+                                            v-model="objFiltros.cd_tipo_situacao_pgto"
+                                            :arr-obj-opcoes="getOpcoesFiltroSituacao"
+                                            label="Situação"
+                                        ></v-radio-button>
+                                    </div>
                                 </div>
 
-                                <div class="col s12 mar-bottom-10">
-                                    <v-radio-button
-                                        v-model="objFiltros.cd_tipo_data"
-                                        :arr-obj-opcoes="getOpcoesFiltroDatas"
-                                        label="Data (Vencimento)"
-                                    ></v-radio-button>
+                                <div class="row mar-bottom-0">
+                                    <div class="input-field col s12 m4 l3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_inicio')">
+                                        <input
+                                            type="text"
+                                            autocomplete="off"
+                                            name="dt_inicio"
+                                            id="dt_inicio"
+                                            v-model="objFiltros.dt_inicio"
+                                            v-mask="'##/##/####'"
+                                            @click="mixinShowDatePicker('dt_inicio')"
+                                            @keyup="mixinHideDatePicker('dt_inicio')"
+                                            class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
+                                        />
+                                        <label for="dt_inicio">Vencimento início</label>
+                                        <v-date-picker
+                                            class="inline-block h-full"
+                                            v-model="objFiltros.dt_inicio"
+                                            v-if="objDatePickerExibir.dt_inicio"
+                                            :model-config="modelConfigDatePicker"
+                                            color="teal"
+                                            is-dark
+                                            @input="mixinHideDatePicker('dt_inicio')"
+                                        ></v-date-picker>
+                                    </div>
+
+                                    <div class="input-field col s12 m4 l3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_fim')">
+                                        <input
+                                            type="text"
+                                            autocomplete="off"
+                                            name="dt_fim"
+                                            id="dt_fim"
+                                            v-model="objFiltros.dt_fim"
+                                            v-mask="'##/##/####'"
+                                            @click="mixinShowDatePicker('dt_fim')"
+                                            @keyup="mixinHideDatePicker('dt_fim')"
+                                            class="bg-white text-gray-700 w-full py-1 px-2 appearance-none border rounded-r focus:outline-none focus:border-blue-500"
+                                        />
+                                        <label for="dt_fim">Vencimento fim</label>
+                                        <v-date-picker
+                                            class="inline-block h-full"
+                                            v-model="objFiltros.dt_fim"
+                                            v-if="objDatePickerExibir.dt_fim"
+                                            :model-config="modelConfigDatePicker"
+                                            color="teal"
+                                            is-dark
+                                            @input="mixinHideDatePicker('dt_fim')"
+                                        ></v-date-picker>
+                                    </div>
                                 </div>
 
-                                <div class="input-field col s12">
-                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="filtrarGrid()">Filtrar</a>
+                                <div class="row">
+                                    <div class="col s12 mar-bottom-10">
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(1)">Mês Anterior</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(2)">Mês Atual</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(3)">Mês Seguinte</a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="filtrarGrid()">Filtrar</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="resetarObjFiltros()">Limpar</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

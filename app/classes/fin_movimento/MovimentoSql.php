@@ -61,33 +61,16 @@ class MovimentoSql
             $ds_condicoes = "fm.cd_centro_custo = $this->cd_centro_custo";
 
             if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
-                $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'];
+                $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
             }
 
-            $ano = date('Y');
-            $mes = date('m');
-            switch ($arrFiltros['cd_tipo_data']) {
-                case 1:
-                    if ($mes == '01') {
-                        $mes = '12';
-                        $ano = $ano - 1;
-                    } else {
-                        $mes = $mes - 1;
-                    }
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    if ($mes == '12') {
-                        $mes = '01';
-                        $ano = $ano + 1;
-                    } else {
-                        $mes = $mes + 1;
-                    }
-                    break;
+            if ($arrFiltros['dt_inicio']) {
+                $ds_condicoes .= " AND fm.dt_vcto >= '" . $arrFiltros['dt_inicio'] . "' ";
             }
 
-            $ds_condicoes .= " AND fm.dt_vcto > '$ano-$mes-01' AND fm.dt_vcto < '$ano-$mes-31'";
+            if ($arrFiltros['dt_fim']) {
+                $ds_condicoes .= " AND fm.dt_vcto <= '" . $arrFiltros['dt_fim'] . "' ";
+            }
 
             $arrRetorno = $this->ExecutaSql->setDsSql("
                 SELECT

@@ -17,7 +17,15 @@ new Vue({
         sn_grid_completa: false,
         gridOptions: null,
         objMovimentoSelecionado: null,
-        objFiltros: null
+        objFiltros: null,
+        modelConfigDatePicker: {
+            type: 'string',
+            mask: 'DD/MM/YYYY',
+        },
+        objDatePickerExibir: {
+            dt_inicio: false,
+            dt_fim: false
+        },
     },
 
     computed: {
@@ -42,7 +50,8 @@ new Vue({
         getObjFiltrosPadrao() {
             return {
                 cd_tipo_situacao_pgto: -1,
-                cd_tipo_data: 2
+                dt_inicio: null,
+                dt_fim: null
             }
         },
         getOpcoesFiltroSituacao() {
@@ -52,22 +61,6 @@ new Vue({
                 ds_opcao: 'Todos'
             });
             return arrRetorno;
-        },
-        getOpcoesFiltroDatas() {
-            return [
-                {
-                    cd_opcao: 1,
-                    ds_opcao: 'MÊS ANTERIOR'
-                },
-                {
-                    cd_opcao: 2,
-                    ds_opcao: 'MÊS ATUAL'
-                },
-                {
-                    cd_opcao: 3,
-                    ds_opcao: 'MÊS SEGUINTE'
-                }
-            ];
         }
     },
     methods: {
@@ -129,13 +122,24 @@ new Vue({
                 });
         },
 
+        formatarDataPadraoBanco(ds_data) {
+            if (!ds_data) return null;
+
+            let arrDateParts = ds_data.split('/');
+            return arrDateParts[2] + '-' + arrDateParts[1] + '-' + arrDateParts[0];
+        },
+
         async listarMovimento() {
             this.mixinAlertCarregando(true);
+
+            let objFiltros = {...this.objFiltros};
+            objFiltros.dt_inicio = this.formatarDataPadraoBanco(objFiltros.dt_inicio);
+            objFiltros.dt_fim = this.formatarDataPadraoBanco(objFiltros.dt_fim);
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar.php', {
                     params: {
-                        objFiltros: this.objFiltros
+                        objFiltros: objFiltros
                     }
                 })
                 .then(async (response) => {
@@ -454,6 +458,44 @@ new Vue({
         resetarObjFiltros() {
             this.objFiltros = {...this.getObjFiltrosPadrao};
         },
+
+        alterarFiltroData(cd_tipo_data) {
+            if (cd_tipo_data < 1) return;
+
+            let data = new Date();
+            let ano = data.getFullYear();
+            let mes = data.getMonth() + 1;
+
+            switch (cd_tipo_data) {
+                case 1:
+                    if (mes == 1) {
+                        mes = 12;
+                        ano = ano - 1;
+                    } else {
+                        mes = mes - 1;
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (mes == 12) {
+                        mes = 1;
+                        ano = ano + 1;
+                    } else {
+                        mes = mes + 1;
+                    }
+                    break;
+            }
+
+            let ultimo_dia = new Date(ano, mes, 0).getDate();
+
+            mes = mes.toString();
+            mes = mes.length == 1 ? '0' + mes : mes;
+
+            this.objFiltros.dt_inicio = '01/' + mes + '/' + ano;
+            this.objFiltros.dt_fim = ultimo_dia + '/' + mes + '/' + ano;
+            this.mixinAtualizarMaterialize();
+        },
     },
 
     created() {
@@ -461,6 +503,8 @@ new Vue({
     },
 
     async mounted () {
+        this.alterarFiltroData(2);
+
         await this.carregarOpcoesSelects();
 
         await this.filtrarGrid();
