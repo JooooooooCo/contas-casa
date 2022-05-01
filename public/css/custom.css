@@ -9,6 +9,10 @@ body {
     padding-right: 20px;
 }
 
+.ag-grid-header-special{
+    background-color: #354046;
+}
+
 .texto-uppercase {
     text-transform: uppercase;
 }

@@ -223,11 +223,34 @@ new Vue({
                 },
                 {
                     headerName: "Dt Vcto",
+                    headerClass: 'ag-grid-header-special',
                     field: "dt_vcto",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams,
-                    cellStyle: {'font-weight': 'bold', 'background-color': '#006156'}
+                    cellStyle: (params) => {
+                        let sn_par = !(params.rowIndex % 2);
+
+                        if (sn_par) {
+                            if (params.data.cd_tipo_movimento == '1') {
+                                return {backgroundColor: 'rgb(183 28 28 / 50%)'};
+                            }
+
+                            if (params.data.cd_tipo_movimento == '2') {
+                                return {backgroundColor: 'rgb(15 82 70 / 50%)'};
+                            }
+                        }
+
+                        if (params.data.cd_tipo_movimento == '1') {
+                            return {backgroundColor: 'rgb(190 51 51 / 50%)'};
+                        }
+
+                        if (params.data.cd_tipo_movimento == '2') {
+                            return {backgroundColor: 'rgb(40 85 77 / 50%)'};
+                        }
+
+                        return null;
+                    }
                 },
                 {
                     headerName: "Dt Pgto",
@@ -238,10 +261,34 @@ new Vue({
                 },
                 {
                     headerName: "Vl Original",
+                    headerClass: 'ag-grid-header-special',
                     field: "vl_original",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid,
+                    cellStyle: (params) => {
+                        let sn_par = !(params.rowIndex % 2);
+
+                        if (sn_par) {
+                            if (params.data.cd_tipo_movimento == '1') {
+                                return {backgroundColor: 'rgb(183 28 28 / 50%)'};
+                            }
+
+                            if (params.data.cd_tipo_movimento == '2') {
+                                return {backgroundColor: 'rgb(15 82 70 / 50%)'};
+                            }
+                        }
+
+                        if (params.data.cd_tipo_movimento == '1') {
+                            return {backgroundColor: 'rgb(190 51 51 / 50%)'};
+                        }
+
+                        if (params.data.cd_tipo_movimento == '2') {
+                            return {backgroundColor: 'rgb(40 85 77 / 50%)'};
+                        }
+
+                        return null;
+                    }
                 },
                 {
                     headerName: "Vl Pago",
