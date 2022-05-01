@@ -2,6 +2,7 @@ new Vue({
     mixins: [mixinGerais, mixinAlert],
     el: '#tela-listagem',
     data: {
+        isMobile: false,
         sn_exibir_filtro: false,
         sn_exibir_logout: false,
         arrTipoMovimento: [],
@@ -49,10 +50,21 @@ new Vue({
         },
         getObjFiltrosPadrao() {
             return {
+                cd_tipo_movimento: -1,
+                cd_tipo_pgto: -1,
                 cd_tipo_situacao_pgto: -1,
                 dt_inicio: null,
-                dt_fim: null
+                dt_fim: null,
+                ds_movimento: null
             }
+        },
+        getOpcoesFiltroTipoMovimento() {
+            let arrRetorno = this.arrTipoMovimento;
+            arrRetorno.push({
+                cd_opcao: -1,
+                ds_opcao: 'Todos'
+            });
+            return arrRetorno;
         },
         getOpcoesFiltroSituacao() {
             let arrRetorno = this.arrTipoSituacaoPgto;
@@ -61,7 +73,15 @@ new Vue({
                 ds_opcao: 'Todos'
             });
             return arrRetorno;
-        }
+        },
+        getOpcoesFiltroTipoPgto() {
+            let arrRetorno = this.arrTipoPgto;
+            arrRetorno.push({
+                cd_opcao: -1,
+                ds_opcao: 'Todos'
+            });
+            return arrRetorno;
+        },
     },
     methods: {
         async carregarOpcoesSelects() {

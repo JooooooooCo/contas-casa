@@ -60,6 +60,14 @@ class MovimentoSql
 
             $ds_condicoes = "fm.cd_centro_custo = $this->cd_centro_custo";
 
+            if ($arrFiltros['cd_tipo_movimento'] > 0) {
+                $ds_condicoes .= " AND tm.cd_tipo_movimento = " . $arrFiltros['cd_tipo_movimento'] . " ";
+            }
+
+            if ($arrFiltros['cd_tipo_pgto'] > 0) {
+                $ds_condicoes .= " AND tp.cd_tipo_pgto = " . $arrFiltros['cd_tipo_pgto'] . " ";
+            }
+
             if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
                 $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
             }
@@ -70,6 +78,10 @@ class MovimentoSql
 
             if ($arrFiltros['dt_fim']) {
                 $ds_condicoes .= " AND fm.dt_vcto <= '" . $arrFiltros['dt_fim'] . "' ";
+            }
+
+            if ($arrFiltros['ds_movimento']) {
+                $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
             }
 
             $arrRetorno = $this->ExecutaSql->setDsSql("

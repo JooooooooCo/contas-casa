@@ -116,7 +116,25 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                 </div>
 
                                 <div class="row mar-bottom-0">
-                                    <div class="col s12">
+                                    <div class="col s12 m6">
+                                        <v-radio-button
+                                            v-model="objFiltros.cd_tipo_movimento"
+                                            :arr-obj-opcoes="getOpcoesFiltroTipoMovimento"
+                                            label="Tipo de movimento"
+                                        ></v-radio-button>
+                                    </div>
+
+                                    <div class="col s12 m6">
+                                        <v-radio-button
+                                            v-model="objFiltros.cd_tipo_pgto"
+                                            :arr-obj-opcoes="getOpcoesFiltroTipoPgto"
+                                            label="Modo de pagamento"
+                                        ></v-radio-button>
+                                    </div>
+                                </div>
+
+                                <div class="row mar-bottom-0">
+                                    <div class="col s12 m6">
                                         <v-radio-button
                                             v-model="objFiltros.cd_tipo_situacao_pgto"
                                             :arr-obj-opcoes="getOpcoesFiltroSituacao"
@@ -126,7 +144,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                 </div>
 
                                 <div class="row mar-bottom-0">
-                                    <div class="input-field col s12 m4 l3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_inicio')">
+                                    <div class="input-field col s12 m3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_inicio')">
                                         <input
                                             type="text"
                                             autocomplete="off"
@@ -150,7 +168,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                         ></v-date-picker>
                                     </div>
 
-                                    <div class="input-field col s12 m4 l3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_fim')">
+                                    <div class="input-field col s12 m3 mar-top-30" @mouseleave="mixinHideDatePicker('dt_fim')">
                                         <input
                                             type="text"
                                             autocomplete="off"
@@ -173,20 +191,25 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                             @input="mixinHideDatePicker('dt_fim')"
                                         ></v-date-picker>
                                     </div>
+
+                                    <div :class="isMobile ? 'col s12 m6' : 'col s12 m6 mar-top-30'">
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(1)">Mês Anterior</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(2)">Mês Atual</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="alterarFiltroData(3)">Mês Seguinte</a>
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col s12 mar-bottom-10">
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(1)">Mês Anterior</a>
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(2)">Mês Atual</a>
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="alterarFiltroData(3)">Mês Seguinte</a>
+                                <div class="row mar-top-10">
+                                    <div class="input-field col s12 l6">
+                                        <input type="text" name="ds_movimento_filtro" id="ds_movimento_filtro" v-model="objFiltros.ds_movimento">
+                                        <label for="ds_movimento_filtro">Descrição pessoal</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="filtrarGrid()">Filtrar</a>
-                                        <a class="btn white-text blue-grey darken-3 mar-right-5" @click="resetarObjFiltros()">Limpar</a>
+                                        <a class="btn darken-1 white-text teal darken-2 mar-right-5 mar-bottom-5" @click="filtrarGrid()">Filtrar</a>
+                                        <a class="btn white-text blue-grey darken-3 mar-right-5 mar-bottom-5" @click="resetarObjFiltros()">Limpar</a>
                                     </div>
                                 </div>
                             </div>
