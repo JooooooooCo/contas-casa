@@ -62,7 +62,7 @@ Vue.component('tela-incluir-alterar',{
             return {
                 cd_movimento: null,
                 cd_tipo_movimento: '1',
-                cd_tipo_pgto: null,
+                cd_tipo_pgto: -1,
                 cd_tipo_situacao_pgto: null,
                 dt_compra: this.getDataAtualFormatada,
                 dt_vcto: null,
