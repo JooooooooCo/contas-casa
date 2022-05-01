@@ -249,7 +249,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     <span class="texto-uppercase">
                                         <b>{{objMovimento.dt_vcto}}</b> | R$ {{objMovimento.vl_original}}
                                         | {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
-                                        | {{objMovimento.ds_movimento.substring(1, 80)}} | Cód {{objMovimento.cd_movimento}}
+                                        | {{objMovimento.ds_movimento.substring(0, 80)}} | Cód {{objMovimento.cd_movimento}}
                                     </span>
                                 </div>
 
