@@ -52,6 +52,7 @@ Vue.component('tela-incluir-alterar',{
         getDataAtualFormatada() {
             let dt_atual = new Date();
             let dia = dt_atual.getDate();
+            dia = dia.toString().length == 1 ? '0' + dia : dia;
             let mes = dt_atual.getMonth() + 1;
             mes = mes.toString().length == 1 ? '0' + mes : mes;
             let ano = dt_atual.getFullYear();
@@ -418,6 +419,7 @@ Vue.component('tela-incluir-alterar',{
                         }
 
                         let dia_vcto = dt_vcto.getDate();
+                        dia_vcto = dia_vcto.toString().length == 1 ? '0' + dia_vcto : dia_vcto;
                         let mes_vcto = dt_vcto.getMonth() + 1;
                         mes_vcto = mes_vcto.toString().length == 1 ? '0' + mes_vcto : mes_vcto;
                         let ano_vcto = dt_vcto.getFullYear();
