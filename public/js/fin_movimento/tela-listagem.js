@@ -214,7 +214,7 @@ new Vue({
                 },
                 { headerName: "Tipo", field: "ds_tipo_movimento", width: this.mixinGetLarguraPercJanela(6) },
                 { headerName: "Modo Pgto", field: "ds_tipo_pgto", width: this.mixinGetLarguraPercJanela(6) },
-                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: this.mixinGetLarguraPercJanela(6) },
+                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: this.mixinGetLarguraPercJanela(8) },
                 {
                     headerName: "Dt Compra",
                     field: "dt_compra",
@@ -230,24 +230,12 @@ new Vue({
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams,
                     cellStyle: (params) => {
-                        let sn_par = !(params.rowIndex % 2);
-
-                        if (sn_par) {
-                            if (params.data.cd_tipo_movimento == '1') {
-                                return {backgroundColor: 'rgb(183, 28, 28, 0.5)'};
-                            }
-
-                            if (params.data.cd_tipo_movimento == '2') {
-                                return {backgroundColor: 'rgb(15, 82, 70, 0.5)'};
-                            }
-                        }
-
                         if (params.data.cd_tipo_movimento == '1') {
-                            return {backgroundColor: 'rgb(190, 51, 51, 0.5)'};
+                            return {backgroundColor: '#be333333'};
                         }
 
                         if (params.data.cd_tipo_movimento == '2') {
-                            return {backgroundColor: 'rgb(40, 85, 77, 0.5)'};
+                            return {backgroundColor: '#28554d33'};
                         }
 
                         return null;
@@ -267,25 +255,14 @@ new Vue({
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
                     valueFormatter: this.mixinMonetarioFormatadoAgGrid,
+                    type: 'rightAligned',
                     cellStyle: (params) => {
-                        let sn_par = !(params.rowIndex % 2);
-
-                        if (sn_par) {
-                            if (params.data.cd_tipo_movimento == '1') {
-                                return {backgroundColor: 'rgb(183 28 28 / 50%)'};
-                            }
-
-                            if (params.data.cd_tipo_movimento == '2') {
-                                return {backgroundColor: 'rgb(15 82 70 / 50%)'};
-                            }
-                        }
-
                         if (params.data.cd_tipo_movimento == '1') {
-                            return {backgroundColor: 'rgb(190 51 51 / 50%)'};
+                            return {backgroundColor: '#be333333'};
                         }
 
                         if (params.data.cd_tipo_movimento == '2') {
-                            return {backgroundColor: 'rgb(40 85 77 / 50%)'};
+                            return {backgroundColor: '#28554d33'};
                         }
 
                         return null;
@@ -296,21 +273,23 @@ new Vue({
                     field: "vl_pago",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid,
+                    type: 'rightAligned'
                 },
                 {
                     headerName: "Dif Pgto",
                     field: "vl_dif_pgto",
                     width: this.mixinGetLarguraPercJanela(7.8),
                     filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatadoAgGrid
+                    valueFormatter: this.mixinMonetarioFormatadoAgGrid,
+                    type: 'rightAligned'
                 },
                 { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
                 { headerName: "Qtd parcelas", field: "nr_qtd_parcelas", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
                 { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: this.mixinGetLarguraPercJanela(9) },
-                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: this.mixinGetLarguraPercJanela(9) },
-                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: this.mixinGetLarguraPercJanela(9) },
-                { headerName: "Descrição Pessoal", field: "ds_movimento", width: this.mixinGetLarguraPercJanela(20) },
+                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: this.mixinGetLarguraPercJanela(13) },
+                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: this.mixinGetLarguraPercJanela(13) },
+                { headerName: "Descrição Pessoal", field: "ds_movimento", width: this.mixinGetLarguraPercJanela(26) },
                 { headerName: "Obs 1", field: "ds_obs_i", width: this.mixinGetLarguraPercJanela(26) },
                 { headerName: "Obs 2", field: "ds_obs_ii", width: this.mixinGetLarguraPercJanela(26) },
                 { headerName: "Média gastos", field: "ds_media_gastos", width: this.mixinGetLarguraPercJanela(12.4) },
@@ -564,11 +543,6 @@ new Vue({
             this.objFiltros.dt_fim = ultimo_dia + '/' + mes + '/' + ano;
             this.mixinAtualizarMaterialize();
         },
-
-        getCollapseHeaderStyle(index) {
-            let sn_par = !(index % 2);
-            return sn_par ? 'background-color: #242d33;' : 'background-color: #2a353c;';
-        }
     },
 
     created() {

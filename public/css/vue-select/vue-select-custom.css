@@ -2,15 +2,6 @@
     display: none;
 }
 
-.vs--disabled .vs__clear,
-.vs--disabled .vs__dropdown-toggle,
-.vs--disabled .vs__open-indicator,
-.vs--disabled .vs__search,
-.vs--disabled .vs__selected {
-    cursor: not-allowed;
-    background-color: #222628
-}
-
 .vs__dropdown-toggle {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -28,14 +19,8 @@
     display: block;
     padding: 3px 20px;
     clear: both;
-    color: #FFFFFF;
     white-space: nowrap;
     cursor: pointer
-}
-
-.vs__dropdown-option--highlight {
-    background: #38b2ac;
-    color: #000000;
 }
 
 .vs__selected {
@@ -46,7 +31,6 @@
     position:absolute;
     left: 0.25em;
     top: 1.25em;
-    color: #FFFFFF;
 }
 
 .vs__dropdown-menu {
@@ -68,11 +52,4 @@
     border-radius: 0 0 4px 4px;
     text-align: left;
     list-style: none;
-    background: #2c3032;
-    color: #FFFFFF;
-}
-
-.input-field input[type=search]:focus:not(.browser-default) {
-    background-color: #2c3032;
-    color: #FFFFFF;
 }

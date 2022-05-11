@@ -63,7 +63,7 @@ if (!$sn_tela_login) {
         <!-- ag-grid -->
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/ag-grid/ag-grid-community.min.noStyle.js"></script>
         <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/ag-grid/ag-grid.css">
-        <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/ag-grid/ag-theme-alpine-dark.css">
+        <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/ag-grid/ag-theme-material.css">
 
         <!-- Custom -->
         <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/custom.css">
@@ -82,4 +82,12 @@ if (!$sn_tela_login) {
         <script src="<?php echo ROTA_SITE_PUBLIC; ?>js/nucleo/v-radio-button.js"></script>
     </head>
 
-    <body style="<?php if ($sn_tela_login || $sn_tela_selecao_centro_custo) {echo 'max-height: 100vh;padding: 0;overflow: hidden;';} ?>">
+    <body
+      style="<?php if ($sn_tela_login || $sn_tela_selecao_centro_custo) {echo "
+        max-height: 100vh;
+        padding: 0;
+        overflow: hidden;
+        background-image: url('../../images/bg-login.jpeg');
+        background-repeat: round;
+      ";} ?>"
+    >

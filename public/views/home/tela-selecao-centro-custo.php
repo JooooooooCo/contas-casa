@@ -16,7 +16,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                 <div class="z-depth-1 row card-padrao">
                     <form id="form-selecao-centro-custo" class="col s12" method="POST" action="<?php echo ROTA_SITE_VIEWS; ?>fin_movimento/tela-listagem.php">
                         <div class='row mar-top-20 center-align'>
-                            <i class="material-icons white-text large">account_balance_wallet</i>
+                            <i class="material-icons teal-text text-darken-2 large">input</i>
                         </div>
 
                         <div class='row mar-top-10'>
@@ -33,7 +33,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
                         <div class='row mar-top-10'>
                             <div class="col s12 right-align">
-                                <a href="<?php echo ROTA_SITE_ROOT; ?>index.php">Sair</a>
+                                <a href="<?php echo ROTA_SITE_ROOT; ?>index.php" class="blue-grey-text text-darken-4">Sair</a>
                             </div>
                         </div>
                     </form>

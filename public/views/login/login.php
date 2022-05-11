@@ -15,7 +15,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             <div class="z-depth-1 row card-padrao">
                 <form class="col s12" method="POST" action="<?php echo ROTA_SITE_ACTIONS; ?>login/login.php">
                     <div class='row mar-top-20 center-align'>
-                        <i class="material-icons white-text large">fingerprint</i>
+                        <i class="material-icons teal-text text-darken-2 large">fingerprint</i>
                     </div>
 
                     <div class='row mar-top-10'>
