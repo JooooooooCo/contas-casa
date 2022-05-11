@@ -17,6 +17,9 @@ Vue.component('v-radio-button', {
         },
         opcaoSelecionadaRadio:{
             default:null
+        },
+        snTodasOpcoesColoridas:{
+            default:false
         }
     },
 
@@ -62,7 +65,7 @@ Vue.component('v-radio-button', {
 
             <div class="btn-group" role="group">
                 <template v-for="(opcao,index) in arrObjOpcoes">
-                    <a  :class="opcaoSelecionada == opcao.cd_opcao ?
+                    <a  :class="opcaoSelecionada == opcao.cd_opcao || snTodasOpcoesColoridas ?
                             'btn white-text teal darken-2 mar-right-5 mar-bottom-5' :
                             'btn blue-grey-text text-darken-4 white mar-right-5 mar-bottom-5'"
                         @click="defineRadio(opcao.cd_opcao)"

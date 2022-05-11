@@ -26,6 +26,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     :arr-obj-opcoes="arrCentroCusto"
                                     label="Selecione o Centro de Custo"
                                     @input="enviarForm()"
+                                    sn-todas-opcoes-coloridas="true"
                                 ></v-radio-button>
                             </div>
                         </div>
