@@ -36,7 +36,7 @@ class MovimentoSql
                 $cd_movimento = $arrRetorno['retorno'];
 
                 // Gera log da operação
-                $ds_log = "Inserido cd_movimento: $cd_movimento. Campos: ";
+                $ds_log = "Inserido cd_movimento: $cd_movimento" . PHP_EOL;
                 $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDados);
                 $this->Log->gravarLog($ds_log);
             }
@@ -241,7 +241,7 @@ class MovimentoSql
                 ->update();
 
             // Gera log da operação
-            $ds_log = "Alterado cd_movimento: $cd_movimento. Campos: ";
+            $ds_log = "Alterado cd_movimento: $cd_movimento" . PHP_EOL;
             $ds_log .= $this->Log->geraLogCamposAlteracao($arrDadosAntigos, $arrDados);
             $this->Log->gravarLog($ds_log);
 
@@ -274,7 +274,7 @@ class MovimentoSql
                     ->delete();
 
                 // Gera log da operação
-                $ds_log = "Removido cd_movimento: $cd_movimento. Campos: ";
+                $ds_log = "Removido cd_movimento: $cd_movimento" . PHP_EOL;
                 $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
                 $this->Log->gravarLog($ds_log);
             }
