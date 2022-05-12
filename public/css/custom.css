@@ -112,3 +112,7 @@ input[type=text]:not(.browser-default):disabled {
 .collapsible-body {
     border-bottom: 1px solid #00000021;
 }
+
+.imagem-warning {
+    width: 8rem;
+}
