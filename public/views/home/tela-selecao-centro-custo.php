@@ -7,7 +7,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 <div id="tela-selecao-centro-custo" v-show="!sn_carregando">
     <div class="row" id="index_login">
         <div class="col s12" style="min-height: 100vh;">
-            <div class="col s12 m6 l4" style="
+            <div class="col s10 m6 l4" style="
                     position: absolute;
                     top: 50%;
                     left: 50%;
