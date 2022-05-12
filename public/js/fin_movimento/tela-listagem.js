@@ -67,7 +67,7 @@ new Vue({
             }
         },
         getOpcoesFiltroTipoMovimento() {
-            let arrRetorno = this.arrTipoMovimento;
+            let arrRetorno = Array.from(this.arrTipoMovimento);
             arrRetorno.push({
                 cd_opcao: -1,
                 ds_opcao: 'Todos'
@@ -75,7 +75,7 @@ new Vue({
             return arrRetorno;
         },
         getOpcoesFiltroSituacao() {
-            let arrRetorno = this.arrTipoSituacaoPgto;
+            let arrRetorno = Array.from(this.arrTipoSituacaoPgto);
             arrRetorno.push({
                 cd_opcao: -1,
                 ds_opcao: 'Todos'
@@ -83,7 +83,7 @@ new Vue({
             return arrRetorno;
         },
         getOpcoesFiltroTipoPgto() {
-            let arrRetorno = this.arrTipoPgto;
+            let arrRetorno = Array.from(this.arrTipoPgto);
             arrRetorno.push({
                 cd_opcao: -1,
                 ds_opcao: 'Todos'
