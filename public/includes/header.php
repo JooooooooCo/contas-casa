@@ -23,7 +23,13 @@ if (!$sn_tela_login) {
   <html>
     <head>
         <meta charset="utf-8">
-        <title> Contas Casa </title>
+        <title> Gestão Financeira </title>
+
+        <link rel="icon" href="<?php echo ROTA_SITE_IMAGES; ?>favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?php echo ROTA_SITE_IMAGES; ?>apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo ROTA_SITE_IMAGES; ?>favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo ROTA_SITE_IMAGES; ?>favicon-16x16.png">
+        <link rel="manifest" href="<?php echo ROTA_SITE_IMAGES; ?>site.webmanifest">
 
         <!-- jquery -->
         <script type="text/javascript" src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/jquery/jquery-2.1.4.js"></script>
@@ -87,7 +93,9 @@ if (!$sn_tela_login) {
         max-height: 100vh;
         padding: 0;
         overflow: hidden;
-        background-image: url('../../images/bg-login.jpeg');
-        background-repeat: round;
+        background-image: url('" . ROTA_SITE_IMAGES . "/bg-login.jpeg');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
       ";} ?>"
     >
