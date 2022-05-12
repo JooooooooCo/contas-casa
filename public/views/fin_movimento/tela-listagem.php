@@ -215,6 +215,40 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                 </div>
 
                                 <div class="row mar-top-10">
+                                    <div class="input-field col s12 m4">
+                                        <v-select
+                                            input-id="filtroTipoGrupoI"
+                                            :options="arrTipoGrupoI"
+                                            v-model="objFiltros.objTipoGrupoI"
+                                            label="ds_opcao"
+                                        ></v-select>
+                                        <label class="active">Grupo 1</label>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <v-select
+                                            input-id="filtroTipoGrupoII"
+                                            :options="arrTipoGrupoII"
+                                            v-model="objFiltros.objTipoGrupoII"
+                                            label="ds_opcao"
+                                            @input="carregarOpcoesGrupoIII()"
+                                            :reset-on-options-change="true"
+                                        ></v-select>
+                                        <label class="active">Grupo 2</label>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <v-select
+                                            input-id="TipoGrupoIII"
+                                            :options="arrTipoGrupoIII"
+                                            v-model="objFiltros.objTipoGrupoIII"
+                                            label="ds_opcao"
+                                            :reset-on-options-change="true"
+                                            :disabled="!objFiltros.objTipoGrupoII"
+                                        ></v-select>
+                                        <label class="active">Grupo 3</label>
+                                    </div>
+                                </div>
+
+                                <div class="row mar-top-10">
                                     <div class="input-field col s12 l6">
                                         <input type="text" name="ds_movimento_filtro" id="ds_movimento_filtro" v-model="objFiltros.ds_movimento">
                                         <label for="ds_movimento_filtro">Descrição pessoal</label>

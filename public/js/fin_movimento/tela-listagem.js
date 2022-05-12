@@ -10,6 +10,8 @@ new Vue({
         arrTipoPgto: [],
         arrTipoSituacaoPgto: [],
         arrTipoGrupoI: [],
+        arrTipoGrupoII: [],
+        arrTipoGrupoIII: [],
         arrMovimentos: null,
         objTotalizadores: null,
         sn_tela_listagem: true,
@@ -58,7 +60,10 @@ new Vue({
                 dt_inicio: null,
                 dt_fim: null,
                 ds_movimento: null,
-                sn_somente_adicionados_hoje: false
+                sn_somente_adicionados_hoje: false,
+                objTipoGrupoI: null,
+                objTipoGrupoII: null,
+                objTipoGrupoIII: null
             }
         },
         getOpcoesFiltroTipoMovimento() {
@@ -144,6 +149,58 @@ new Vue({
                   console.error(error);;
                 });
         },
+        async carregarOpcoesGrupoII() {
+            this.arrTipoGrupoII = [];
+            this.arrTipoGrupoIII = [];
+
+            await axios
+                .get(
+                    ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-dois.php',
+                    {
+                        params: {
+                            cd_tipo_movimento: this.objFiltros.cd_tipo_movimento
+                        }
+                    }
+                )
+                .then(async (response) => {
+                    if (!response.data.sucesso) {
+                        await this.mixinAlertErro(response.data.retorno);
+                        return;
+                    }
+
+                    this.arrTipoGrupoII = response.data.retorno;
+                })
+                .catch(error => {
+                    console.error(error);;
+                });
+        },
+
+        async carregarOpcoesGrupoIII() {
+            this.arrTipoGrupoIII = [];
+
+            if (!this.objFiltros.objTipoGrupoII?.cd_opcao) return;
+
+            await axios
+                .get(
+                    ROTA_SITE_ACTIONS + 'fin_movimento/listar-tipo-grupo-tres.php',
+                    {
+                        params: {
+                            cd_tipo_grupo_ii: this.objFiltros.objTipoGrupoII?.cd_opcao
+                        }
+                    }
+                )
+                .then(async (response) => {
+                    if (!response.data.sucesso) {
+                        await this.mixinAlertErro(response.data.retorno);
+                        return;
+                    }
+
+                    this.arrTipoGrupoIII = response.data.retorno;
+                })
+                .catch(error => {
+                    console.error(error);;
+                });
+        },
 
         formatarDataPadraoBanco(ds_data) {
             if (!ds_data) return null;
@@ -158,6 +215,13 @@ new Vue({
             let objFiltros = {...this.objFiltros};
             objFiltros.dt_inicio = this.formatarDataPadraoBanco(objFiltros.dt_inicio);
             objFiltros.dt_fim = this.formatarDataPadraoBanco(objFiltros.dt_fim);
+            objFiltros.cd_tipo_grupo_i = objFiltros.objTipoGrupoI?.cd_opcao;
+            objFiltros.cd_tipo_grupo_ii = objFiltros.objTipoGrupoII?.cd_opcao;
+            objFiltros.cd_tipo_grupo_iii = objFiltros.objTipoGrupoIII?.cd_opcao;
+
+            delete objFiltros.objTipoGrupoI;
+            delete objFiltros.objTipoGrupoII;
+            delete objFiltros.objTipoGrupoIII;
 
             await axios
                 .get(ROTA_SITE_ACTIONS + 'fin_movimento/listar.php', {
@@ -558,6 +622,10 @@ new Vue({
         this.alterarFiltroData(2);
 
         await this.carregarOpcoesSelects();
+
+        await this.carregarOpcoesGrupoII();
+
+        await this.carregarOpcoesGrupoIII();
 
         await this.filtrarGrid();
 

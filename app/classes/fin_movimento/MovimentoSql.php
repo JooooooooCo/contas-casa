@@ -86,6 +86,18 @@ class MovimentoSql
                 }
             }
 
+            if (!empty($arrFiltros['cd_tipo_grupo_i'])) {
+                $ds_condicoes .= " AND fm.cd_tipo_grupo_i = " . $arrFiltros['cd_tipo_grupo_i'] . " ";
+            }
+
+            if (!empty($arrFiltros['cd_tipo_grupo_ii'])) {
+                $ds_condicoes .= " AND fm.cd_tipo_grupo_ii = " . $arrFiltros['cd_tipo_grupo_ii'] . " ";
+            }
+
+            if (!empty($arrFiltros['cd_tipo_grupo_iii'])) {
+                $ds_condicoes .= " AND fm.cd_tipo_grupo_iii = " . $arrFiltros['cd_tipo_grupo_iii'] . " ";
+            }
+
             if ($arrFiltros['ds_movimento']) {
                 $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
             }

@@ -71,11 +71,14 @@ class ComponentesSql
         try {
             $cd_tipo_movimento = $c->getTipoMovimento();
 
+            $condicao_where = $cd_tipo_movimento > 0 ?
+                " cd_tipo_movimento = $cd_tipo_movimento " : " 1 = 1 ";
+
             $arrRetorno = $this->read(
                 "tipo_grupo_ii",
                 "cd_tipo_grupo_ii",
                 "ds_tipo_grupo_ii",
-                "cd_tipo_movimento = $cd_tipo_movimento"
+                $condicao_where
             );
         } catch(\Exception $e) {
             $arrRetorno = [
