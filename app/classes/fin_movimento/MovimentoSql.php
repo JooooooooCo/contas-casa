@@ -59,17 +59,19 @@ class MovimentoSql
             $arrFiltros = $m->getArrFiltros();
 
             $ds_condicoes = "fm.cd_centro_custo = $this->cd_centro_custo";
+            $ds_condicoes_saldo_anterior = $ds_condicoes;
 
+            // Define condicoes gerais
             if ($arrFiltros['cd_tipo_movimento'] > 0) {
-                $ds_condicoes .= " AND tm.cd_tipo_movimento = " . $arrFiltros['cd_tipo_movimento'] . " ";
+                $ds_condicoes .= " AND fm.cd_tipo_movimento = " . $arrFiltros['cd_tipo_movimento'] . " ";
             }
 
             if ($arrFiltros['cd_tipo_pgto'] > 0) {
-                $ds_condicoes .= " AND tp.cd_tipo_pgto = " . $arrFiltros['cd_tipo_pgto'] . " ";
+                $ds_condicoes .= " AND fm.cd_tipo_pgto = " . $arrFiltros['cd_tipo_pgto'] . " ";
             }
 
             if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
-                $ds_condicoes .= " AND ts.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
+                $ds_condicoes .= " AND fm.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
             }
 
             if ($arrFiltros['sn_somente_adicionados_hoje']) {
@@ -88,7 +90,16 @@ class MovimentoSql
                 $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
             }
 
-            $arrRetorno = $this->ExecutaSql->setDsSql("
+            // Define condicoes do saldo anterior
+            if ($arrFiltros['sn_somente_adicionados_hoje']) {
+                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < NOW() ";
+            } else {
+                $dt_vcto = $arrFiltros['dt_inicio'] ? $arrFiltros['dt_inicio'] : '0';
+                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < '" . $dt_vcto . "' ";
+            }
+
+            // Busca movimentos
+            $arrMovimentos = $this->ExecutaSql->setDsSql("
                 SELECT
                     fm.cd_movimento,
                     tm.cd_tipo_movimento,
@@ -133,9 +144,55 @@ class MovimentoSql
                     fm.dt_compra ASC
             ")->read();
 
-            if (count($arrRetorno['retorno']) > 1000) {
+            if (count($arrMovimentos['retorno']) > 1000) {
                 throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 1.000 registros.');
             }
+
+
+            // Busca totalizadores
+            $arrTotalizadores = $this->ExecutaSql->setDsSql("
+                SELECT
+                    COALESCE( ROUND( periodo.vl_receita_previsto - periodo.vl_despesa_previsto, 2 ), 0) vl_saldo_final_previsto,
+                    COALESCE( ROUND( periodo.vl_receita_pago - periodo.vl_despesa_pago, 2 ), 0) vl_saldo_pago,
+                    COALESCE( ROUND( anterior.vl_receita_pago - anterior.vl_despesa_pago, 2 ), 0) vl_saldo_anterior_pago
+                FROM
+                    (
+                        SELECT
+                            SUM( dpr.vl_original ) vl_despesa_previsto,
+                            SUM( dpg.vl_original ) vl_despesa_pago,
+                            SUM( rpr.vl_original ) vl_receita_previsto,
+                            SUM( rpg.vl_original ) vl_receita_pago
+                        FROM
+                            fin_movimento fm
+                            LEFT JOIN fin_movimento dpr ON (dpr.cd_movimento = fm.cd_movimento AND dpr.cd_tipo_movimento = 1)
+                            LEFT JOIN fin_movimento dpg ON (dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1)
+                            LEFT JOIN fin_movimento rpr ON (rpr.cd_movimento = fm.cd_movimento AND rpr.cd_tipo_movimento = 2)
+                            LEFT JOIN fin_movimento rpg ON (rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1)
+                        WHERE
+                            $ds_condicoes
+                    ) AS periodo
+                    JOIN
+                    (
+                        SELECT
+                            SUM( dpg.vl_original ) vl_despesa_pago,
+                            SUM( rpg.vl_original ) vl_receita_pago
+                        FROM
+                            fin_movimento fm
+                            LEFT JOIN fin_movimento dpg ON (dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1)
+                            LEFT JOIN fin_movimento rpg ON (rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1)
+                        WHERE
+                            $ds_condicoes_saldo_anterior
+                    ) AS anterior
+            ")->read();
+
+            // Agrupa arrMovimentos e arrTotalizadores
+            $arrRetorno = [
+                'sucesso' => $arrMovimentos['sucesso'],
+                'retorno' => [
+                    'arrMovimentos' => $arrMovimentos['retorno'],
+                    'objTotalizadores' => $arrTotalizadores['retorno'][0],
+                ]
+            ];
         } catch(\Exception $e) {
             $arrRetorno = [
                 'sucesso' => false,

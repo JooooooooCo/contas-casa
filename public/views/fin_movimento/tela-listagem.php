@@ -40,8 +40,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             v-show="!sn_exibicao_grid"
                             :disabled="!snPossuiRegistros"
                         >
-                            <i class="material-icons" v-show="sn_collapses_abertas">layers_clear</i>
-                            <i class="material-icons" v-show="!sn_collapses_abertas">layers</i>
+                            <i class="material-icons">{{sn_collapses_abertas ? 'layers_clear' : 'layers'}}</i>
                         </a>
                         <a  href="#"
                             name="btn-grid-completa-reduzida"
@@ -52,8 +51,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             v-show="sn_exibicao_grid"
                             :disabled="!snPossuiRegistros"
                         >
-                            <i class="material-icons" v-show="sn_grid_completa">tab_unselected</i>
-                            <i class="material-icons" v-show="!sn_grid_completa">tab</i>
+                            <i class="material-icons">{{sn_grid_completa ? 'tab_unselected' : 'tab'}}</i>
                         </a>
                         <a  href="#"
                             name="btn-grid-card"
@@ -63,8 +61,16 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             @click="alteraExibicaoGridCard()"
                             :disabled="!snPossuiRegistros"
                         >
-                            <i class="material-icons" v-show="sn_exibicao_grid">view_list</i>
-                            <i class="material-icons" v-show="!sn_exibicao_grid">view_module</i>
+                            <i class="material-icons">{{sn_exibicao_grid ? 'view_list' : 'view_module'}}</i>
+                        </a>
+                        <a  href="#"
+                            name="btn-filtro"
+                            class="btn blue-grey-text text-darken-4 white botao-icone tooltipped mar-top-5"
+                            data-position="bottom"
+                            data-tooltip="Totalizadores"
+                            @click="sn_exibir_totalizadores = !sn_exibir_totalizadores"
+                        >
+                            <i class="material-icons">{{sn_exibir_totalizadores ? 'visibility_off' : 'visibility'}}</i>
                         </a>
                         <a  href="#"
                             name="btn-filtro"
@@ -110,7 +116,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         <div class="row">
                             <div class="col s12">
                                 <div class="row mar-bottom-0">
-                                    <div class="col s12 white-text mar-top-10">
+                                    <div class="col s12 black-text mar-top-10">
                                         <b>FILTROS</b>
                                     </div>
                                 </div>
@@ -246,6 +252,51 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <p>
                         <b>Nenhum resultado encontrado</b>
                     </p>
+                </div>
+            </div>
+
+            <div class="row mar-bottom-5" v-show="sn_exibir_totalizadores && snPossuiRegistros">
+                <div class='col s12 m4'>
+                    <div class="card-panel right-align teal">
+                        <i class="material-icons medium white-text card-panel-icon">
+                            {{objTotalizadores?.vl_saldo_anterior_pago > 0 ? 'trending_up' : 'trending_down'}}
+                        </i>
+                        <span class="white-text card-panel-header">
+                            SALDO INICIAL
+                        </span>
+                        </br>
+                        <span class="white-text card-panel-body">
+                            R$ {{objTotalizadores?.vl_saldo_anterior_pago}}
+                        </span>
+                    </div>
+                </div>
+                <div class='col s12 m4'>
+                    <div class="card-panel right-align orange darken-3">
+                        <i class="material-icons medium white-text card-panel-icon">
+                            {{objTotalizadores?.vl_saldo_final_previsto > 0 ? 'trending_up' : 'trending_down'}}
+                        </i>
+                        <span class="white-text card-panel-header">
+                            SALDO FINAL PREVISTO
+                        </span>
+                        </br>
+                        <span class="white-text card-panel-body">
+                            R$ {{objTotalizadores?.vl_saldo_final_previsto}}
+                        </span>
+                    </div>
+                </div>
+                <div class='col s12 m4'>
+                    <div class="card-panel right-align teal darken-2">
+                        <i class="material-icons medium white-text card-panel-icon">
+                            {{objTotalizadores?.vl_saldo_pago > 0 ? 'trending_up' : 'trending_down'}}
+                        </i>
+                        <span class="white-text card-panel-header">
+                            TOTAL PAGO
+                        </span>
+                        </br>
+                        <span class="white-text card-panel-body">
+                            R$ {{objTotalizadores?.vl_saldo_pago}}
+                        </span>
+                    </div>
                 </div>
             </div>
 

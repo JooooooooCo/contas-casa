@@ -4,12 +4,14 @@ new Vue({
     data: {
         isMobile: false,
         sn_exibir_filtro: false,
+        sn_exibir_totalizadores: true,
         sn_exibir_logout: false,
         arrTipoMovimento: [],
         arrTipoPgto: [],
         arrTipoSituacaoPgto: [],
         arrTipoGrupoI: [],
         arrMovimentos: null,
+        objTotalizadores: null,
         sn_tela_listagem: true,
         sn_alterar: false,
         nr_linhas_selecionadas: 0,
@@ -169,7 +171,8 @@ new Vue({
                         return;
                     }
 
-                    this.arrMovimentos = response.data.retorno;
+                    this.arrMovimentos = response.data.retorno.arrMovimentos;
+                    this.objTotalizadores = response.data.retorno.objTotalizadores;
 
                     this.mixinAlertCarregando(false);
                 })
@@ -417,6 +420,8 @@ new Vue({
 
         alteraExibicaoGridCard() {
             this.sn_exibicao_grid = !this.sn_exibicao_grid;
+
+            this.sn_exibir_totalizadores = !this.sn_exibicao_grid;
         },
 
         expandirRecolherCollapses() {
