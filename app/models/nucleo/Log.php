@@ -14,10 +14,28 @@ class Log
     }
 
     public function gravarLog($conteudo) {
-        $conteudo .= 'Data da operação: ' . date("Y-m-d H:i:s") . PHP_EOL;
+        $conteudo .= 'Data da operacao: ' . date("Y-m-d H:i:s") . PHP_EOL;
         $conteudo .= '----------------------------------------------------------------' . PHP_EOL;
+        file_put_contents('../../../log.log', $conteudo, FILE_APPEND);
+        file_put_contents('../../../log_temporario.log', $conteudo, FILE_APPEND);
+    }
 
-        $this->Email->enviarEmailLog($conteudo);
+    public function enviarEmailLog() {
+        $ds_arquivo_log = "../../../log_temporario.log";
+
+        if (!file_exists($ds_arquivo_log)) {
+            throw new \Exception('Erro ao abrir o arquivo de log temporário');
+        }
+
+        $objArquivoLog = fopen( $ds_arquivo_log, "r" );
+        $nr_tamanho_arquivo = filesize( $ds_arquivo_log );
+        $ds_conteudo_log = fread( $objArquivoLog, $nr_tamanho_arquivo );
+        fclose( $objArquivoLog );
+
+        $ds_conteudo_log = "<pre>$ds_conteudo_log</pre>";
+
+        $this->Email->enviarEmailLog($ds_conteudo_log);
+        unlink($ds_arquivo_log);
     }
 
     public function geraLogCamposInclusaoExclusao($novos) {

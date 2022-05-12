@@ -41,6 +41,8 @@ class MovimentoSql
                 $this->Log->gravarLog($ds_log);
             }
 
+            $this->Log->enviarEmailLog();
+
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
             $this->ExecutaSql->abortTransaction();
@@ -245,6 +247,8 @@ class MovimentoSql
             $ds_log .= $this->Log->geraLogCamposAlteracao($arrDadosAntigos, $arrDados);
             $this->Log->gravarLog($ds_log);
 
+            $this->Log->enviarEmailLog();
+
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
             $this->ExecutaSql->abortTransaction();
@@ -278,6 +282,8 @@ class MovimentoSql
                 $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
                 $this->Log->gravarLog($ds_log);
             }
+
+            $this->Log->enviarEmailLog();
 
             $this->ExecutaSql->closeTransaction();
         } catch(\Exception $e) {
