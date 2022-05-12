@@ -75,7 +75,7 @@ class MovimentoSql
             }
 
             if ($arrFiltros['sn_somente_adicionados_hoje']) {
-                $ds_condicoes .= " AND fm.dt_inclusao >= NOW() ";
+                $ds_condicoes .= " AND fm.dt_inclusao >= CURDATE() ";
             } else {
                 if ($arrFiltros['dt_inicio']) {
                     $ds_condicoes .= " AND fm.dt_vcto >= '" . $arrFiltros['dt_inicio'] . "' ";
@@ -104,7 +104,7 @@ class MovimentoSql
 
             // Define condicoes do saldo anterior
             if ($arrFiltros['sn_somente_adicionados_hoje']) {
-                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < NOW() ";
+                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < CURDATE() ";
             } else {
                 $dt_vcto = $arrFiltros['dt_inicio'] ? $arrFiltros['dt_inicio'] : '0';
                 $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < '" . $dt_vcto . "' ";
