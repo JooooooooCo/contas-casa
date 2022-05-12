@@ -6,7 +6,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
 <div id="tela-listagem">
     <div class="row" v-show="sn_tela_listagem">
-        <div class ="col s12 white">
+        <div class ="col s12">
             <div class="row">
                 <div class ="col s12 valign-wrapper">
                     <div class ="col s12">

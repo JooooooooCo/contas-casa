@@ -36,7 +36,7 @@
 
             <div class="row">
                 <div class ="col s12">
-                    <div class ="col s12 z-depth-1">
+                    <div class ="col s12 z-depth-1 white">
                         <form>
                             <div class="row">
                                 <div class="col s12 m6">
