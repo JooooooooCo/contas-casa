@@ -69,7 +69,6 @@ Vue.component('tela-incluir-alterar',{
                 dt_vcto: null,
                 dt_pgto: null,
                 vl_original: '0,00',
-                vl_pago: '0,00',
                 nr_parcela_atual: '1',
                 nr_qtd_parcelas: '1',
                 objTipoGrupoI: null,
@@ -175,15 +174,11 @@ Vue.component('tela-incluir-alterar',{
             arrValor = this.getValorParcela(objDados.vl_original, objDados.nr_qtd_parcelas);
             let vl_original_parcela = arrValor[0], vl_original_ultima_parcela = arrValor[1];
 
-            arrValor = this.getValorParcela(objDados.vl_pago, objDados.nr_qtd_parcelas);
-            let vl_pago_parcela = arrValor[0], vl_pago_ultima_parcela = arrValor[1];
-
             for (let nr_parcela = 1; nr_parcela <= objDados.nr_qtd_parcelas; nr_parcela++) {
                 let objTemp = {...objDados};
 
                 objTemp.nr_parcela_atual = nr_parcela;
                 objTemp.vl_original = nr_parcela < objDados.nr_qtd_parcelas ? vl_original_parcela : vl_original_ultima_parcela;
-                objTemp.vl_pago = nr_parcela < objDados.nr_qtd_parcelas ? vl_pago_parcela : vl_pago_ultima_parcela;
 
                 arrParcelas.push(objTemp);
             }
@@ -295,7 +290,6 @@ Vue.component('tela-incluir-alterar',{
             this.objDados = {... this.objMovimentoSelecionado};
 
             this.objDados.vl_original = this.mixinMonetarioFormatado(this.objDados.vl_original);
-            this.objDados.vl_pago = this.mixinMonetarioFormatado(this.objDados.vl_pago);
 
             this.arrTipoGrupoI.forEach(objOpcao => {
                 if (objOpcao.cd_opcao == this.objDados.cd_tipo_grupo_i){
@@ -388,7 +382,6 @@ Vue.component('tela-incluir-alterar',{
                     this.objDados.cd_tipo_situacao_pgto = 1; // Pago
                     this.objDados.dt_vcto = this.objDados.dt_compra;
                     this.objDados.dt_pgto = this.objDados.dt_compra;
-                    this.objDados.vl_pago = this.objDados.vl_original;
                     break;
                 case '2':
                     // Caso de pagamento com cartão de crédito
@@ -426,7 +419,6 @@ Vue.component('tela-incluir-alterar',{
 
                         this.objDados.dt_vcto = dia_vcto + '/' + mes_vcto + '/' + ano_vcto;
                     }
-                    this.objDados.vl_pago = '0,00';
                     break;
             }
 

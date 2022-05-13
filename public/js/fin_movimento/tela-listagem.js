@@ -335,22 +335,6 @@ new Vue({
                         return null;
                     }
                 },
-                {
-                    headerName: "Vl Pago",
-                    field: "vl_pago",
-                    width: this.mixinGetLarguraPercJanela(7.8),
-                    filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatadoAgGrid,
-                    type: 'rightAligned'
-                },
-                {
-                    headerName: "Dif Pgto",
-                    field: "vl_dif_pgto",
-                    width: this.mixinGetLarguraPercJanela(7.8),
-                    filter: 'agNumberColumnFilter',
-                    valueFormatter: this.mixinMonetarioFormatadoAgGrid,
-                    type: 'rightAligned'
-                },
                 { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
                 { headerName: "Qtd parcelas", field: "nr_qtd_parcelas", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
                 { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: this.mixinGetLarguraPercJanela(9) },
@@ -542,8 +526,6 @@ new Vue({
                     'ds_tipo_movimento',
                     'dt_compra',
                     'dt_pgto',
-                    'vl_pago',
-                    'vl_dif_pgto',
                     'nr_parcela_atual',
                     'nr_qtd_parcelas',
                     'ds_obs_i',

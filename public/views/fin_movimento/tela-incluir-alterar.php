@@ -153,14 +153,6 @@
                                     <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
                                     <label for="vl_original">Valor original</label>
                                 </div>
-                                <div class="input-field col s12 m4">
-                                    <input type="text" name="vl_pago" id="vl_pago" v-model="objDados.vl_pago" @keyup="formataMonetario('vl_pago')">
-                                    <label for="vl_pago">Valor pago</label>
-                                </div>
-                                <div class="input-field col s12 m4">
-                                    <input type="text" name="vl_dif_pgto" id="vl_dif_pgto" :value="mixinGetVlDifPgto(objDados.vl_original, objDados.vl_pago)" disabled>
-                                    <label for="vl_dif_pgto">Diferença pagamento</label>
-                                </div>
                             </div>
 
                             <div class="row mar-top-10">

@@ -419,12 +419,6 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     <div class="col s4">
                                             <b>Vl Original:</b> {{objMovimento.vl_original}}
                                     </div>
-                                    <div class="col s4">
-                                            <b>Vl Pago:</b> {{objMovimento.vl_pago}}
-                                    </div>
-                                    <div class="col s4">
-                                            <b>Dif Pgto:</b> {{objMovimento.vl_dif_pgto}}
-                                    </div>
                                 </div>
 
                                 <div class='row'>

@@ -126,8 +126,6 @@ class MovimentoSql
                     DATE_FORMAT(fm.dt_vcto,'%d/%m/%Y') AS dt_vcto,
                     DATE_FORMAT(fm.dt_pgto,'%d/%m/%Y') AS dt_pgto,
                     fm.vl_original,
-                    fm.vl_pago,
-                    COALESCE(fm.vl_original, 0) - COALESCE(fm.vl_pago, 0) AS vl_dif_pgto,
                     fm.nr_parcela_atual,
                     fm.nr_qtd_parcelas,
                     tg1.cd_tipo_grupo_i,
@@ -312,7 +310,6 @@ class MovimentoSql
         $arrDados['dt_pgto'] = $dt_pgto ? $dt_pgto->format('Y-m-d H:i:s') : null;
 
         $arrDados['vl_original'] = str_replace(",", ".", $arrDados['vl_original']);
-        $arrDados['vl_pago'] = str_replace(",", ".", $arrDados['vl_pago']);
 
         return $arrDados;
     }
@@ -329,7 +326,6 @@ class MovimentoSql
                     DATE_FORMAT(dt_vcto, '%Y-%m-%d %H:%i:%s') as dt_vcto,
                     DATE_FORMAT(dt_pgto, '%Y-%m-%d %H:%i:%s') as dt_pgto,
                     vl_original,
-                    vl_pago,
                     nr_parcela_atual,
                     nr_qtd_parcelas,
                     cd_tipo_grupo_i,
