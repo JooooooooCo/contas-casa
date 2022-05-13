@@ -19,7 +19,10 @@ class Conexao
             if(!isset(self::$instance)) {
                 self::$instance = new PDO(
                     $cfg['DB'], $cfg['DB_USER'], $cfg['DB_PASS'],
-                    array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+                    array(
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET SESSION SQL_BIG_SELECTS=1'
+                    )
                 );
             }
 
