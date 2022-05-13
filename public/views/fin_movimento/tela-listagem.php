@@ -354,17 +354,15 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
                                     <span class="texto-uppercase blue-grey-text text-darken-4">
                                         <b>{{objMovimento.dt_vcto}}</b> | R$ {{objMovimento.vl_original}}
-                                        | {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
-                                        | {{objMovimento.ds_movimento.substring(0, 80)}} | Cód {{objMovimento.cd_movimento}}
+                                        </br>Cód {{objMovimento.cd_movimento}} | {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                        </br>{{objMovimento.ds_movimento.substring(0, 80)}}
                                     </span>
                                 </div>
 
-                                <div class="col s2 right-align">
+                                <div class="col s2 right-align valign-wrapper">
                                     <i class="material-icons green-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 1">check_circle</i>
                                     <i class="material-icons orange-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 2">info</i>
                                     <i class="material-icons blue-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 3">pause_circle_filled</i>
-                                    <i class="material-icons red-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_movimento == 1">attach_money</i>
-                                    <i class="material-icons green-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_movimento == 2">attach_money</i>
                                     <i class="material-icons red-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_movimento == 1">arrow_downward</i>
                                     <i class="material-icons green-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_movimento == 2">arrow_upward</i>
                                 </div>
