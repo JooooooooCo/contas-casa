@@ -1,6 +1,8 @@
 <?php
+require_once 'config.php';
+
 // Define as rotas do site (caminho projeto)
-define("ROTA_SITE_ROOT", '/contas-casa/');
+define("ROTA_SITE_ROOT", PASTA_RAIZ);
 define("ROTA_SITE_APP", ROTA_SITE_ROOT . 'app/');
 define("ROTA_SITE_PUBLIC", ROTA_SITE_ROOT . 'public/');
 define("ROTA_SITE_ACTIONS", ROTA_SITE_APP . 'actions/');

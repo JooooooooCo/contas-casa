@@ -1,6 +1,9 @@
 <?php
 // Definir as configurações do sistema e renomear este arquivo para "config.php"
 
+// Pasta raiz do projeto
+define("PASTA_RAIZ", '/xxxxxx/');
+
 // Define as configurações de conexão com o banco
 define("BANCO", 'mysql:host=XXXXXX;port=XXXXXX;dbname=XXXXXX;charset=utf8');
 define("BANCO_USUARIO", 'XXXXXX');
