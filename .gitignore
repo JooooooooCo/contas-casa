@@ -1,3 +1,4 @@
 config.php
 _dev_temp/
 log.log
+.htaccess
