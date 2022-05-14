@@ -350,14 +350,40 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <ul class="collapsible col s12 white" style="padding-bottom: 10px;">
                         <li v-for="(objMovimento, index) in arrMovimentos" :key="objMovimento.cd_movimento">
                             <div class="collapsible-header white" @click="clicouCollapse(objMovimento.cd_movimento)">
-                                <div class="col s10 valign-wrapper">
+                                <div class="col s1 padding-0 valign-wrapper">
                                     <i class="material-icons blue-grey-text text-darken-4" :id="'checkbox-cd-movimento-' + objMovimento.cd_movimento">check_box_outline_blank</i>
+                                </div>
 
-                                    <span class="texto-uppercase blue-grey-text text-darken-4">
-                                        <b>{{objMovimento.dt_vcto}}</b> | R$ {{objMovimento.vl_original}}
-                                        </br>Cód {{objMovimento.cd_movimento}} | {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
-                                        </br>{{objMovimento.ds_movimento.substring(0, 80)}}
-                                    </span>
+                                <div class="col s9">
+                                    <div class="col s12 padding-0">
+                                        <div class="col s6 padding-0">
+                                            <span class="texto-uppercase blue-grey-text text-darken-4">
+                                                <b>{{objMovimento.dt_vcto}}</b>
+                                            </span>
+                                        </div>
+                                        <div class="col s6 padding-0">
+                                            <span class="texto-uppercase blue-grey-text text-darken-4">
+                                                R$ {{objMovimento.vl_original}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 padding-0">
+                                        <div class="col s6 padding-0">
+                                            <span class="texto-uppercase blue-grey-text text-darken-4">
+                                                Cód {{objMovimento.cd_movimento}}
+                                            </span>
+                                        </div>
+                                        <div class="col s6 padding-0">
+                                            <span class="texto-uppercase blue-grey-text text-darken-4">
+                                                {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 padding-0">
+                                        <span class="texto-uppercase blue-grey-text text-darken-4">
+                                            {{objMovimento.ds_movimento.substring(0, 80)}}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="col s2 valign-wrapper-right">
