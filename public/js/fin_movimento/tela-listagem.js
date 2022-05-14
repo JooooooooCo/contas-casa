@@ -278,16 +278,16 @@ new Vue({
                 {
                     headerName: "Cód.",
                     field: "cd_movimento",
-                    width: this.mixinGetLarguraPercJanela(5),
+                    width: 110,
                     filter: 'agNumberColumnFilter'
                 },
-                { headerName: "Tipo", field: "ds_tipo_movimento", width: this.mixinGetLarguraPercJanela(6) },
-                { headerName: "Modo Pgto", field: "ds_tipo_pgto", width: this.mixinGetLarguraPercJanela(6) },
-                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: this.mixinGetLarguraPercJanela(8) },
+                { headerName: "Tipo", field: "ds_tipo_movimento", width: 150 },
+                { headerName: "Modo Pgto", field: "ds_tipo_pgto", width: 150 },
+                { headerName: "Situação", field: "ds_tipo_situacao_pgto", width: 150 },
                 {
                     headerName: "Dt Compra",
                     field: "dt_compra",
-                    width: this.mixinGetLarguraPercJanela(7.8),
+                    width: 120,
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams
                 },
@@ -295,7 +295,7 @@ new Vue({
                     headerName: "Dt Vcto",
                     headerClass: 'ag-grid-header-special',
                     field: "dt_vcto",
-                    width: this.mixinGetLarguraPercJanela(7.8),
+                    width: 120,
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams,
                     cellStyle: (params) => {
@@ -313,7 +313,7 @@ new Vue({
                 {
                     headerName: "Dt Pgto",
                     field: "dt_pgto",
-                    width: this.mixinGetLarguraPercJanela(7.8) ,
+                    width: 120 ,
                     filter: 'agDateColumnFilter',
                     filterParams: filterParams
                 },
@@ -321,7 +321,7 @@ new Vue({
                     headerName: "Vl Original",
                     headerClass: 'ag-grid-header-special',
                     field: "vl_original",
-                    width: this.mixinGetLarguraPercJanela(7.8),
+                    width: 120,
                     filter: 'agNumberColumnFilter',
                     valueFormatter: this.mixinMonetarioFormatadoAgGrid,
                     type: 'rightAligned',
@@ -337,19 +337,19 @@ new Vue({
                         return null;
                     }
                 },
-                { headerName: "Parcela atual", field: "nr_parcela_atual", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
-                { headerName: "Qtd parcelas", field: "nr_qtd_parcelas", width: this.mixinGetLarguraPercJanela(7.8), filter: 'agNumberColumnFilter' },
-                { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: this.mixinGetLarguraPercJanela(9) },
-                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: this.mixinGetLarguraPercJanela(13) },
-                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: this.mixinGetLarguraPercJanela(13) },
-                { headerName: "Descrição Pessoal", field: "ds_movimento", width: this.mixinGetLarguraPercJanela(26) },
-                { headerName: "Obs 1", field: "ds_obs_i", width: this.mixinGetLarguraPercJanela(26) },
-                { headerName: "Obs 2", field: "ds_obs_ii", width: this.mixinGetLarguraPercJanela(26) },
-                { headerName: "Média gastos", field: "ds_media_gastos", width: this.mixinGetLarguraPercJanela(12.4) },
+                { headerName: "Parcela atual", field: "nr_parcela_atual", width: 120, filter: 'agNumberColumnFilter' },
+                { headerName: "Qtd parcelas", field: "nr_qtd_parcelas", width: 120, filter: 'agNumberColumnFilter' },
+                { headerName: "Grupo 1", field: "ds_tipo_grupo_i", width: 220 },
+                { headerName: "Grupo 2", field: "ds_tipo_grupo_ii", width: 220 },
+                { headerName: "Grupo 3", field: "ds_tipo_grupo_iii", width: 220 },
+                { headerName: "Descrição Pessoal", field: "ds_movimento", width: 390 },
+                { headerName: "Obs 1", field: "ds_obs_i", width: 390 },
+                { headerName: "Obs 2", field: "ds_obs_ii", width: 390 },
+                { headerName: "Média gastos", field: "ds_media_gastos", width: 220 },
                 {
                     headerName: "Real ou Adm",
                     field: "sn_real",
-                    width: this.mixinGetLarguraPercJanela(7.8),
+                    width: 120,
                     valueFormatter: (params) => {
                         return params.value == 1 ? 'REAL' : 'ADMINISTRATIVO';
                     }

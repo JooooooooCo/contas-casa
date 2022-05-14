@@ -11,10 +11,6 @@ var mixinGerais = {
             return str.replace('.', ',');
         },
 
-        mixinGetLarguraPercJanela(nr_percentual) {
-            return (($(window).width()*0.98) * (nr_percentual / 100));
-        },
-
         mixinAtualizarMaterialize() {
             $(document).ready(function(){
                 $('.tooltipped').tooltip();
