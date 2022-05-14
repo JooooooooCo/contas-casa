@@ -360,7 +360,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     </span>
                                 </div>
 
-                                <div class="col s2 right-align valign-wrapper">
+                                <div class="col s2 valign-wrapper-right">
                                     <i class="material-icons green-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 1">check_circle</i>
                                     <i class="material-icons orange-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 2">info</i>
                                     <i class="material-icons blue-text" style="margin: 0px;" v-show="objMovimento.cd_tipo_situacao_pgto == 3">pause_circle_filled</i>
