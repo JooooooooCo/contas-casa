@@ -206,7 +206,7 @@
                                 </div>
                             </div>
 
-                            <div :class="isMobile ? 'row mar-top-10 mar-bottom-50' : 'row mar-top-10'">
+                            <div class="row mar-top-10">
                                 <div class="input-field col s12 m4">
                                     <input type="text" name="ds_obs_i" id="ds_obs_i" v-model="objDados.ds_obs_i">
                                     <label for="ds_obs_i">Obs um</label>
@@ -223,21 +223,11 @@
 
                             <input type="hidden" name="id" id="id">
 
-                            <div class="fixed-action-btn" v-if="isMobile">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <a class="btn-floating btn-large waves-effect waves-light red darken-3 mar-right-5" @click="voltarTelaListagem()"><i class="material-icons">close</i></a>
-                                        <a class="btn-floating btn-large waves-effect waves-light teal darken-2 mar-right-5" @click="salvarMovimento()"><i class="material-icons">check</i></a>
-                                        <a class="btn-floating btn-large waves-effect waves-light teal darken-2 mar-right-5" @click="salvarMovimento(true)"><i class="material-icons">exposure_plus_1</i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" v-if="!isMobile">
+                            <div class="row">
                                 <div class="input-field col s12">
-                                    <a class="btn waves-effect waves-light red darken-3 mar-right-5" @click="voltarTelaListagem()">Cancelar</a>
-                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="salvarMovimento()">Salvar</a>
-                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5" @click="salvarMovimento(true)" v-if="!snAlterar">Salvar e adicionar outro</a>
+                                    <a class="btn waves-effect waves-light red darken-3 mar-right-5 mar-top-5" @click="voltarTelaListagem()">Cancelar</a>
+                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5 mar-top-5" @click="salvarMovimento()">Salvar</a>
+                                    <a class="btn darken-1 white-text teal darken-2 mar-right-5 mar-top-5" @click="salvarMovimento(true)" v-if="!snAlterar">Salvar e adicionar outro</a>
                                 </div>
                             </div>
                         </form>
