@@ -290,7 +290,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
             </div>
 
             <div class="row mar-bottom-5" v-show="sn_exibir_totalizadores && snPossuiRegistros">
-                <div class='col s12 m4'>
+                <div class='col s6 l3'>
                     <div class="card-panel right-align teal">
                         <i class="material-icons medium white-text card-panel-icon">
                             {{objTotalizadores?.vl_saldo_anterior_pago > 0 ? 'trending_up' : 'trending_down'}}
@@ -304,13 +304,13 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         </span>
                     </div>
                 </div>
-                <div class='col s12 m4'>
+                <div class='col s6 l3'>
                     <div class="card-panel right-align orange darken-3">
                         <i class="material-icons medium white-text card-panel-icon">
                             {{objTotalizadores?.vl_saldo_final_previsto > 0 ? 'trending_up' : 'trending_down'}}
                         </i>
                         <span class="white-text card-panel-header">
-                            SALDO FINAL PREVISTO
+                            SALDO FINAL
                         </span>
                         </br>
                         <span class="white-text card-panel-body">
@@ -318,8 +318,8 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         </span>
                     </div>
                 </div>
-                <div class='col s12 m4'>
-                    <div class="card-panel right-align teal darken-2">
+                <div class='col s6 l3'>
+                    <div class="card-panel right-align teal darken-3">
                         <i class="material-icons medium white-text card-panel-icon">
                             {{objTotalizadores?.vl_saldo_pago > 0 ? 'trending_up' : 'trending_down'}}
                         </i>
@@ -329,6 +329,26 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                         </br>
                         <span class="white-text card-panel-body">
                             R$ {{objTotalizadores?.vl_saldo_pago}}
+                        </span>
+                    </div>
+                </div>
+                <div class='col s6 l3'>
+                    <div class="card-panel card-panel-small right-align teal darken-2">
+                        <i class="material-icons small white-text card-panel-icon-small">attach_money</i>
+                        <span class="white-text card-panel-header-small">
+                            RECEITA
+                        </span>
+                        <span class="white-text card-panel-body-small">
+                            R$ {{objTotalizadores?.vl_receita_previsto}}
+                        </span>
+                    </div>
+                    <div class="card-panel card-panel-small right-align teal darken-2">
+                        <i class="material-icons small white-text card-panel-icon-small">money_off</i>
+                        <span class="white-text card-panel-header-small">
+                            DESPESA
+                        </span>
+                        <span class="white-text card-panel-body-small">
+                            R$ {{objTotalizadores?.vl_despesa_previsto}}
                         </span>
                     </div>
                 </div>

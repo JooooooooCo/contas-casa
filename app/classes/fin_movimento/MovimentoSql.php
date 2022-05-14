@@ -160,40 +160,40 @@ class MovimentoSql
                 throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 1.000 registros.');
             }
 
-
             // Busca totalizadores
             $arrTotalizadores = $this->ExecutaSql->setDsSql("
                 SELECT
-                    COALESCE( ROUND( periodo.vl_receita_previsto - periodo.vl_despesa_previsto, 2 ), 0) vl_saldo_final_previsto,
-                    COALESCE( ROUND( periodo.vl_receita_pago - periodo.vl_despesa_pago, 2 ), 0) vl_saldo_pago,
-                    COALESCE( ROUND( anterior.vl_receita_pago - anterior.vl_despesa_pago, 2 ), 0) vl_saldo_anterior_pago
+                    ROUND( ((anterior.vl_receita_pago - anterior.vl_despesa_pago) + periodo.vl_receita_previsto) - periodo.vl_despesa_previsto, 2 ) vl_saldo_final_previsto,
+                    ROUND( periodo.vl_receita_pago - periodo.vl_despesa_pago, 2 ) vl_saldo_pago,
+                    ROUND( anterior.vl_receita_pago - anterior.vl_despesa_pago, 2 )vl_saldo_anterior_pago,
+                    periodo.vl_receita_previsto,
+                    periodo.vl_despesa_previsto
                 FROM
                     (
-                        SELECT
-                            SUM( dpr.vl_original ) vl_despesa_previsto,
-                            SUM( dpg.vl_original ) vl_despesa_pago,
-                            SUM( rpr.vl_original ) vl_receita_previsto,
-                            SUM( rpg.vl_original ) vl_receita_pago
-                        FROM
-                            fin_movimento fm
-                            LEFT JOIN fin_movimento dpr ON (dpr.cd_movimento = fm.cd_movimento AND dpr.cd_tipo_movimento = 1)
-                            LEFT JOIN fin_movimento dpg ON (dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1)
-                            LEFT JOIN fin_movimento rpr ON (rpr.cd_movimento = fm.cd_movimento AND rpr.cd_tipo_movimento = 2)
-                            LEFT JOIN fin_movimento rpg ON (rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1)
-                        WHERE
-                            $ds_condicoes
+                    SELECT
+                        COALESCE( SUM( dpr.vl_original ), 0 ) vl_despesa_previsto,
+                        COALESCE( SUM( dpg.vl_original ), 0 ) vl_despesa_pago,
+                        COALESCE( SUM( rpr.vl_original ), 0 ) vl_receita_previsto,
+                        COALESCE( SUM( rpg.vl_original ), 0 ) vl_receita_pago
+                    FROM
+                        fin_movimento fm
+                        LEFT JOIN fin_movimento dpr ON ( dpr.cd_movimento = fm.cd_movimento AND dpr.cd_tipo_movimento = 1 )
+                        LEFT JOIN fin_movimento dpg ON ( dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1 )
+                        LEFT JOIN fin_movimento rpr ON ( rpr.cd_movimento = fm.cd_movimento AND rpr.cd_tipo_movimento = 2 )
+                        LEFT JOIN fin_movimento rpg ON ( rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1 )
+                    WHERE
+                        $ds_condicoes
                     ) AS periodo
-                    JOIN
-                    (
-                        SELECT
-                            SUM( dpg.vl_original ) vl_despesa_pago,
-                            SUM( rpg.vl_original ) vl_receita_pago
-                        FROM
-                            fin_movimento fm
-                            LEFT JOIN fin_movimento dpg ON (dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1)
-                            LEFT JOIN fin_movimento rpg ON (rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1)
-                        WHERE
-                            $ds_condicoes_saldo_anterior
+                    JOIN (
+                    SELECT
+                        COALESCE( SUM( dpg.vl_original ), 0 ) vl_despesa_pago,
+                        COALESCE( SUM( rpg.vl_original ), 0 ) vl_receita_pago
+                    FROM
+                        fin_movimento fm
+                        LEFT JOIN fin_movimento dpg ON ( dpg.cd_movimento = fm.cd_movimento AND dpg.cd_tipo_movimento = 1 AND dpg.cd_tipo_situacao_pgto = 1 )
+                        LEFT JOIN fin_movimento rpg ON ( rpg.cd_movimento = fm.cd_movimento AND rpg.cd_tipo_movimento = 2 AND rpg.cd_tipo_situacao_pgto = 1 )
+                    WHERE
+                        $ds_condicoes_saldo_anterior
                     ) AS anterior
             ")->read();
 

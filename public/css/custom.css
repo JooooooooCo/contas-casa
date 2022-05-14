@@ -11,19 +11,48 @@ body {
 
 .card-panel {
     position: relative;
+    height: 105px;
+}
+
+.card-panel-small {
+    position: relative;
+    height: 49px;
+    margin-bottom: 0px;
 }
 
 .card-panel-header {
     font-size: 0.75rem;
 }
 
+.card-panel-header-small {
+    font-size: 0.75rem;
+    position: absolute;
+    right: 25px;
+    top: 4px;
+}
+
 .card-panel-body {
     font-size: 1.75rem;
+    white-space: nowrap;
+}
+
+.card-panel-body-small {
+    font-size: 1.25rem;
+    white-space: nowrap;
+    position: absolute;
+    right: 25px;
+    bottom: 4px;
 }
 
 .card-panel-icon {
     position: absolute;
-    left: 30px;
+    left: 0px;
+    top: 0px;
+}
+.card-panel-icon-small {
+    position: absolute;
+    left: 0px;
+    top: 4px;
 }
 
 .btn {
