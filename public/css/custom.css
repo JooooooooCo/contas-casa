@@ -116,3 +116,11 @@ input[type=text]:not(.browser-default):disabled {
 .imagem-warning {
     width: 8rem;
 }
+
+.fundo-carregamento-inicial {
+    background-color: #f8f8f8;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 500;
+}

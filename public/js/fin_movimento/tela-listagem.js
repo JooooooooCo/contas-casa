@@ -2,6 +2,7 @@ new Vue({
     mixins: [mixinGerais, mixinAlert],
     el: '#tela-listagem',
     data: {
+        sn_tela_carregada: false,
         isMobile: false,
         sn_exibir_filtro: false,
         sn_exibir_totalizadores: true,
@@ -239,6 +240,7 @@ new Vue({
                     this.objTotalizadores = response.data.retorno.objTotalizadores;
 
                     this.mixinAlertCarregando(false);
+                    this.sn_tela_carregada = true;
                 })
                 .catch(error => {
                     console.error(error);;

@@ -5,6 +5,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 ?>
 
 <div id="tela-listagem">
+    <div class="fundo-carregamento-inicial" v-show="!sn_tela_carregada"></div>
     <div class="row" v-show="sn_tela_listagem">
         <div class ="col s12">
             <div class="row">
@@ -453,7 +454,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <div class="col s12 right-align">
                         <i class="material-icons blue-grey-text text-darken-4" @mouseover="sn_exibir_logout = true">menu</i>
 
-                        <div v-show="sn_exibir_logout" class="blue-grey darken-4" style="position: absolute; width: fit-content; right: 5px; padding: 10px; border-radius: 3px; z-index: 999;">
+                        <div v-show="sn_exibir_logout" class="blue-grey darken-4" style="position: absolute; width: fit-content; right: 5px; padding: 10px; border-radius: 3px; z-index: 499;">
                             <a href="<?php echo ROTA_SITE_VIEWS; ?>home/tela-selecao-centro-custo.php" class="white-text">Trocar o centro de custo</a>
                             </br>
                             <a href="<?php echo ROTA_SITE_ROOT; ?>index.php" class="white-text">Sair</a>
