@@ -324,7 +324,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             {{objTotalizadores?.vl_saldo_pago > 0 ? 'trending_up' : 'trending_down'}}
                         </i>
                         <span class="white-text card-panel-header">
-                            TOTAL PAGO
+                            SALDO ATUAL
                         </span>
                         </br>
                         <span class="white-text card-panel-body">
