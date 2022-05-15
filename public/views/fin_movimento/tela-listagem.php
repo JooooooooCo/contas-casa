@@ -378,24 +378,24 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     <div class="col s12 padding-0">
                                         <div class="col s6 padding-0">
                                             <span class="texto-uppercase blue-grey-text text-darken-4">
-                                                <b>{{objMovimento.dt_vcto}}</b>
+                                                <b>{{objMovimento.dt_vcto ?? 'NÃO INFORMADO'}}</b>
                                             </span>
                                         </div>
                                         <div class="col s6 padding-0">
                                             <span class="texto-uppercase blue-grey-text text-darken-4">
-                                                R$ {{objMovimento.vl_original}}
+                                                R$ {{objMovimento.vl_original ?? 'NÃO INFORMADO'}}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="col s12 padding-0">
                                         <div class="col s6 padding-0">
                                             <span class="texto-uppercase blue-grey-text text-darken-4">
-                                                Cód {{objMovimento.cd_movimento}}
+                                                Cód {{objMovimento.cd_movimento ?? 'NÃO INFORMADO'}}
                                             </span>
                                         </div>
                                         <div class="col s6 padding-0">
                                             <span class="texto-uppercase blue-grey-text text-darken-4">
-                                                {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
+                                                {{objMovimento.nr_parcela_atual ?? 'NÃO INFORMADO'}} de {{objMovimento.nr_qtd_parcelas ?? 'NÃO INFORMADO'}}
                                             </span>
                                         </div>
                                     </div>
@@ -417,19 +417,19 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             <div class="collapsible-body card-padrao blue-grey-text text-darken-4">
                                 <div class='row'>
                                     <div class="col s4">
-                                        <b>Código:</b> {{objMovimento.cd_movimento}}
+                                        <b>Código:</b> {{objMovimento.cd_movimento ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s8">
-                                        <b>Descrição:</b> {{objMovimento.ds_movimento}}
+                                        <b>Descrição:</b> {{objMovimento.ds_movimento ?? 'NÃO INFORMADO'}}
                                     </div>
                                 </div>
 
                                 <div class='row'>
                                     <div class="col s4">
-                                            <b>Tipo:</b> {{objMovimento.ds_tipo_movimento}}
+                                            <b>Tipo:</b> {{objMovimento.ds_tipo_movimento ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Modo Pgto:</b> {{objMovimento.ds_tipo_pgto}}
+                                            <b>Modo Pgto:</b> {{objMovimento.ds_tipo_pgto ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
                                             &nbsp
@@ -438,55 +438,55 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
                                 <div class='row'>
                                     <div class="col s4">
-                                            <b>Situação:</b> {{objMovimento.ds_tipo_situacao_pgto}}
+                                            <b>Situação:</b> {{objMovimento.ds_tipo_situacao_pgto ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Real / Adm:</b> {{objMovimento.sn_real ? 'Real' : 'Administrativo'}}
+                                            <b>Real / Adm:</b> {{objMovimento.sn_real ? 'REAL' : 'ADMINISTRATIVO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Parcela:</b> {{objMovimento.nr_parcela_atual}} de {{objMovimento.nr_qtd_parcelas}}
-                                    </div>
-                                </div>
-
-                                <div class='row'>
-                                    <div class="col s4">
-                                            <b>Dt Vcto:</b> {{objMovimento.dt_vcto}}
-                                    </div>
-                                    <div class="col s4">
-                                            <b>Dt Compra:</b> {{objMovimento.dt_compra}}
-                                    </div>
-                                    <div class="col s4">
-                                            <b>Dt Pgto:</b> {{objMovimento.dt_pgto}}
+                                            <b>Parcela:</b> {{objMovimento.nr_parcela_atual ?? 'NÃO INFORMADO'}} de {{objMovimento.nr_qtd_parcelas ?? 'NÃO INFORMADO'}}
                                     </div>
                                 </div>
 
                                 <div class='row'>
                                     <div class="col s4">
-                                            <b>Vl Original:</b> {{objMovimento.vl_original}}
+                                            <b>Dt Vcto:</b> {{objMovimento.dt_vcto ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                    <div class="col s4">
+                                            <b>Dt Compra:</b> {{objMovimento.dt_compra ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                    <div class="col s4">
+                                            <b>Dt Pgto:</b> {{objMovimento.dt_pgto ?? 'NÃO INFORMADO'}}
                                     </div>
                                 </div>
 
                                 <div class='row'>
                                     <div class="col s4">
-                                            <b>Grupo 1:</b> {{objMovimento.ds_tipo_grupo_i}}
-                                    </div>
-                                    <div class="col s4">
-                                            <b>Grupo 2:</b> {{objMovimento.ds_tipo_grupo_ii}}
-                                    </div>
-                                    <div class="col s4">
-                                            <b>Grupo 3:</b> {{objMovimento.ds_tipo_grupo_iii}}
+                                            <b>Vl Original:</b> {{objMovimento.vl_original ?? 'NÃO INFORMADO'}}
                                     </div>
                                 </div>
 
                                 <div class='row'>
                                     <div class="col s4">
-                                            <b>Obs 1:</b> {{objMovimento.ds_obs_i}}
+                                            <b>Grupo 1:</b> {{objMovimento.ds_tipo_grupo_i ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Obs 2:</b> {{objMovimento.ds_obs_ii}}
+                                            <b>Grupo 2:</b> {{objMovimento.ds_tipo_grupo_ii ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Média Gastos:</b> {{objMovimento.ds_media_gastos}}
+                                            <b>Grupo 3:</b> {{objMovimento.ds_tipo_grupo_iii ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                </div>
+
+                                <div class='row'>
+                                    <div class="col s4">
+                                            <b>Obs 1:</b> {{objMovimento.ds_obs_i ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                    <div class="col s4">
+                                            <b>Obs 2:</b> {{objMovimento.ds_obs_ii ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                    <div class="col s4">
+                                            <b>Média Gastos:</b> {{objMovimento.ds_media_gastos ?? 'NÃO INFORMADO'}}
                                     </div>
                                 </div>
                             </div>
