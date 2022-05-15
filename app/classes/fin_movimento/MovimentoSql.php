@@ -391,6 +391,8 @@ class MovimentoSql
             throw new \Exception('Dados não informados.');
         }
 
+        $arrDados['cd_tipo_pgto'] = $arrDados['cd_tipo_pgto'] > 0 ? $arrDados['cd_tipo_pgto'] : null;
+
         $arrCamposInvalidos = [];
         $arrCamposObrigatorios = [
             'cd_tipo_movimento' => 'Tipo de movimento',
@@ -409,7 +411,7 @@ class MovimentoSql
         ];
 
         foreach ($arrCamposObrigatorios as $ds_campo_banco => $ds_campo_tela) {
-            if (!isset($arrDados[$ds_campo_banco]) || !$arrDados[$ds_campo_banco] || $arrDados[$ds_campo_banco] <= 0) {
+            if (!isset($arrDados[$ds_campo_banco]) || !$arrDados[$ds_campo_banco]) {
                 array_push($arrCamposInvalidos, $ds_campo_tela);
             }
         }
