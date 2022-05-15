@@ -86,14 +86,14 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                     <div class ="col s6 right-align valign">
                         <a  href="#"
                             name="btn-incluir"
-                            class="btn darken-1 white-text botao-icone teal darken-2 tooltipped mar-top-5"
+                            class="btn blue-grey-text text-darken-4 white botao-icone tooltipped mar-top-5"
                             data-position="bottom"
                             data-tooltip="Incluir"
                             @click="incluirMovimento()"
                         ><i class="material-icons">add</i></a>
                         <a  href="#"
                             name="btn-editar"
-                            class="btn darken-1 white-text botao-icone orange darken-3 tooltipped mar-top-5"
+                            class="btn blue-grey-text text-darken-4 white botao-icone tooltipped mar-top-5"
                             data-position="bottom"
                             data-tooltip="Editar"
                             :disabled="!snUmaLinhaSelecionada"
