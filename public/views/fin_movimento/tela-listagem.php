@@ -401,7 +401,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                     </div>
                                     <div class="col s12 padding-0">
                                         <span class="texto-uppercase blue-grey-text text-darken-4">
-                                            {{objMovimento.ds_movimento.substring(0, 80)}}
+                                            {{objMovimento.ds_movimento ? objMovimento.ds_movimento.substring(0, 80) : 'NÃO INFORMADO'}}
                                         </span>
                                     </div>
                                 </div>
