@@ -266,7 +266,7 @@ Vue.component('tela-incluir-alterar',{
             }
 
             await axios
-                .put(
+                .post(
                     ROTA_SITE_ACTIONS + 'fin_movimento/alterar.php?cd_movimento=' + this.objDados.cd_movimento,
                     objDadosPost
                 )
