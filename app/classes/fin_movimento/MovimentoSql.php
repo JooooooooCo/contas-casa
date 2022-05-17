@@ -421,9 +421,5 @@ class MovimentoSql
 
             throw new \Exception("Favor informar os campos: $ds_campos_invalidos.");
         }
-
-        if ($arrDados['vl_original'] == '0,00') {
-            throw new \Exception('O campo Valor original deve ser maior que 0,00');
-        }
     }
 }
