@@ -164,7 +164,7 @@ class MovimentoSql
             $arrTotalizadores = $this->ExecutaSql->setDsSql("
                 SELECT
                     ROUND( ((anterior.vl_receita_pago - anterior.vl_despesa_pago) + periodo.vl_receita_previsto) - periodo.vl_despesa_previsto, 2 ) vl_saldo_final_previsto,
-                    ROUND( periodo.vl_receita_pago - periodo.vl_despesa_pago, 2 ) vl_saldo_pago,
+                    ROUND( ((anterior.vl_receita_pago - anterior.vl_despesa_pago) + periodo.vl_receita_pago) - periodo.vl_despesa_pago, 2 ) vl_saldo_pago,
                     ROUND( anterior.vl_receita_pago - anterior.vl_despesa_pago, 2 )vl_saldo_anterior_pago,
                     periodo.vl_receita_previsto,
                     periodo.vl_despesa_previsto
