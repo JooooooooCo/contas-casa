@@ -156,8 +156,8 @@ class MovimentoSql
                     fm.dt_compra ASC
             ")->read();
 
-            if (count($arrMovimentos['retorno']) > 1000) {
-                throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 1.000 registros.');
+            if (count($arrMovimentos['retorno']) > 5000) {
+                throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 5.000 registros.');
             }
 
             // Busca totalizadores
