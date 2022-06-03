@@ -150,7 +150,7 @@
 
                             <div class="row mar-top-10">
                                 <div class="input-field col s12 m4">
-                                    <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
+                                    <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @blur="executaFormulaValor('vl_original')" @keyup="formataMonetario('vl_original')">
                                     <label for="vl_original">Valor original</label>
                                 </div>
                                 <div class="input-field col s6 m4">
