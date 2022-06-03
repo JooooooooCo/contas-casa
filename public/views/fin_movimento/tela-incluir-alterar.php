@@ -153,14 +153,11 @@
                                     <input type="text" name="vl_original" id="vl_original" v-model="objDados.vl_original" @keyup="formataMonetario('vl_original')">
                                     <label for="vl_original">Valor original</label>
                                 </div>
-                            </div>
-
-                            <div class="row mar-top-10">
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s6 m4">
                                     <input type="number" name="nr_parcela_atual" id="nr_parcela_atual" v-model="objDados.nr_parcela_atual">
                                     <label for="nr_parcela_atual">Parcela atual</label>
                                 </div>
-                                <div class="input-field col s12 m6">
+                                <div class="input-field col s6 m4">
                                     <input type="number" name="nr_qtd_parcelas" id="nr_qtd_parcelas" v-model="objDados.nr_qtd_parcelas">
                                     <label for="nr_qtd_parcelas">Quantidade parcelas</label>
                                 </div>
