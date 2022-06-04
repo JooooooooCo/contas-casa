@@ -336,6 +336,8 @@ Vue.component('tela-incluir-alterar',{
 
             if (ds_valor.search('=') < 0) return;
             
+            ds_valor = ds_valor.slice(ds_valor.search('=') + 1);
+            ds_valor = ds_valor.replace(',', '.');
             ds_valor = ds_valor.replace(/[^-()\d/*+.]/g, ''); // remove caracteres não matematicos
             ds_valor = ds_valor..replace(/^0+(?=\d)/, ''); // remove zeros no inicio da string
             ds_valor = eval(ds_valor);                
