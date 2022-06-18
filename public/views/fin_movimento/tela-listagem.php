@@ -441,7 +441,7 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                             <b>Situação:</b> {{objMovimento.ds_tipo_situacao_pgto ?? 'NÃO INFORMADO'}}
                                     </div>
                                     <div class="col s4">
-                                            <b>Real / Adm:</b> {{objMovimento.sn_real ? 'REAL' : 'ADMINISTRATIVO'}}
+                                            <b>Real / Adm:</b> {{objMovimento.sn_real == 1 ? 'REAL' : 'ADMINISTRATIVO'}}
                                     </div>
                                     <div class="col s4">
                                             <b>Parcela:</b> {{objMovimento.nr_parcela_atual ?? 'NÃO INFORMADO'}} de {{objMovimento.nr_qtd_parcelas ?? 'NÃO INFORMADO'}}
