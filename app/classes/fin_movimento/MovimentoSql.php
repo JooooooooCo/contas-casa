@@ -411,7 +411,7 @@ class MovimentoSql
         ];
 
         foreach ($arrCamposObrigatorios as $ds_campo_banco => $ds_campo_tela) {
-            if (!isset($arrDados[$ds_campo_banco]) || !$arrDados[$ds_campo_banco]) {
+            if (!isset($arrDados[$ds_campo_banco]) || $arrDados[$ds_campo_banco] === null) {
                 array_push($arrCamposInvalidos, $ds_campo_tela);
             }
         }
