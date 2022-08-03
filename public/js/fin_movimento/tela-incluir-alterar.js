@@ -341,7 +341,7 @@ Vue.component('tela-incluir-alterar',{
             ds_valor = ds_valor.replace(/[^-()\d/*+.]/g, ''); // remove caracteres não matematicos
             ds_valor = ds_valor.replace(/^0+(?=\d)/, ''); // remove zeros no inicio da string
             ds_valor = eval(ds_valor);
-            this.objDados[ds_campo] = ds_valor.toFixed(2);
+            this.objDados[ds_campo] = ds_valor ? ds_valor.toFixed(2) : 0;
 
             this.formataMonetario(ds_campo);
         },
