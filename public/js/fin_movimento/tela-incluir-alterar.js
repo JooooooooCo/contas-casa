@@ -176,6 +176,18 @@ Vue.component('tela-incluir-alterar',{
 
             for (let nr_parcela = 1; nr_parcela <= objDados.nr_qtd_parcelas; nr_parcela++) {
                 let objTemp = {...objDados};
+                let nr_meses_add = nr_parcela - 1;
+
+                if (nr_meses_add > 0) {
+                    let arrDtVcto = objTemp?.dt_vcto?.split('/');
+                    let objDtVcto = new Date(arrDtVcto[2], (arrDtVcto[1] - 1), arrDtVcto[0]);
+                    objDtVcto.setMonth(objDtVcto.getMonth() + nr_meses_add);
+                    let dia = objDtVcto.getDate();
+                    let mes = objDtVcto.getMonth();
+                    let ano = objDtVcto.getFullYear();
+
+                    objTemp.dt_vcto = this.mixinGetDataFormatada(ano, mes, dia);
+                }
 
                 objTemp.nr_parcela_atual = nr_parcela;
                 objTemp.vl_original = nr_parcela < objDados.nr_qtd_parcelas ? vl_original_parcela : vl_original_ultima_parcela;

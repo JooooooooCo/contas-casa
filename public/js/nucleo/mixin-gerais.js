@@ -42,6 +42,17 @@ var mixinGerais = {
             }
 
             this.isMobile = false;
+        },
+
+        mixinGetDataFormatada(param_ano, param_mes, param_dia) {
+            let objData = new Date(param_ano, param_mes, param_dia);
+            let dia = objData.getDate();
+            dia = dia.toString().length == 1 ? '0' + dia : dia;
+            let mes = objData.getMonth() + 1;
+            mes = mes.toString().length == 1 ? '0' + mes : mes;
+            let ano = objData.getFullYear();
+
+            return `${dia}/${mes}/${ano}`;
         }
     }
   }
