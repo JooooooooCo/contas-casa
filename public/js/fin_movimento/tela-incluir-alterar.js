@@ -329,18 +329,18 @@ Vue.component('tela-incluir-alterar',{
             this.resetarObjDados();
             document.documentElement.scrollTop = 0
         },
-        
+
         executaFormulaValor(ds_campo) {
             let ds_valor = this.objDados[ds_campo] ?? '0';
             ds_valor = ds_valor.toString();
 
             if (ds_valor.search('=') < 0) return;
-            
+
             ds_valor = ds_valor.slice(ds_valor.search('=') + 1);
             ds_valor = ds_valor.replaceAll(',', '.');
             ds_valor = ds_valor.replace(/[^-()\d/*+.]/g, ''); // remove caracteres não matematicos
-            ds_valor = ds_valor..replace(/^0+(?=\d)/, ''); // remove zeros no inicio da string
-            ds_valor = eval(ds_valor);                
+            ds_valor = ds_valor.replace(/^0+(?=\d)/, ''); // remove zeros no inicio da string
+            ds_valor = eval(ds_valor);
             this.objDados[ds_campo] = ds_valor.toFixed(2);
 
             this.formataMonetario(ds_campo);
