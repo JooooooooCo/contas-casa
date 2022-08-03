@@ -22,7 +22,7 @@ new Vue({
                     }
 
                     if (response.data.retorno.length == 1) {
-                        this.cd_centro_custo = response.data.retorno[0]['id'];
+                        this.cd_centro_custo = response.data.retorno[0]['cd_opcao'];
                         this.enviarForm();
                     }
 
