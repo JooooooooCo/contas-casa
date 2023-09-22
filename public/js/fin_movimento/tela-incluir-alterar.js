@@ -409,13 +409,13 @@ Vue.component('tela-incluir-alterar',{
             if (!this.sn_auto_preenchimento) return;
 
             switch(this.objDados.cd_tipo_pgto) {
-                case '1':
+                case 1:
                     // Caso de pagamento com dinheiro
                     this.objDados.cd_tipo_situacao_pgto = 1; // Pago
                     this.objDados.dt_vcto = this.objDados.dt_compra;
                     this.objDados.dt_pgto = this.objDados.dt_compra;
                     break;
-                case '2':
+                case 2:
                     // Caso de pagamento com cartão de crédito
                     this.objDados.cd_tipo_situacao_pgto = 2; // Pendente
                     this.objDados.dt_pgto = null;
