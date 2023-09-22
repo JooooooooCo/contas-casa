@@ -5,6 +5,7 @@ class Movimento {
     private $arrDados;
     private $cd_movimento;
     private $arrCdMovimento;
+    private $arrFiltros;
 
     public function getArrDados() {
         return $this->arrDados;
