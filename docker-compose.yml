@@ -1,0 +1,28 @@
+services:
+  jc_contas_casa:
+    container_name: jc_contas_casa
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8050:80
+      - 8005:8000
+
+  jc_contas_casa_db:
+    image: mysql:8.0.18
+    container_name: jc_contas_casa_db
+    ports:
+      - "3330:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: 123
+      TZ: America/Sao_Paulo
+
+networks:
+  default:
+    name: jc_contas_casa
+    external: true

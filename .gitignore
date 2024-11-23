@@ -2,3 +2,6 @@ config.php
 _dev_temp/
 log.log
 .htaccess
+.vscode/
+mysql/
+ca.pem
