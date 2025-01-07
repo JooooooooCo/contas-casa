@@ -378,6 +378,7 @@ class MovimentoSql
                     ds_obs_i,
                     ds_obs_ii,
                     ds_media_gastos,
+                    sn_conciliado,
                     sn_real,
                     dt_inclusao,
                     dt_alteracao,

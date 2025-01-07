@@ -348,7 +348,17 @@ new Vue({
                 { headerName: "Obs 1", field: "ds_obs_i", width: 390 },
                 { headerName: "Obs 2", field: "ds_obs_ii", width: 390 },
                 { headerName: "Média gastos", field: "ds_media_gastos", width: 220 },
-                { headerName: "Conciliado", field: "sn_conciliado", width: 120 },
+                {
+                    headerName: "Conciliado",
+                    field: "sn_conciliado",
+                    width: 120,
+                    valueFormatter: (params) => {
+                        return params.value == 1 ? 'SIM' : 'NÃO';
+                    },
+                    cellStyle: (params) => {
+                        return params.data.sn_conciliado == 0 ? {backgroundColor: '#FFFF00'} : null;
+                    }
+                },
                 {
                     headerName: "Real ou Adm",
                     field: "sn_real",
@@ -487,12 +497,7 @@ new Vue({
 
                 ds_msg = ds_msg
                     + '</br></br><b> Código: ' + objMovimentoSelecionado.cd_movimento + '</b>'
-                    + '</br> Tipo: ' + objMovimentoSelecionado.ds_tipo_movimento
-                    + '</br> Vcto: ' + objMovimentoSelecionado.dt_vcto
-                    + '</br> Valor: ' + objMovimentoSelecionado.vl_original
-                    + '</br> Grupo: '+ objMovimentoSelecionado.ds_tipo_grupo_i
-                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_ii
-                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_iii
+                    + ' // Valor: ' + objMovimentoSelecionado.vl_original
                     + '</br> Descrição: ' + objMovimentoSelecionado.ds_movimento;
 
                 arrCdMovimento.push(objMovimentoSelecionado.cd_movimento);
