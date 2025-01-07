@@ -100,6 +100,14 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                             @click="editarMovimento()"
                         ><i class="material-icons">edit</i></a>
                         <a  href="#"
+                            name="btn-conciliado"
+                            class="btn blue-grey-text text-darken-4 white botao-icone tooltipped mar-top-5"
+                            data-position="bottom"
+                            data-tooltip="Marcar como conciliado"
+                            :disabled="!snLinhasSelecionadas"
+                            @click="conciliarMovimento()"
+                        ><i class="material-icons">check</i></a>
+                        <a  href="#"
                             name="btn-remover"
                             class="btn waves-effect waves-light red darken-3 botao-icone tooltipped mar-top-5"
                             data-position="bottom"
@@ -254,7 +262,32 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                         <input type="text" name="ds_movimento_filtro" id="ds_movimento_filtro" v-model="objFiltros.ds_movimento">
                                         <label for="ds_movimento_filtro">Descrição pessoal</label>
                                     </div>
+                                    <div class="col s12 l6 mar-top-30">
+                                        <label>
+                                            <input
+                                                class="filled-in"
+                                                type="checkbox"
+                                                id="check_conciliado"
+                                                name="check_conciliado"
+                                                v-model="objFiltros.check_conciliado"
+                                            />
+                                            <span>Conciliados</span>
+                                        </label>
+                                        &nbsp;
+                                        <label>
+                                            <input
+                                                class="filled-in"
+                                                type="checkbox"
+                                                id="check_nao_conciliado"
+                                                name="check_nao_conciliado"
+                                                v-model="objFiltros.check_nao_conciliado"
+                                            />
+                                            <span>Não Conciliados</span>
+                                        </label>
+                                    </div>
+                                </div>
 
+                                <div class="row mar-top-10">
                                     <div class="col s12 l6 mar-top-30">
                                         <label>
                                             <input
@@ -463,6 +496,9 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
                                 <div class='row'>
                                     <div class="col s4">
                                             <b>Vl Original:</b> {{objMovimento.vl_original ?? 'NÃO INFORMADO'}}
+                                    </div>
+                                    <div class="col s4">
+                                            <b>Conciliado:</b> {{objMovimento.sn_conciliado ? 'Sim' : 'Não'}}
                                     </div>
                                 </div>
 

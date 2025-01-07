@@ -62,6 +62,8 @@ new Vue({
                 dt_fim: null,
                 ds_movimento: null,
                 sn_somente_adicionados_hoje: false,
+                check_conciliado: true,
+                check_nao_conciliado: true,
                 objTipoGrupoI: null,
                 objTipoGrupoII: null,
                 objTipoGrupoIII: null
@@ -346,6 +348,7 @@ new Vue({
                 { headerName: "Obs 1", field: "ds_obs_i", width: 390 },
                 { headerName: "Obs 2", field: "ds_obs_ii", width: 390 },
                 { headerName: "Média gastos", field: "ds_media_gastos", width: 220 },
+                { headerName: "Conciliado", field: "sn_conciliado", width: 120 },
                 {
                     headerName: "Real ou Adm",
                     field: "sn_real",
@@ -465,6 +468,56 @@ new Vue({
                 })
                 .catch(error => {
                   console.error(error);;
+                });
+        },
+
+        async conciliarMovimento() {
+            this.arrMovimentosSelecionados = this.gridOptions.api.getSelectedNodes();
+
+            if (!this.arrMovimentosSelecionados) {
+                await this.mixinAlertErro('Erro na seleção da linha para exclusão!');
+                return;
+            }
+
+            let ds_msg = 'Deseja realmente conciliar os movimentos abaixo?';
+            let arrCdMovimento = []
+
+            this.arrMovimentosSelecionados.forEach(objMovimentoSelecionado => {
+                objMovimentoSelecionado = objMovimentoSelecionado.data;
+
+                ds_msg = ds_msg
+                    + '</br></br><b> Código: ' + objMovimentoSelecionado.cd_movimento + '</b>'
+                    + '</br> Tipo: ' + objMovimentoSelecionado.ds_tipo_movimento
+                    + '</br> Vcto: ' + objMovimentoSelecionado.dt_vcto
+                    + '</br> Valor: ' + objMovimentoSelecionado.vl_original
+                    + '</br> Grupo: '+ objMovimentoSelecionado.ds_tipo_grupo_i
+                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_ii
+                    + ' - '+ objMovimentoSelecionado.ds_tipo_grupo_iii
+                    + '</br> Descrição: ' + objMovimentoSelecionado.ds_movimento;
+
+                arrCdMovimento.push(objMovimentoSelecionado.cd_movimento);
+            });
+
+            let sn_prosseguir = await this.mixinAlertProsseguir(ds_msg);
+            if (!sn_prosseguir) return;
+
+            this.mixinAlertCarregando(true);
+
+            await axios
+                .put(ROTA_SITE_ACTIONS + 'fin_movimento/conciliar.php', {
+                    arrCdMovimento: arrCdMovimento
+                })
+                .then(async (response) => {
+                    if (!response.data.sucesso) {
+                        await this.mixinAlertErro(response.data.retorno);
+                        return;
+                    }
+
+                    await this.mixinAlertSucesso();
+                    this.filtrarGrid();
+                })
+                .catch(error => {
+                  console.error(error);
                 });
         },
 

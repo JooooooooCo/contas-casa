@@ -104,6 +104,12 @@ class MovimentoSql
                 $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
             }
 
+            if ($arrFiltros['check_conciliado'] && !$arrFiltros['check_nao_conciliado']) {
+                $ds_condicoes .= " AND fm.sn_conciliado = 1 ";
+            } elseif (!$arrFiltros['check_conciliado'] && $arrFiltros['check_nao_conciliado']) {
+                $ds_condicoes .= " AND fm.sn_conciliado = 0 ";
+            }
+
             // Define condicoes do saldo anterior
             if ($arrFiltros['sn_somente_adicionados_hoje']) {
                 $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < CURDATE() ";
@@ -138,6 +144,7 @@ class MovimentoSql
                     fm.ds_obs_i,
                     fm.ds_obs_ii,
                     fm.ds_media_gastos,
+                    fm.sn_conciliado,
                     fm.sn_real
                 FROM
                     fin_movimento fm
@@ -278,6 +285,42 @@ class MovimentoSql
                 // Gera log da operação
                 $ds_log = "Removido cd_movimento: $cd_movimento" . PHP_EOL;
                 $ds_log .= $this->Log->geraLogCamposInclusaoExclusao($arrDadosMovimento);
+                $this->Log->gravarLog($ds_log);
+            }
+
+            $this->Log->enviarEmailLog();
+
+            $this->ExecutaSql->closeTransaction();
+        } catch(\Exception $e) {
+            $this->ExecutaSql->abortTransaction();
+
+            $arrRetorno = [
+                'sucesso' => false,
+                'retorno' => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($arrRetorno);
+    }
+
+    public function reconcile(Movimento $m) {
+        $this->ExecutaSql->openTransaction();
+
+        try {
+            $arrCdMovimento = $m->getArrCdMovimento();
+
+            foreach ($arrCdMovimento as $cd_movimento) {
+                $ds_condicao = "cd_movimento = $cd_movimento";
+                $arrDadosAlterados = ['sn_conciliado' => 1];
+
+                $arrRetorno = $this->ExecutaSql
+                    ->setArrDados($arrDadosAlterados)
+                    ->setDsCondicao($ds_condicao)
+                    ->setDsTabela('fin_movimento')
+                    ->update();
+
+                // Gera log da operação
+                $ds_log = "Conciliado cd_movimento: $cd_movimento" . PHP_EOL;
                 $this->Log->gravarLog($ds_log);
             }
 
