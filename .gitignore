@@ -1,6 +1,7 @@
 config.php
 _dev_temp/
 log.log
+log_temporario.log
 .htaccess
 .vscode/
 mysql/
