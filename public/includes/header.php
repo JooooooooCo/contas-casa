@@ -74,6 +74,14 @@ if (!$sn_tela_login) {
         <!-- Custom -->
         <link rel="stylesheet" href="<?php echo ROTA_SITE_PUBLIC; ?>css/custom.css">
 
+        <!-- webdatarocks -->
+        <link href="<?php echo ROTA_SITE_PUBLIC; ?>plugins/webdatarocks/webdatarocks.min.css" rel="stylesheet"/>
+        <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/webdatarocks/webdatarocks.toolbar.min.js"></script>
+        <script src="<?php echo ROTA_SITE_PUBLIC; ?>plugins/webdatarocks/webdatarocks.js"></script>
+        <!-- <link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet"/>
+        <script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
+        <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script> -->
+
         <!-- Passando dados do PHP, utilizados nos arquivos js -->
         <script>
           // Rotas do site (caminho projeto)

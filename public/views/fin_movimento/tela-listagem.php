@@ -564,5 +564,6 @@ include_once ROTA_FOLDER_INCLUDES . 'header.php';
 
 <?php
 include_once ROTA_FOLDER_VIEWS . 'fin_movimento/tela-incluir-alterar.php';
+include_once ROTA_FOLDER_VIEWS . 'fin_movimento/tela-tabela-dinamica.php';
 include_once ROTA_FOLDER_INCLUDES . 'footer.php';
 ?>

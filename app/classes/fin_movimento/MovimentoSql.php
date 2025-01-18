@@ -63,20 +63,10 @@ class MovimentoSql
             $ds_condicoes = "fm.cd_centro_custo = $this->cd_centro_custo";
             $ds_condicoes_saldo_anterior = $ds_condicoes;
 
-            // Define condicoes gerais
-            if ($arrFiltros['cd_tipo_movimento'] > 0) {
-                $ds_condicoes .= " AND fm.cd_tipo_movimento = " . $arrFiltros['cd_tipo_movimento'] . " ";
-            }
+            $aplicarFiltros = $arrFiltros['origem'] != 'pivot-table';
 
-            if ($arrFiltros['cd_tipo_pgto'] > 0) {
-                $ds_condicoes .= " AND fm.cd_tipo_pgto = " . $arrFiltros['cd_tipo_pgto'] . " ";
-            }
-
-            if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
-                $ds_condicoes .= " AND fm.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
-            }
-
-            if ($arrFiltros['sn_somente_adicionados_hoje']) {
+            // Define condicoes gerais    
+            if (!empty($arrFiltros['sn_somente_adicionados_hoje'])) {
                 $ds_condicoes .= " AND fm.dt_inclusao >= CURDATE() ";
             } else {
                 if ($arrFiltros['dt_inicio']) {
@@ -88,34 +78,48 @@ class MovimentoSql
                 }
             }
 
-            if (!empty($arrFiltros['cd_tipo_grupo_i'])) {
-                $ds_condicoes .= " AND fm.cd_tipo_grupo_i = " . $arrFiltros['cd_tipo_grupo_i'] . " ";
-            }
-
-            if (!empty($arrFiltros['cd_tipo_grupo_ii'])) {
-                $ds_condicoes .= " AND fm.cd_tipo_grupo_ii = " . $arrFiltros['cd_tipo_grupo_ii'] . " ";
-            }
-
-            if (!empty($arrFiltros['cd_tipo_grupo_iii'])) {
-                $ds_condicoes .= " AND fm.cd_tipo_grupo_iii = " . $arrFiltros['cd_tipo_grupo_iii'] . " ";
-            }
-
-            if ($arrFiltros['ds_movimento']) {
-                $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
-            }
-
-            if ($arrFiltros['check_conciliado'] && !$arrFiltros['check_nao_conciliado']) {
-                $ds_condicoes .= " AND fm.sn_conciliado = 1 ";
-            } elseif (!$arrFiltros['check_conciliado'] && $arrFiltros['check_nao_conciliado']) {
-                $ds_condicoes .= " AND fm.sn_conciliado = 0 ";
-            }
-
-            // Define condicoes do saldo anterior
-            if ($arrFiltros['sn_somente_adicionados_hoje']) {
-                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < CURDATE() ";
-            } else {
-                $dt_vcto = $arrFiltros['dt_inicio'] ? $arrFiltros['dt_inicio'] : '0';
-                $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < '" . $dt_vcto . "' ";
+            if ($aplicarFiltros) {
+                if ($arrFiltros['cd_tipo_movimento'] > 0) {
+                    $ds_condicoes .= " AND fm.cd_tipo_movimento = " . $arrFiltros['cd_tipo_movimento'] . " ";
+                }
+    
+                if ($arrFiltros['cd_tipo_pgto'] > 0) {
+                    $ds_condicoes .= " AND fm.cd_tipo_pgto = " . $arrFiltros['cd_tipo_pgto'] . " ";
+                }
+    
+                if ($arrFiltros['cd_tipo_situacao_pgto'] > 0) {
+                    $ds_condicoes .= " AND fm.cd_tipo_situacao_pgto = " . $arrFiltros['cd_tipo_situacao_pgto'] . " ";
+                }
+    
+                if (!empty($arrFiltros['cd_tipo_grupo_i'])) {
+                    $ds_condicoes .= " AND fm.cd_tipo_grupo_i = " . $arrFiltros['cd_tipo_grupo_i'] . " ";
+                }
+    
+                if (!empty($arrFiltros['cd_tipo_grupo_ii'])) {
+                    $ds_condicoes .= " AND fm.cd_tipo_grupo_ii = " . $arrFiltros['cd_tipo_grupo_ii'] . " ";
+                }
+    
+                if (!empty($arrFiltros['cd_tipo_grupo_iii'])) {
+                    $ds_condicoes .= " AND fm.cd_tipo_grupo_iii = " . $arrFiltros['cd_tipo_grupo_iii'] . " ";
+                }
+    
+                if ($arrFiltros['ds_movimento']) {
+                    $ds_condicoes .= " AND LOWER(fm.ds_movimento) LIKE '%" . strtolower($arrFiltros['ds_movimento']) . "%' ";
+                }
+    
+                if ($arrFiltros['check_conciliado'] && !$arrFiltros['check_nao_conciliado']) {
+                    $ds_condicoes .= " AND fm.sn_conciliado = 1 ";
+                } elseif (!$arrFiltros['check_conciliado'] && $arrFiltros['check_nao_conciliado']) {
+                    $ds_condicoes .= " AND fm.sn_conciliado = 0 ";
+                }
+    
+                // Define condicoes do saldo anterior
+                if ($arrFiltros['sn_somente_adicionados_hoje']) {
+                    $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < CURDATE() ";
+                } else {
+                    $dt_vcto = $arrFiltros['dt_inicio'] ? $arrFiltros['dt_inicio'] : '0';
+                    $ds_condicoes_saldo_anterior .= " AND fm.dt_vcto < '" . $dt_vcto . "' ";
+                }
             }
 
             // Busca movimentos
@@ -163,7 +167,7 @@ class MovimentoSql
                     fm.dt_compra ASC
             ")->read();
 
-            if (count($arrMovimentos['retorno']) > 5000) {
+            if (count($arrMovimentos['retorno']) > 5000 && $aplicarFiltros) {
                 throw new \Exception('Favor refinar a busca, pois foram encontrados mais de 5.000 registros.');
             }
 
